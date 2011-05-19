@@ -91,6 +91,12 @@ textarea {
 	 box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+.borderradius  #main {
+	border: 1px solid #141414;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
 
 body {
 	background-color: orange;
@@ -110,36 +116,18 @@ h2 {
 }
 
 #main {
-	background-color:lightGreen;\
+	background-color:lightGreen;
+	padding: 1em;
 }
 
-#fields {
-	width: 90%;
-	margin: 0 auto;
-}
-
-div.entry {
-	float: left;
-	clear: left;
-	width: 47%;
-	margin: 1em;
-}
-
-div.entry label {
-}
-
-div.entry textarea {
-	width: 100%;
-}
-
-div.output {
-	float: right;
-	clear: none;
+#main textarea {
+	width: 50%;
 }
 
 footer {
 	margin: 2em;
 }
+
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .hidden { display: none; visibility: hidden; }
