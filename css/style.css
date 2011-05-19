@@ -96,19 +96,21 @@ body {
 	background-color: orange;
 }
 
-header {
-	font-size: 1.6em;
-	margin: 1em;
+header, #main, footer{
+	margin:1em auto;
+	width:95%;
 }
+
 h1 {
-	font-size: 1.2em;
+	font-size: 1.4em;
+}
+
+h2 {
+	font-size: 1.1em;
 }
 
 #main {
-	background-color: lightGreen;
-	width: 95%;
-	padding: 1em;
-	margin: 1em auto;
+	background-color:lightGreen;\
 }
 
 #fields {
@@ -119,7 +121,8 @@ h1 {
 div.entry {
 	float: left;
 	clear: left;
-	width: 49%;
+	width: 47%;
+	margin: 1em;
 }
 
 div.entry label {
@@ -134,15 +137,9 @@ div.output {
 	clear: none;
 }
 
-
-
-
-
-
-
-
-
-
+footer {
+	margin: 2em;
+}
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .hidden { display: none; visibility: hidden; }
