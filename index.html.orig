@@ -25,7 +25,8 @@
 			</h2>
 		</header>
 
-		<div id="main" role="main" class="borderradius">
+<<<<<<< HEAD
+		<div id="main" role="main">
 			<div class="entry">
 				
 				<label for="source">Handlebars Template</label>
@@ -50,10 +51,23 @@
 				<p id="errors">Error(s): </p>
 			</div>
 			
+			<div style="clear:both;height: 0px;"></div>	
+=======
+		<div id="main" role="main" class="borderradius">
+			<p>Handlebars Template</p>
+			<textarea id="source" type="textarea"></textarea>
+			
+			<p>Context (json object)</p>
+			<textarea id="context" type="textarea"></textarea>
+					
+			<p>Register Helper functions or extra js code</p>
+			<textarea id="helpers" type="textarea"></textarea>
+			
 			<input id="compile" type="submit" value="Compile Handlebars Template" />
 			
 			<p>HTML Output</p>
 			<textarea id="output" type="textarea"></textarea>
+>>>>>>> 17f9bf958e29617694f0fd746fb5dcced48ca763
 		</div>
 
 		<footer>
