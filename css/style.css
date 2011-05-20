@@ -118,16 +118,23 @@ h2 {
 #main {
 	background-color:lightGreen;
 	padding: 1em;
+	
 }
 
-#main textarea {
-	width: 50%;
+#main div.entry  {
+	float: left;
+	clear: left;
+	width: 49%;
 }
 
 footer {
 	margin: 2em;
 }
 
+.clear {
+	height: 0;
+	clear: both;
+}
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .hidden { display: none; visibility: hidden; }
