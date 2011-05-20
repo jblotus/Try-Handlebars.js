@@ -26,29 +26,27 @@
 		</header>
 
 		<div id="main" role="main" class="borderradius">
-			<div class="entry">
-				
+		
+			<div class="entry">				
 				<label for="source">Handlebars Template</label>
 				<textarea id="source" type="textarea"></textarea>
-				
+			
+			
 				<label for="context">Context (json object)</label>
 				<textarea id="context" type="textarea"></textarea>
-				
+			
+		
 				<label for="helpers">Register Helper functions (if any)</label>
-				<textarea id="helpers" type="textarea"></textarea>
-						
-			</div>	
+				<textarea id="helpers" type="textarea"></textarea>	
 
-			<div class="entry output">						
+				<input id="compile" type="submit" value="Compile Handlebars Template" />									
+				<p id="errors">Error(s): </p>
+			</div>
+
+			<div class="output">						
 				<label for="out">HTML Output</label>
 				<textarea id="output" type="textarea"></textarea>
 			</div>	
-				
-			<div class="entry">
-				<input id="compile" type="submit" value="Compile Handlebars Template" />
-								
-				<p id="errors">Error(s): </p>
-			</div>
 			
 			<br class="clear" />
 		</div>

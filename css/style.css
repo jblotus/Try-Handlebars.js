@@ -118,13 +118,30 @@ h2 {
 #main {
 	background-color:lightGreen;
 	padding: 1em;
-	
 }
 
-#main div.entry  {
+#main .entry  {
 	float: left;
 	clear: left;
 	width: 49%;
+	border: 1px solid #000;
+}
+
+#main .output {
+	border:1px solid;
+	float:right;
+	height:250px;
+	width:49%;
+}
+
+#main .output textarea {
+	height: 80%;
+}
+
+#main label , #main textarea, #main button {
+	width: 100%;
+	float: left;
+	clear: both;
 }
 
 footer {
