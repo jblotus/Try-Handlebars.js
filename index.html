@@ -18,27 +18,39 @@
 <body>
 	<div id="container">
 		<header>
-			<h1>Try handlebars.js right now in your browser</h1>
+			<h1>Try Handlebars.js right now in your browser</h1>
+			<h2>
+				Handlebars.js is a javascript templating engine. 
+				Checkout the <a href="http://www.handlebarsjs.com">official Handlebars.js docs site</a>
+			</h2>
 		</header>
 
 		<div id="main" role="main">
-			<p>Handlebars Template</p>
-			<textarea id="source" type="textarea">
+			<div class="entry">
 				
-			</textarea>
+				<label for="source">Handlebars Template</label>
+				<textarea id="source" type="textarea"></textarea>
+				
+				<label for="context">Context (json object)</label>
+				<textarea id="context" type="textarea"></textarea>
+				
+				<label for="helpers">Register Helper functions (if any)</label>
+				<textarea id="helpers" type="textarea"></textarea>
+						
+			</div>	
+
+			<div class="entry output">						
+				<label for="out">HTML Output</label>
+				<textarea id="output" type="textarea"></textarea>
+			</div>	
+				
+			<div class="entry">
+				<input id="compile" type="submit" value="Compile Handlebars Template" />
+								
+				<p id="errors">Error(s): </p>
+			</div>
 			
-			<p>Context (json object)</p>
-			<textarea id="context" type="textarea">
-				
-			</textarea>
-					
-			<p>Register Helper functions (if any)</p>
-			<textarea id="helpers" type="textarea">
-				
-			</textarea>
-			
-			<input id="compile" type="submit" value="Compile Handlebars Template" />
-			<textarea id="output" type="textarea"></textarea>
+			<div style="clear:both;height: 0px;"></div>	
 		</div>
 
 		<footer>

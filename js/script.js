@@ -18,7 +18,6 @@
 			eval($('textarea#helpers').val());
 			var context =  $('textarea#context').val();
 			var html    =  template(eval('(' + context + ')'));
-			
 			$('textarea#output').html(html);
 			} catch (error) {
 				console.log(error);
