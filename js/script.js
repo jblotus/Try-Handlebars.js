@@ -1,38 +1,5 @@
 (function($) {
 	
-	 var sample_contexts = {
-		 '#getting-started-1'   : { title: "My New Post", body: "This is my first post!"},
-		 '#getting-started-2'   : { title: "All about <p> Tags", body: "<p>This is a post about &lt;p&gt; tags</p>" },
-		 '#block-expressions-1' : {
-			  people : [
-			    { firstName: "Yehuda", lastName: "Katz" },
-				{ firstName: "Carl", lastName: "Lerche" },
-				{ firstName: "Alan", lastName: "Johnson" }
-			  ]
-			},
-		 '#built-in-block-helpers-1' : {
-			  people: [
-			    "Yehuda Katz",
-			    "Alan Johnson",
-			    "Charles Jolley"
-			  ]
-			},
-		 '#built-in-block-helpers-2' : {},
-		 '#built-in-block-helpers-3' : { author: true,  firstName: 'eric', lastName: 'blair' },
-		 '#built-in-block-helpers-4' : {},
-		 '#built-in-block-helpers-5' : {},
-		 '#built-in-block-helpers-6' : { license: 'true' },
-		 '#paths-1' : { name: 'John Denver' },
-		 '#paths-2' : {
-			  title: "My First Blog Post!",
-			  author: {
-			    id: 47,
-			    name: "Yehuda Katz"
-			  },
-			  body: "My first post. Wheeeee!"
-			}
-		};	 
-	 
      var handlebars_samples = [
     	{
     		title : 'getting started',    		
@@ -65,7 +32,16 @@
     		title : 'paths',    		
     		links : [
     			{ href : '#paths-1', label:  'simple/mustache' },
-    			{ href : '#paths-2', label:  'nested' }
+    			{ href : '#paths-2', label:  'nested' },
+    			{ href : '#paths-3', label:  '../' }
+    		]
+    	},
+    	
+    	{
+    		title : 'helpers',    		
+    		links : [
+    			{ href : '#helpers-1', label:  'example 1' },
+    			{ href : '#helpers-2', label:  'example 2 (this context)' },
     		]
     	},
     ];
@@ -85,10 +61,7 @@
 				'target'      : '#main'
 			}
 			
-			options.context = $.extend(options.context, context || {});
-			
-			//convert context.context into a json string
-			options.context.context = JSON.stringify(options.context.context);
+			options.context = $.extend(options.context, context || {});			
 			
 			var source   = $(options.source).html();
 			var template = Handlebars.compile(source);
@@ -101,11 +74,15 @@
 		$('.sample-link').live('click', function() {
 			var id       = $(this).attr('href');
 			var template = $(id).html().trim();
-			var context  = sample_contexts[id];
-			var helpers  = function() {
-				return $(id + '-helper').html();
+			var context  = function() {
+				var context =  $(id + '-context').html();				
+				return context ? context : '{}';
 			}
-			
+			var helpers  = function() {
+				var helpers =  $(id + '-helpers').html();
+				console.log(helpers)
+				return helpers ? helpers : null;
+			}
 			$('textarea#source').text(template);
 			$('textarea#context').text(context);
 			

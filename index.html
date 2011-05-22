@@ -21,15 +21,15 @@
 	
 		<div class="entry">				
 			<label for="source">Handlebars Template</label>
-			<textarea id="source" type="textarea">{{source}}</textarea>
+			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
 		
 		
 			<label for="context">Context (json object)</label>
-			<textarea id="context" type="textarea">{{context}}</textarea>
+			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
 		
 	
 			<label for="helpers">Register Helper functions (if any)</label>
-			<textarea id="helpers" type="textarea">{{helpers}}</textarea>	
+			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>	
 	
 			<input id="compile" type="submit" value="Compile Handlebars Template" />									
 			<p id="errors">Error(s): <span></span></p>
@@ -59,6 +59,10 @@
 </div>
 </script>
 
+<script id ="getting-started-1-context" type="text/x-handlebars-template">
+{ title: "My New Post", body: "This is my first post!"}
+</script>
+
 <script id ="getting-started-2" type="text/x-handlebars-template">
 <div class="entry">
   <h1>{{title}}</h1>
@@ -68,12 +72,25 @@
 </div>
 </script>
 
+<script id ="getting-started-2-context" type="text/x-handlebars-template">
+{ title: "All about <p> Tags", body: "<p>This is a post about &lt;p&gt; tags</p>" }
+</script>
+
 <script id ="block-expressions-1" type="text/x-handlebars-template">
 {{#list people}}{{firstName}} {{lastName}}{{/list}}
 </script>
 
+<script id ="block-expressions-1-context" type="text/x-handlebars-template">
+{
+  people : [
+    { firstName: "Yehuda", lastName: "Katz" },
+	{ firstName: "Carl", lastName: "Lerche" },
+	{ firstName: "Alan", lastName: "Johnson" }
+  ]
+}
+</script>
 
-<script id ="block-expressions-1-helper" type="text/x-handlebars-template">
+<script id ="block-expressions-1-helpers" type="text/x-handlebars-template">
 Handlebars.registerHelper('list', function(items, fn) {
   var out = "<ul>";
 
@@ -92,6 +109,16 @@ Handlebars.registerHelper('list', function(items, fn) {
 </ul>
 </script>
 
+<script id ="built-in-block-helpers-1-context" type="text/x-handlebars-template">
+{
+  people: [
+    "Yehuda Katz",
+    "Alan Johnson",
+    "Charles Jolley"
+  ]
+}
+</script>
+
 <script id ="built-in-block-helpers-2" type="text/x-handlebars-template">
 <div class="entry">
   {{#if author}}
@@ -106,6 +133,10 @@ Handlebars.registerHelper('list', function(items, fn) {
   <h1>{{firstName}} {{lastName}}</h1>
   {{/if}}
 </div>
+</script>
+
+<script id ="built-in-block-helpers-3-context" type="text/x-handlebars-template">
+{ author: true,  firstName: 'eric', lastName: 'blair' }
 </script>
 
 <script id ="built-in-block-helpers-4" type="text/x-handlebars-template">
@@ -135,8 +166,16 @@ Handlebars.registerHelper('list', function(items, fn) {
 </div>
 </script>
 
+<script id ="built-in-block-helpers-6-context" type="text/x-handlebars-template">
+{ license: 'true' }
+</script>
+
 <script id ="paths-1" type="text/x-handlebars-template">
 <p>{{name}}</p>
+</script>
+
+<script id ="paths-1-context" type="text/x-handlebars-template">
+{ name: 'John Denver' }
 </script>
 
 <script id ="paths-2" type="text/x-handlebars-template">
@@ -148,6 +187,95 @@ Handlebars.registerHelper('list', function(items, fn) {
     {{body}}
   </div>
 </div>
+</script>
+
+<script id ="paths-2-context" type="text/x-handlebars-template">
+{
+  title: "My First Blog Post!",
+  author: {
+    id: 47,
+    name: "Yehuda Katz"
+  },
+  body: "My first post. Wheeeee!"
+}
+</script>
+
+<script id ="paths-3" type="text/x-handlebars-template">
+<h1>Comments</h1>
+
+<div id="comments">
+  {{#each comments}}
+  <h2><a href="/posts/{{../permalink}}#{{id}}">{{title}}</a></h2>
+  <div>{{body}}</div>
+  {{/each}}
+</div>
+</script>
+
+<script id ="paths-3-context" type="text/x-handlebars-template">
+{
+  comments: [ 
+  	{ id: 1, title: 'wow what a great site'}, 
+  	{ id: 2, title: 'i really love handlebars js'}
+  ],
+    	
+  body: "Try Handlebars JS!",
+  permalink: "try-handlebars-js-today",
+}
+</script>
+
+<script id ="helpers-1" type="text/x-handlebars-template">
+<div class="post">
+  <h1>By {{fullName author}}</h1>
+  <div class="body">{{body}}</div>
+
+  <h1>Comments</h1>
+
+  {{#each comments}}
+  <h2>By {{fullName author}}</h2>
+  <div class="body">{{body}}</h2>
+  {{/each}}
+</div>
+</script>
+
+<script id ="helpers-1-context" type="text/x-handlebars-template">
+{
+  author: {firstName: "Alan", lastName: "Johnson"},
+  body: "I Love Handlebars",
+  comments: [{
+    author: {firstName: "Yehuda", lastName: "Katz"},
+    body: "Me too!"
+  }]
+}
+</script>
+
+<script id ="helpers-1-helpers" type="text/x-handlebars-template">
+Handlebars.registerHelper('fullName', function(person) {
+  return person.firstName + " " + person.lastName;
+});
+</script>
+
+<script id ="helpers-2" type="text/x-handlebars-template">
+<ul>
+  {{#each items}}
+  <li>{{{agree_button}}}</li>
+  {{/each}}
+</ul>
+</script>
+
+<script id ="helpers-2-context" type="text/x-handlebars-template">
+{
+  items: [
+    {name: "Handlebars", emotion: "love"},
+    {name: "Mustache", emotion: "enjoy"},
+    {name: "SproutCore", emotion: "want to learn"}
+  ]
+}
+</script>
+
+<script id ="helpers-2-helpers" type="text/x-handlebars-template">
+Handlebars.registerHelper('agree_button', function() {
+  return "<button>I agree. I " + this.emotion + " " + this.name + "</button>";
+});
 </script>
 </head>
 <body>
