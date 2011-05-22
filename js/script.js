@@ -22,7 +22,15 @@
 		 '#built-in-block-helpers-4' : {},
 		 '#built-in-block-helpers-5' : {},
 		 '#built-in-block-helpers-6' : { license: 'true' },
-		 '#paths-1' : { name: 'John Denver' }
+		 '#paths-1' : { name: 'John Denver' },
+		 '#paths-2' : {
+			  title: "My First Blog Post!",
+			  author: {
+			    id: 47,
+			    name: "Yehuda Katz"
+			  },
+			  body: "My first post. Wheeeee!"
+			}
 		};	 
 	 
      var handlebars_samples = [
@@ -56,7 +64,8 @@
     	{
     		title : 'paths',    		
     		links : [
-    			{ href : '#paths-1', label:  'simple/mustache' }
+    			{ href : '#paths-1', label:  'simple/mustache' },
+    			{ href : '#paths-2', label:  'nested' }
     		]
     	},
     ];

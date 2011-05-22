@@ -138,6 +138,17 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="paths-1" type="text/x-handlebars-template">
 <p>{{name}}</p>
 </script>
+
+<script id ="paths-2" type="text/x-handlebars-template">
+<div class="entry">
+  <h1>{{title}}</h1>
+  <h2>By {{author/name}}</h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
+</script>
 </head>
 <body>
 	<div id="container">
