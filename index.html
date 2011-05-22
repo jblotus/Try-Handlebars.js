@@ -14,7 +14,56 @@
 	<link rel="stylesheet" href="css/style.css?v=2">
 	<link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">
 	<script src="js/libs/modernizr-1.7.min.js"></script>
-	<script src="js/libs/handlebars-1.0.0.beta.2.js"></script></head>
+	<script src="js/libs/handlebars-1.0.0.beta.2.js"></script>	
+			
+	<script id ="main-content" type="text/x-handlebars-template">	
+	
+		<div class="entry">				
+			<label for="source">Handlebars Template</label>
+			<textarea id="source" type="textarea">{{source}}</textarea>
+		
+		
+			<label for="context">Context (json object)</label>
+			<textarea id="context" type="textarea">{{context}}</textarea>
+		
+	
+			<label for="helpers">Register Helper functions (if any)</label>
+			<textarea id="helpers" type="textarea">{{helpers}}</textarea>	
+	
+			<input id="compile" type="submit" value="Compile Handlebars Template" />									
+			<p id="errors">Error(s): <span></span></p>
+		</div>
+	
+		<div class="output">
+			{{#each links}}
+				<a href="{{this.href}}" class="sample-link">{{this.label}}</a>
+			{{/each}}
+						
+			<p>HTML Source Output</p>
+			<textarea id="output-window">{{output}}</textarea>
+			<p>HTML Preview</p>
+			<div id="output-window-html">{{{output}}}</div>
+		</div>
+	</script>
+		
+<script id ="sample1" type="text/x-handlebars-template">
+<div class="entry">
+  <h1>{{title}}</h1>
+    <div class="body">
+    {{body}}
+  </div>
+</div>
+</script>
+
+<script id ="sample2" type="text/x-handlebars-template">
+<div class="entry">
+  <h1>{{title}}</h1>
+  <div class="body">
+    {{{body}}}
+  </div>
+</div>
+</script>
+</head>
 <body>
 	<div id="container">
 		<header>
@@ -26,31 +75,9 @@
 		</header>
 
 		<div id="main" role="main" class="borderradius">
-		
-			<div class="entry">				
-				<label for="source">Handlebars Template</label>
-				<textarea id="source" type="textarea"></textarea>
-			
-			
-				<label for="context">Context (json object)</label>
-				<textarea id="context" type="textarea"></textarea>
-			
-		
-				<label for="helpers">Register Helper functions (if any)</label>
-				<textarea id="helpers" type="textarea"></textarea>	
-
-				<input id="compile" type="submit" value="Compile Handlebars Template" />									
-				<p id="errors">Error(s): </p>
-			</div>
-
-			<div class="output">						
-				<label for="out">HTML Output</label>
-				<textarea id="output" type="textarea"></textarea>
-			</div>	
-			
 			<br class="clear" />
 		</div>
-
+		
 		<footer>
 			<p>Site by James Fuller</p>
 		</footer>

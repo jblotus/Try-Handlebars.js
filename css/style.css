@@ -119,7 +119,7 @@ header p {
 #main {
 	background-color:lightGreen;
 	padding: .5em;
-	height: 52em;
+	height: 54em;
 }
 
 #main .entry  {
@@ -143,7 +143,9 @@ label + textarea, textarea + label {
 	width:50%;
 }
 
-#main .output textarea {
+#output-window {
+	color: #BBBBBB;
+	background: #000000;
 	height: 35em;
 }
 
