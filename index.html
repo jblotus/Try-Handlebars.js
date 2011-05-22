@@ -15,6 +15,7 @@
 	<link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">
 	<script src="js/libs/modernizr-1.7.min.js"></script>
 	<script src="js/libs/handlebars-1.0.0.beta.2.js"></script>	
+	<script src="js/libs/json2.js"></script>
 			
 	<script id ="main-content" type="text/x-handlebars-template">	
 	
@@ -35,9 +36,12 @@
 		</div>
 	
 		<div class="output">
-			{{#each links}}
-				<a href="{{this.href}}" class="sample-link">{{this.label}}</a>
-			{{/each}}
+			{{#samples}}
+				<p>{{title}}</p>
+				{{#links}}
+				<a href="{{href}}" class="sample-link">{{label}}</a>
+				{{/links}}
+			{{/samples}}
 						
 			<p>HTML Source Output</p>
 			<textarea id="output-window">{{output}}</textarea>
@@ -46,7 +50,7 @@
 		</div>
 	</script>
 		
-<script id ="sample1" type="text/x-handlebars-template">
+<script id ="getting-started-1" type="text/x-handlebars-template">
 <div class="entry">
   <h1>{{title}}</h1>
     <div class="body">
@@ -55,13 +59,84 @@
 </div>
 </script>
 
-<script id ="sample2" type="text/x-handlebars-template">
+<script id ="getting-started-2" type="text/x-handlebars-template">
 <div class="entry">
   <h1>{{title}}</h1>
   <div class="body">
     {{{body}}}
   </div>
 </div>
+</script>
+
+<script id ="block-expressions-1" type="text/x-handlebars-template">
+{{#list people}}{{firstName}} {{lastName}}{{/list}}
+</script>
+
+
+<script id ="block-expressions-1-helper" type="text/x-handlebars-template">
+Handlebars.registerHelper('list', function(items, fn) {
+  var out = "<ul>";
+
+  for(var i=0, l=items.length; i<l; i++) {
+    out = out + "<li>" + fn(items[i]) + "</li>";
+  }
+  return out + "</ul>";
+});
+</script>
+
+<script id ="built-in-block-helpers-1" type="text/x-handlebars-template">
+<ul class="people_list">
+  {{#each people}}
+  <li>{{this}}</li>
+  {{/each}}
+</ul>
+</script>
+
+<script id ="built-in-block-helpers-2" type="text/x-handlebars-template">
+<div class="entry">
+  {{#if author}}
+  <h1>{{firstName}} {{lastName}}</h1>
+  {{/if}}
+</div>
+</script>
+
+<script id ="built-in-block-helpers-3" type="text/x-handlebars-template">
+<div class="entry">
+  {{#if author}}
+  <h1>{{firstName}} {{lastName}}</h1>
+  {{/if}}
+</div>
+</script>
+
+<script id ="built-in-block-helpers-4" type="text/x-handlebars-template">
+<div class="entry">
+  {{#if author}}
+    <h1>{{firstName}} {{lastName}}</h1>
+  {{else}}
+    <h1>Unknown Author</h1>
+  {{/if}}
+</div>
+</script>
+
+<script id ="built-in-block-helpers-5" type="text/x-handlebars-template">
+<div class="entry">
+  {{#unless license}}
+  <h3 class="warning">WARNING: This entry does not have a license!</h3>"
+  {{/unless}}
+</div>
+</script>
+
+<script id ="built-in-block-helpers-6" type="text/x-handlebars-template">
+<div class="entry">
+  {{#unless license}}
+  <h3 class="warning">WARNING: This entry does not have a license!</h3>"
+  {{/unless}}
+  <h3>License Exists!</h3>
+</div>
+</script>
+
+<script id ="paths-1" type="text/x-handlebars-template">
+<p>{{name}}</p>
 </script>
 </head>
 <body>
