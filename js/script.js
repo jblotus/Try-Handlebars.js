@@ -80,7 +80,6 @@
 			}
 			var helpers  = function() {
 				var helpers =  $(id + '-helpers').html();
-				console.log(helpers)
 				return helpers ? helpers : null;
 			}
 			$('textarea#source').text(template);

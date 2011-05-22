@@ -15,40 +15,6 @@
 	<link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">
 	<script src="js/libs/modernizr-1.7.min.js"></script>
 	<script src="js/libs/handlebars-1.0.0.beta.2.js"></script>	
-	<script src="js/libs/json2.js"></script>
-			
-	<script id ="main-content" type="text/x-handlebars-template">	
-	
-		<div class="entry">				
-			<label for="source">Handlebars Template</label>
-			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
-		
-		
-			<label for="context">Context (json object)</label>
-			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
-		
-	
-			<label for="helpers">Register Helper functions (if any)</label>
-			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>	
-	
-			<input id="compile" type="submit" value="Compile Handlebars Template" />									
-			<p id="errors">Error(s): <span></span></p>
-		</div>
-	
-		<div class="output">
-			{{#samples}}
-				<p>{{title}}</p>
-				{{#links}}
-				<a href="{{href}}" class="sample-link">{{label}}</a>
-				{{/links}}
-			{{/samples}}
-						
-			<p>HTML Source Output</p>
-			<textarea id="output-window">{{output}}</textarea>
-			<p>HTML Preview</p>
-			<div id="output-window-html">{{{output}}}</div>
-		</div>
-	</script>
 		
 <script id ="getting-started-1" type="text/x-handlebars-template">
 <div class="entry">
@@ -152,7 +118,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-5" type="text/x-handlebars-template">
 <div class="entry">
   {{#unless license}}
-  <h3 class="warning">WARNING: This entry does not have a license!</h3>"
+  <h3 class="warning">WARNING: This entry does not have a license!</h3>
   {{/unless}}
 </div>
 </script>
@@ -160,7 +126,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-6" type="text/x-handlebars-template">
 <div class="entry">
   {{#unless license}}
-  <h3 class="warning">WARNING: This entry does not have a license!</h3>"
+  <h3 class="warning">WARNING: This entry does not have a license!</h3>
   {{/unless}}
   <h3>License Exists!</h3>
 </div>
@@ -277,20 +243,70 @@ Handlebars.registerHelper('agree_button', function() {
   return "<button>I agree. I " + this.emotion + " " + this.name + "</button>";
 });
 </script>
+
+<script id ="main-content" type="text/x-handlebars-template">	
+		
+	
+	<div class="entry">	
+		
+		<div id="samples" class="borderradius">
+			<div>
+				<h2>Handlebars.js Usage Examples</h2>
+				{{#samples}}
+					<p>{{title}}</p>
+					{{#links}}
+					<a href="{{href}}" class="sample-link">{{label}}</a>
+					{{/links}}
+				{{/samples}}
+			</div>
+		</div>
+			
+		<div>	
+			<label for="source">Handlebars Template</label>
+			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
+			<br class="clear" />
+		</div>
+
+		<div>	
+			<label for="context">Context (json object)</label>
+			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
+			<br class="clear" />
+		</div>	
+		
+		<div>
+			<label for="helpers">Register Helper functions (if any)</label>
+			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+			<br class="clear" />
+		</div>
+		
+		<div>
+			<input id="compile" type="submit" value="Compile Handlebars Template" />									
+			<p id="errors">Error(s): <span></span></p>
+			<br class="clear" />
+		</div>
+		<br class="clear" />
+	</div>
+
+	<div class="output">
+		<p>HTML Source Output</p>
+		<textarea id="output-window">{{output}}</textarea>
+		<p>HTML Preview</p>
+		<div id="output-window-html">{{{output}}}</div>
+	</div>
+	<br class="clear" />
+</script>
 </head>
 <body>
 	<div id="container">
 		<header>
 			<h1>Try Handlebars.js right now in your browser</h1>
 			<p>
-				Handlebars.js is a javascript templating engine. 
-				Checkout the <a href="http://www.handlebarsjs.com">official Handlebars.js docs site</a>
+				Handlebars.js is a javascript templating engine based on the <a href="http://mustache.github.com/">Mustache templating language</a>.
+				Checkout the <a href="http://www.handlebarsjs.com">official Handlebars.js site</a>
 			</p>
 		</header>
 
-		<div id="main" role="main" class="borderradius">
-			<br class="clear" />
-		</div>
+		<div id="main" role="main" class="borderradius"></div>
 		
 		<footer>
 			<p>Site by James Fuller</p>

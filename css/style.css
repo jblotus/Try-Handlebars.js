@@ -91,20 +91,38 @@ textarea {
 	 box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-.borderradius  #main {
+.borderradius #main {
 	border: 1px solid #141414;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	border-radius: 12px;
 }
 
+.borderradius #main textarea {
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+}
+
 body {
-	background-color: orange;
+	background-color: #FCA044;
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.34, rgb(230,82,49)),
+	    color-stop(0.67, rgb(255,140,74))
+	);
+	background-image: -moz-linear-gradient(
+	    center bottom,
+	    rgb(230,82,49) 34%,
+	    rgb(255,140,74) 67%
+	);
 }
 
 header, #main, footer{
 	margin:1em auto;
-	width:95%;
+	width: 80%;
 }
 
 header h1 {
@@ -117,16 +135,27 @@ header p {
 
 
 #main {
-	background-color:lightGreen;
+	background-color: #FDF1E9;
 	padding: .5em;
-	height: 54em;
+	font-size: 1.5em;
+}
+
+#main #samples {
+    padding: 0em;
 }
 
 #main .entry  {
 	clear:left;
 	float:left;
-	margin:1em;
-	width:46%;
+	width:49%;
+	margin: 0 0 0 1em;
+}
+
+#main .entry div {    
+    clear: both;
+    margin: 1em auto;
+    padding: 1em;
+    background-color: #E3D8D2;
 }
 
 #main .entry textarea {
@@ -138,15 +167,15 @@ label + textarea, textarea + label {
 }
 
 #main .output {
-	float:right;
-	margin:1em;
-	width:50%;
+    float: right;
+    margin: 0 1em 0 0;
+    width: 48%;
 }
 
 #output-window {
 	color: #BBBBBB;
 	background: #000000;
-	height: 35em;
+	height: 58em;
 }
 
 #main label , #main textarea, #main button , #main input {
@@ -154,6 +183,13 @@ label + textarea, textarea + label {
 	width: 100%;
 	float: left;
 	clear: both;
+}
+
+#main div textarea{
+	background-color: #302D2D;
+	color: #FFF;
+	padding: .5em;
+	font-family: monospace;
 }
 
 footer {
