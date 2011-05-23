@@ -41,9 +41,9 @@
     		title : 'helpers',    		
     		links : [
     			{ href : '#helpers-1', label:  'example 1' },
-    			{ href : '#helpers-2', label:  'example 2 (this context)' },
+    			{ href : '#helpers-2', label:  'example 2 (this context)' }
     		]
-    	},
+    	}
     ];
 
 	$(function() {
@@ -52,9 +52,9 @@
 			var options  = {
 				'source'      : '#main-content', 
 				'context'     : {
-					'source'   : '{{foo}}',
-					'context'  : "{{ 'foo' : 'bar' }}",					
-					'samples'  : handlebars_samples
+					source   : '{{foo}}',
+					context  : "{{ foo : 'bar' }}",
+					samples  : handlebars_samples
 				}, 
 				'helpers' 	  : '', 
 				'output'      : 'Compile Me!',
@@ -73,13 +73,13 @@
 		
 		$('.sample-link').live('click', function() {
 			var id       = $(this).attr('href');
-			var template = $(id).html().trim();
+			var template = $.trim($(id).html());
 			var context  = function() {
-				var context =  $(id + '-context').html();				
+				var context =  $.trim($(id + '-context').html());				
 				return context ? context : '{}';
 			}
 			var helpers  = function() {
-				var helpers =  $(id + '-helpers').html();
+				var helpers =  $.trim($(id + '-helpers').html());
 				return helpers ? helpers : null;
 			}
 			$('textarea#source').text(template);
