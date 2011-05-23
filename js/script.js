@@ -90,13 +90,13 @@
 				'context' : context,
 				'helpers' : helpers
 				});
-			$('#compile').click();
+			$('.compile').click();
 			
 			return false;
 		});
 
 					
-		$('#compile').live('click', function() {
+		$('.compile').live('click', function() {
 			
 			try {
 				var source   = $('textarea#source').val();

@@ -260,6 +260,12 @@ Handlebars.registerHelper('agree_button', function() {
 				{{/samples}}
 			</div>
 		</div>
+		
+		<div>
+			<input class="compile" type="submit" value="Compile Handlebars Template" />
+			<p id="errors">Error(s): <span></span></p>
+			<br class="clear" />
+		</div>
 			
 		<div>	
 			<label for="source">Handlebars Template</label>
@@ -280,7 +286,7 @@ Handlebars.registerHelper('agree_button', function() {
 		</div>
 		
 		<div>
-			<input id="compile" type="submit" value="Compile Handlebars Template" />									
+			<input class="compile" type="submit" value="Compile Handlebars Template" />
 			<p id="errors">Error(s): <span></span></p>
 			<br class="clear" />
 		</div>
