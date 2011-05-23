@@ -65,8 +65,7 @@
 			
 			var source   = $(options.source).html();
 			var template = Handlebars.compile(source);
-			//$(options.target).html('').append(template(options.context));
-			$(options.target).html('').append(template({}));
+			$(options.target).html('').append(template(options.context));
 		}
 		
 		//main
