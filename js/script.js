@@ -54,7 +54,7 @@
 				'context'     : {
 					'source'   : '{{foo}}',
 					'context'  : "{{ 'foo' : 'bar' }}",					
-					'samples'  : handlebars_samples,
+					'samples'  : handlebars_samples
 				}, 
 				'helpers' 	  : '', 
 				'output'      : 'Compile Me!',
@@ -65,7 +65,8 @@
 			
 			var source   = $(options.source).html();
 			var template = Handlebars.compile(source);
-			$(options.target).html('').append(template(options.context));
+			//$(options.target).html('').append(template(options.context));
+			$(options.target).html('').append(template({}));
 		}
 		
 		//main
