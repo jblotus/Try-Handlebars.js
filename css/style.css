@@ -122,7 +122,7 @@ body {
 
 header, #main, footer{
 	margin:1em auto;
-	width: 80%;
+	width: 90%;
 }
 
 header h1 {
@@ -138,6 +138,7 @@ header p {
 	background-color: #FDF1E9;
 	padding: .5em;
 	font-size: 1.5em;
+	position: relative;
 }
 
 #main #samples {
@@ -145,10 +146,10 @@ header p {
 }
 
 #main .entry  {
-	clear:left;
-	float:left;
-	width:49%;
-	margin: 0 0 0 1em;
+    clear: left;
+    float: left;
+    margin: 0 0 0 .5em;
+    width: 47%;
 }
 
 #main .entry div {    
@@ -167,9 +168,10 @@ label + textarea, textarea + label {
 }
 
 #main .output {
-    float: right;
-    margin: 0 1em 0 0;
-    width: 48%;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 50%;
 }
 
 #output-window {
