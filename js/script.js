@@ -47,6 +47,10 @@
     ];
 
 	$(function() {
+  
+    Handlebars.registerHelper('getHandlebarsVersion', function() {
+      return Handlebars.VERSION;
+    });
 		
 		function renderMain(context) {
 			var options  = {
