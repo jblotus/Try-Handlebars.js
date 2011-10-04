@@ -57,7 +57,7 @@
 				'source'      : '#main-content', 
 				'context'     : {
 					source   : '{{foo}}',
-					context  : "{{ foo : 'bar' }}",
+					context  : '{ "foo" : "bar" }',
 					samples  : handlebars_samples
 				}, 
 				'helpers' 	  : '', 
