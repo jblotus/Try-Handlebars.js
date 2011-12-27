@@ -1,5 +1,10 @@
 <!doctype html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]--><!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]--><!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]--><!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]--><!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]--><head>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
@@ -198,7 +203,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 
   {{#each comments}}
   <h2>By {{fullName author}}</h2>
-  <div class="body">{{body}}</h2>
+  <div class="body">{{body}}</div>
   {{/each}}
 </div>
 </script>
@@ -265,7 +270,7 @@ Handlebars.registerHelper('agree_button', function() {
 		<div>
     
 			<input class="compile" type="submit" value="Compile Handlebars Template" />
-      <p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
+			<p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
 			<p id="errors">Error(s): <span></span></p>
 			<br class="clear" />
 		</div>
@@ -290,7 +295,7 @@ Handlebars.registerHelper('agree_button', function() {
 		
 		<div>
 			<input class="compile" type="submit" value="Compile Handlebars Template" />
-      <p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
+			<p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
 			<p id="errors">Error(s): <span></span></p>
 			<br class="clear" />
 		</div>
@@ -305,7 +310,8 @@ Handlebars.registerHelper('agree_button', function() {
 	</div>
 	<br class="clear" />
 </script>
-</head>
+
+</head>
 <body>
 	<div id="container">
 		<header>
@@ -352,5 +358,6 @@ Handlebars.registerHelper('agree_button', function() {
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	
-	</script></body>
+	</script>
+</body>
 </html>
