@@ -24,14 +24,17 @@
 <script id ="getting-started-1" type="text/x-handlebars-template">
 <div class="entry">
   <h1>{{title}}</h1>
-    <div class="body">
+  <div class="body">
     {{body}}
   </div>
 </div>
 </script>
 
 <script id ="getting-started-1-context" type="text/x-handlebars-template">
-{ title: "My New Post", body: "This is my first post!"}
+{ 
+  title: "My New Post", 
+  body: "This is my first post!"
+}
 </script>
 
 <script id ="getting-started-2" type="text/x-handlebars-template">
@@ -44,7 +47,10 @@
 </script>
 
 <script id ="getting-started-2-context" type="text/x-handlebars-template">
-{ title: "All about <p> Tags", body: "<p>This is a post about &lt;p&gt; tags</p>" }
+{ 
+  title: "All about <p> Tags", 
+  body: "<p>This is a post about &lt;p&gt; tags</p>" 
+}
 </script>
 
 <script id ="block-expressions-1" type="text/x-handlebars-template">
@@ -55,8 +61,8 @@
 {
   people : [
     { firstName: "Yehuda", lastName: "Katz" },
-	{ firstName: "Carl", lastName: "Lerche" },
-	{ firstName: "Alan", lastName: "Johnson" }
+    { firstName: "Carl", lastName: "Lerche" },
+    { firstName: "Alan", lastName: "Johnson" }
   ]
 }
 </script>
@@ -68,14 +74,15 @@ Handlebars.registerHelper('list', function(items, fn) {
   for(var i=0, l=items.length; i<l; i++) {
     out = out + "<li>" + fn(items[i]) + "</li>";
   }
-  return out + "</ul>";
+  out = out + "</ul>";
+  return out;
 });
 </script>
 
 <script id ="built-in-block-helpers-1" type="text/x-handlebars-template">
 <ul class="people_list">
   {{#each people}}
-  <li>{{this}}</li>
+    <li>{{this}}</li>
   {{/each}}
 </ul>
 </script>
@@ -93,7 +100,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-2" type="text/x-handlebars-template">
 <div class="entry">
   {{#if author}}
-  <h1>{{firstName}} {{lastName}}</h1>
+    <h1>{{firstName}} {{lastName}}</h1>
   {{/if}}
 </div>
 </script>
@@ -101,13 +108,17 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-3" type="text/x-handlebars-template">
 <div class="entry">
   {{#if author}}
-  <h1>{{firstName}} {{lastName}}</h1>
+    <h1>{{firstName}} {{lastName}}</h1>
   {{/if}}
 </div>
 </script>
 
 <script id ="built-in-block-helpers-3-context" type="text/x-handlebars-template">
-{ author: true,  firstName: 'eric', lastName: 'blair' }
+{ 
+  author: true,
+  firstName: 'eric',
+  lastName: 'blair' 
+}
 </script>
 
 <script id ="built-in-block-helpers-4" type="text/x-handlebars-template">
@@ -123,7 +134,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-5" type="text/x-handlebars-template">
 <div class="entry">
   {{#unless license}}
-  <h3 class="warning">WARNING: This entry does not have a license!</h3>
+    <h3 class="warning">WARNING: This entry does not have a license!</h3>
   {{/unless}}
 </div>
 </script>
@@ -131,7 +142,7 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="built-in-block-helpers-6" type="text/x-handlebars-template">
 <div class="entry">
   {{#unless license}}
-  <h3 class="warning">WARNING: This entry does not have a license!</h3>
+    <h3 class="warning">WARNING: This entry does not have a license!</h3>
   {{/unless}}
   <h3>License Exists!</h3>
 </div>
@@ -176,8 +187,8 @@ Handlebars.registerHelper('list', function(items, fn) {
 
 <div id="comments">
   {{#each comments}}
-  <h2><a href="/posts/{{../permalink}}#{{id}}">{{title}}</a></h2>
-  <div>{{body}}</div>
+    <h2><a href="/posts/{{../permalink}}#{{id}}">{{title}}</a></h2>
+    <div>{{body}}</div>
   {{/each}}
 </div>
 </script>
@@ -185,8 +196,8 @@ Handlebars.registerHelper('list', function(items, fn) {
 <script id ="paths-3-context" type="text/x-handlebars-template">
 {
   comments: [ 
-  	{ id: 1, title: 'wow what a great site'}, 
-  	{ id: 2, title: 'i really love handlebars js'}
+    { id: 1, title: 'wow what a great site'}, 
+    { id: 2, title: 'i really love handlebars js'}
   ],
     	
   body: "Try Handlebars JS!",
@@ -202,8 +213,8 @@ Handlebars.registerHelper('list', function(items, fn) {
   <h1>Comments</h1>
 
   {{#each comments}}
-  <h2>By {{fullName author}}</h2>
-  <div class="body">{{body}}</div>
+    <h2>By {{fullName author}}</h2>
+    <div class="body">{{body}}</div>
   {{/each}}
 </div>
 </script>
@@ -228,7 +239,7 @@ Handlebars.registerHelper('fullName', function(person) {
 <script id ="helpers-2" type="text/x-handlebars-template">
 <ul>
   {{#each items}}
-  <li>{{{agree_button}}}</li>
+    <li>{{{agree_button}}}</li>
   {{/each}}
 </ul>
 </script>
