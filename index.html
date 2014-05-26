@@ -68,11 +68,11 @@
 </script>
 
 <script id ="block-expressions-1-helpers" type="text/x-handlebars-template">
-Handlebars.registerHelper('list', function(items, fn) {
+Handlebars.registerHelper('list', function(items, options) {
   var out = "<ul>";
 
   for(var i=0, l=items.length; i<l; i++) {
-    out = out + "<li>" + fn(items[i]) + "</li>";
+    out = out + "<li>" + options.fn(items[i]) + "</li>";
   }
   out = out + "</ul>";
   return out;
