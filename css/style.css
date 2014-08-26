@@ -198,6 +198,10 @@ label + textarea, textarea + label {
 	font-family: monospace;
 }
 
+#errors{
+    color: red;
+}
+
 footer {
 	margin: 2em;
 }

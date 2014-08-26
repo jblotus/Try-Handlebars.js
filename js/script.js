@@ -114,8 +114,11 @@
 				//compile main template
 				$('#output-window').val(html);
 				$('#output-window-html').text(html).html(html);
+				$('p#errors span').empty();
 			} catch (error) {
-				$('p#errors span').html(error.toString());
+				$('#output-window').val('');
+				$('#output-window-html').empty();
+				$('p#errors span').html('Error(s): '+ error.toString());
 			}
 		});
 	
