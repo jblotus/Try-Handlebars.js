@@ -2,48 +2,61 @@
 	
      var handlebars_samples = [
     	{
-    		title : 'getting started',    		
-    		links : [
-    			{ href : '#getting-started-1', label:  'Sample 1' },    			
-    			{ href : '#getting-started-2', label:  'Sample 2' }
-    		]
+    		title : 'handlebar expression',    		
+    		link : '#getting-started-1'
     	},
-    	
-		{
+    	{
+    		title : 'expression with raw html',    		
+    		link : '#getting-started-2'
+    	},
+	{
     		title : 'block expressions',    		
-    		links : [
-    			{ href : '#block-expressions-1', label:  'Sample 3' }
-    		]
+    		link : '#block-expressions-1'
     	},
-		
-		{
-    		title : 'built in block helpers',    		
-    		links : [
-    			{ href : '#built-in-block-helpers-1', label:  'each' },
-    			{ href : '#built-in-block-helpers-2', label:  'if (empty context)' },
-    			{ href : '#built-in-block-helpers-3', label:  'if (truthy context)' },
-    			{ href : '#built-in-block-helpers-4', label:  'if/else' },
-    			{ href : '#built-in-block-helpers-5', label:  'unless (falsy)' },
-    			{ href : '#built-in-block-helpers-6', label:  'unless (truthy)' }
-    		]
+	{
+    		title : 'each block helper',    		
+    		link : '#block-expressions-1'
     	},
-    	
-    	{
-    		title : 'paths',    		
-    		links : [
-    			{ href : '#paths-1', label:  'simple/mustache' },
-    			{ href : '#paths-2', label:  'nested' },
-    			{ href : '#paths-3', label:  '../' }
-    		]
+	{
+    		title : 'if block helper (empty context)',    		
+    		link : '#block-expressions-2'
     	},
-    	
-    	{
-    		title : 'helpers',    		
-    		links : [
-    			{ href : '#helpers-1', label:  'example 1' },
-    			{ href : '#helpers-2', label:  'example 2 (this context)' }
-    		]
-    	}
+	{
+    		title : 'if block helper (truthy context)',    		
+    		link : '#block-expressions-3'
+    	},
+	{
+    		title : 'if/else',    		
+    		link : '#block-expressions-4'
+    	},
+	{
+		title: 'unless (falsy)',
+		link: '#built-in-block-helpers-5'
+	},
+	{
+		title: 'unless (truthy)',
+		link: '#built-in-block-helpers-6'
+	},
+	{
+		title: 'paths - simple/mustache',
+		link: '#paths-1'
+	},
+	{
+		title: 'paths - nested',
+		link: '#paths-2'
+	},
+	{
+		title: 'paths - ../',
+		link: '#paths-3'
+	},
+	{
+		title: 'helpers',
+		link: '#helpers-1'
+	},
+	{
+		title: 'helpers (this context)',
+		link: '#helpers-2'
+	},
     ];
 
 	$(function() {
@@ -74,6 +87,33 @@
 		
 		//main
 		renderMain();
+
+		$('select').live('change', function(){
+			var id = $(this).attr('value');
+			var template = $.trim($(id).html());
+			//alert($(this).attr('value'));
+			var context  = function() {
+				var context =  $.trim($(id + '-context').html());				
+				return context ? context : '{}';
+			}
+			var helpers  = function() {
+				var helpers =  $.trim($(id + '-helpers').html());
+				return helpers ? helpers : null;
+			}
+			$('textarea#source').text(template);
+			$('textarea#context').text(context);
+			$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
+			$('textarea#helpers').text(helpers);
+/*			
+			renderMain({
+				'source'  : template,
+				'context' : context,
+				'helpers' : helpers
+				});
+*/
+			$('.compile').click();
+			
+		});
 		
 		$('.sample-link').live('click', function() {
 			var id       = $(this).attr('href');
