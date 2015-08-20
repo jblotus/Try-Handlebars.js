@@ -1,0 +1,15 @@
+{
+  "name": "handlebarsPlayground",
+  "version": "1.0.0",
+  "homepage": "https://github.com/jblotus/Try-Handlebars.js",
+  "description": "an application for trying out handlebars in the browser",
+  "private": true,
+  "devDependencies": {
+    "time-grunt": "*",
+    "grunt-bower-install-simple": "~1.1.2",
+    "grunt": "~0.4.5",
+    "load-grunt-config": "~0.17.1",
+    "grunt-bower-install": "~1.6.0",
+    "JSONPath": "~0.10.0"
+  }
+}
