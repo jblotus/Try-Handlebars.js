@@ -75,33 +75,29 @@
         //main
         renderMain();
 
-        $('.sample-link').live('click', function () {
-            var id = $(this).attr('href');
-            var template = $.trim($(id).html());
-            var context = function () {
-                var context = $.trim($(id + '-context').html());
-                return context ? context : '{}';
-            };
-            var helpers = function () {
-                var helpers = $.trim($(id + '-helpers').html());
-                return helpers ? helpers : null;
-            };
-            $('textarea#source').text(template);
-            $('textarea#context').text(context);
+        $('.sample-link').on({
+            click: function(e) {
+                var id = $(this).attr('href');
+                var template = $.trim($(id).html());
+                var context = function () {
+                    var context = $.trim($(id + '-context').html());
+                    return context ? context : '{}';
+                };
+                var helpers = function () {
+                    var helpers = $.trim($(id + '-helpers').html());
+                    return helpers ? helpers : null;
+                };
+                $('textarea#source').text(template);
+                $('textarea#context').text(context);
+                $('textarea#helpers').text(helpers);
 
-            renderMain({
-                'source': template,
-                'context': context,
-                'helpers': helpers
-            });
-            $('.compile').click();
+                $('.compile').click();
 
-            return false;
+                return false;
+            }
         });
 
-
-        $('.compile').live('click', function () {
-
+        $('.compile').on('click', function () {
             try {
                 var source = $('textarea#source').val();
                 var template = Handlebars.compile(source);
@@ -114,11 +110,11 @@
                 //compile main template
                 $('#output-window').val(html);
                 $('#output-window-html').text(html).html(html);
-                $('p#errors span').empty();
+                $('.errors span').empty();
             } catch (error) {
                 $('#output-window').val('');
                 $('#output-window-html').empty();
-                $('p#errors span').html('Error(s): ' + error.toString());
+                $('.errors span').html('Error(s): ' + error.toString());
             }
         });
 
