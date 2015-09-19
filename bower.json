@@ -1,19 +1,32 @@
 {
-  "name": "Try-Handlebars.js",
-  "version": "0.1.0",
+  "name": "tryhandlebarsjs",
+  "version": "1.0.0",
   "homepage": "https://github.com/jblotus/Try-Handlebars.js",
-  "authors": [
-    "jblotus"
-  ],
-  "description": "Learn handlebars.js online",
+  "description": "an application for trying out handlebars in the browser",
+  "main": "index.html",
   "keywords": [
-    "handlebars"
+    "awesome",
+    "javascript",
+    "templates",
+    "handlebars",
+    "mustache"
+  ],
+  "authors": [
+    "jblotus",
+    "alexwebgr"
   ],
   "license": "MIT",
   "ignore": [
-    "bower_components"
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "dependencies": {
+    "jquery": "~2.1.4",
+    "json-js": "*",
+    "handlebars": "~3.0.3",
     "sassquatch2": "~0.19.15"
   }
 }

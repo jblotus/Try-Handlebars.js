@@ -1,37 +1,6 @@
 module.exports = function(grunt) {
 
-  require('jit-grunt')(grunt);
-  grunt.initConfig({
-/*
-    jshint: {
-      files: ['Gruntfile.js'],
-      options: {
-        globals: {
-          jQuery: true
-        }
-      }
-    },
-    watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
-    }
-*/
-    sass : {
-	main: {
-		options: {
-			style: 'expanded'
-		},
-		files: [{
-			expand: true,
-			cwd: 'sass',
-			src: ['*.scss'],
-			dest: 'css',
-			ext: '.css'
-		}]
-	},
-    }
-  });
-
+  //require('jit-grunt')(grunt);
 
 /*
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -40,4 +9,11 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint']);
 */
 
+    //for the tasks and plugins see inside /grunt folder
+
+    // measures the time each task takes
+    require('time-grunt')(grunt);
+
+    // load grunt config
+    require('load-grunt-config')(grunt);
 };
