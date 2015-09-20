@@ -21,19 +21,19 @@ require(["jquery"], function($){
     	},
 	{
     		title : 'each block helper',    		
-    		link : '#block-expressions-1'
+    		link : '#built-in-block-helpers-1' //'#block-expressions-1'
     	},
 	{
     		title : 'if block helper (empty context)',    		
-    		link : '#block-expressions-2'
+    		link : '#built-in-block-helpers-2'
     	},
 	{
     		title : 'if block helper (truthy context)',    		
-    		link : '#block-expressions-3'
+    		link : '#built-in-block-helpers-3'
     	},
 	{
     		title : 'if/else',    		
-    		link : '#block-expressions-4'
+    		link : '#built-in-block-helpers-4' //'#block-expressions-4'
     	},
 	{
 		title: 'unless (falsy)',
@@ -97,7 +97,7 @@ require(["jquery"], function($){
 		$(document).on('change','select', function(){
 			var id = $(this).val();
 			var template = $.trim($(id).html());
-			//alert($(this).val());
+			console.log($(this).val());
 			var context  = function() {
 				var context =  $.trim($(id + '-context').html());				
 				return context ? context : '{}';
