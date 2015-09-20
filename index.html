@@ -279,19 +279,19 @@ Handlebars.registerHelper('agree_button', function() {
 			<p class="errors"><span></span></p>
 		</div -->
 
-<div class="stack atLarge_stack--spread">
+<div class="spreadable atLarge_spreadable--spread">
 			
-		<div class="stack-item">	
+		<div class="spreadable-item">	
 			<label for="source">Handlebars Template</label>
 			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
 		</div>
 
-		<div class="stack-item">	
+		<div class="spreadable-item">	
 			<label for="context">Context (JavaScript literal or JSON) </label>
 			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
 		</div>	
 		
-		<div class="stack-item">
+		<div class="spreadable-item">
 			<label for="helpers">Register Helper functions (if any)</label>
 			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
 		</div>
@@ -304,12 +304,12 @@ Handlebars.registerHelper('agree_button', function() {
 		</div>
 	</div>
 
-	<div class="output stack atLarge_stack--spread padding--all border--top">
-		<div class="stack-item">
+	<div class="output spreadable atLarge_spreadable--spread padding--all border--top">
+		<div class="spreadable-item">
 		<p>HTML Source Output</p>
 		<textarea id="output-window">{{output}}</textarea>
 		</div>
-		<div class="stack-item">
+		<div class="spreadable-item">
 		<p>HTML Preview</p>
 		<div id="output-window-html">{{{output}}}</div>
 		</div>
