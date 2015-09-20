@@ -95,9 +95,9 @@ require(["jquery"], function($){
 		renderMain();
 
 		$(document).on('change','select', function(){
-			var id = $(this).attr('value');
+			var id = $(this).val();
 			var template = $.trim($(id).html());
-			//alert($(this).attr('value'));
+			//alert($(this).val());
 			var context  = function() {
 				var context =  $.trim($(id + '-context').html());				
 				return context ? context : '{}';
