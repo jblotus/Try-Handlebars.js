@@ -1,4 +1,10 @@
-(function($) {
+require.config({
+    paths: {
+        jquery: '../bower_components/jquery/dist/jquery.min'
+    }
+});
+
+require(["jquery"], function($){
 	
      var handlebars_samples = [
     	{
@@ -88,7 +94,7 @@
 		//main
 		renderMain();
 
-		$('select').live('change', function(){
+		$(document).on('change','select', function(){
 			var id = $(this).attr('value');
 			var template = $.trim($(id).html());
 			//alert($(this).attr('value'));
@@ -115,7 +121,7 @@
 			
 		});
 		
-		$('.sample-link').live('click', function() {
+		$(document).on('click', '.sample-link', function() {
 			var id       = $(this).attr('href');
 			var template = $.trim($(id).html());
 			var context  = function() {
@@ -140,7 +146,7 @@
 		});
 
 					
-		$('.compile').live('click', function() {
+		$(document).on('click', '.compile', function() {
 			
 			try {
 				var source   = $('textarea#source').val();
@@ -163,5 +169,4 @@
 		});
 	
 	});
-
-})(jQuery);
+});
