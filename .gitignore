@@ -1,4 +1,4 @@
 .idea
-bower_components
+components
 node_modules
 .sass-cache

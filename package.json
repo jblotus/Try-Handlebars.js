@@ -24,6 +24,6 @@
   },
   "main": "Gruntfile.js",
   "scripts": {
-    "install" : "bower install"
+    "install" : "bower install; cd components/sassquatch2; bower install; cd ../.."
   }
 }
