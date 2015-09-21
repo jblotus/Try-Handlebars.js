@@ -24,10 +24,19 @@
     "tests"
   ],
   "dependencies": {
+    "handlebars": "~3.0.3",
     "jquery": "~2.1.4",
     "json-js": "*",
-    "handlebars": "~3.0.3",
+    "mustache.js": "mustache#v1.2.0",
+    "requirejs-bower": "~2.1.20",
     "sassquatch2": "~1.0.0",
-    "requirejs-bower": "~2.1.20"
+    "handlebars-4.0.2" : "handlebars#4.0.2",
+    "handlebars-4.0.1" : "handlebars#4.0.1",
+    "handlebars-4.0.0" : "handlebars#4.0.0",
+    "handlebars-3.0.3" : "handlebars#3.0.3",
+    "handlebars-3.0.2" : "handlebars#3.0.2",
+    "handlebars-3.0.0" : "handlebars#3.0.0",
+    "handlebars-2.0.0" : "handlebars#2.0.0",
+    "handlebars-1.3.0" : "handlebars#1.3.0"
   }
 }
