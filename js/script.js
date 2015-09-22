@@ -160,11 +160,11 @@ require(["jquery"], function($){
 				//compile main template
 				$('#output-window').val(html);
 				$('#output-window-html').text(html).html(html);
-				$('p#errors span').empty();
+				$('p.errors span').empty();
 			} catch (error) {
 				$('#output-window').val('');
 				$('#output-window-html').empty();
-				$('p#errors span').html('Error(s): '+ error.toString());
+				$('p.errors span').html('Error(s): '+ error.toString());
 			}
 		});
 	
