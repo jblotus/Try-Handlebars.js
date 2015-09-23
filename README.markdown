@@ -15,4 +15,7 @@ They are eval'd when you click compile and HTML output is displayed in the outpu
 
 __Contributing__
 
-Please feel free to fork the site to fix anything I may have screwed up! Send me a pull request and I will put it up asap.
+1) Fork the repo
+2) You need to run npm install, bower install, grunt build, grunt sass
+3) Do not commit build artifacts (node_modules, components, etc)
+4) Submit pull request (please rebase your changes into one commit)
