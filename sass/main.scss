@@ -1,0 +1,94 @@
+@import "../components/sassquatch2/sass/sassquatch";
+
+html, body, .stripe {
+    background-color: #FCA044;    
+    color: #723600;    
+}
+.compile {
+    text-decoration: none;
+    display: block;
+    color: white;
+    margin: 5px auto 15px;
+    width: 300px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0;
+    font-size: 20px;
+    text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0;
+    text-align: center;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f38709), color-stop(100%, #c26c07));
+    background-image: -webkit-linear-gradient(#f38709, #c26c07);
+    background-image: -moz-linear-gradient(#f38709, #c26c07);
+    background-image: -o-linear-gradient(#f38709, #c26c07);
+    background-image: -ms-linear-gradient(#f38709, #c26c07);
+    background-image: linear-gradient(#f38709, #c26c07);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+textarea, pre {
+    background-color: #000;
+    color: #F8F8F8;
+    padding: 10px;
+    font-size: 13px;
+    font-family: Monaco, monospace;
+}
+
+#samples {
+  background-color: #E4D9D3;
+}
+
+#samples select {
+  background-color: #E4D9D3;
+  padding: 10px;
+  font-size: 13px;
+  font-family: Monaco, monospace;
+  margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    padding: 5px;
+    margin-bottom: 5px;
+    color: #582a00;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.spreadable-item label {
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 5px;
+    color: #582a00;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#intro h1 {
+  color: #723600;
+  font-size: 18px;
+}
+
+#main {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#output-window-html {
+  background-color: #E4D9D3;
+  padding: 10px;
+}
+
+a {
+  color:#6666cc;
+  text-decoration: none;
+}

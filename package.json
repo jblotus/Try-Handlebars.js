@@ -1,15 +1,29 @@
 {
-  "name": "handlebarsPlayground",
   "version": "1.0.0",
   "homepage": "https://github.com/jblotus/Try-Handlebars.js",
   "description": "an application for trying out handlebars in the browser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jblotus/Try-Handlebars.js/issues"
+  },
+  "name": "tryhandlebarsjs",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jblotus/Try-Handlebars.js.git"
+  },
   "devDependencies": {
     "time-grunt": "*",
     "grunt-bower-install-simple": "~1.1.2",
     "grunt": "~0.4.5",
     "load-grunt-config": "~0.17.1",
+    "grunt-contrib-sass": "^0.9.2",
     "grunt-bower-install": "~1.6.0",
+    "jit-grunt": "^0.9.1",
     "JSONPath": "~0.10.0"
+  },
+  "main": "Gruntfile.js",
+  "scripts": {
+    "install" : "bower install; cd components/sassquatch2; bower install; cd ../.."
   }
 }

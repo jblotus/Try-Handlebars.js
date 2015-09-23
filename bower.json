@@ -1,7 +1,7 @@
 {
-  "name": "handlebarsPlayground",
+  "name": "tryhandlebarsjs",
   "version": "1.0.0",
-  "homepage": "https://github.com/alexwebgr/Try-Handlebars.js",
+  "homepage": "https://github.com/jblotus/Try-Handlebars.js",
   "description": "an application for trying out handlebars in the browser",
   "main": "index.html",
   "keywords": [
@@ -26,6 +26,8 @@
   "dependencies": {
     "jquery": "~2.1.4",
     "json-js": "*",
-    "handlebars": "~3.0.3"
+    "handlebars": "~3.0.3",
+    "sassquatch2": "~1.0.0",
+    "requirejs-bower": "~2.1.20"
   }
 }

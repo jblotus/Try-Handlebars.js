@@ -1,123 +1,172 @@
-(function ($) {
+require.config({
+    paths: {
+        jquery: '../components/jquery/dist/jquery.min'
+    }
+});
 
-    var handlebars_samples = [
-        {
-            title: 'getting started',
-            links: [
-                {href: '#getting-started-1', label: 'Sample 1'},
-                {href: '#getting-started-2', label: 'Sample 2'}
-            ]
-        },
-
-        {
-            title: 'block expressions',
-            links: [
-                {href: '#block-expressions-1', label: 'Sample 3'}
-            ]
-        },
-
-        {
-            title: 'built in block helpers',
-            links: [
-                {href: '#built-in-block-helpers-1', label: 'each'},
-                {href: '#built-in-block-helpers-2', label: 'if (empty context)'},
-                {href: '#built-in-block-helpers-3', label: 'if (truthy context)'},
-                {href: '#built-in-block-helpers-4', label: 'if/else'},
-                {href: '#built-in-block-helpers-5', label: 'unless (falsy)'},
-                {href: '#built-in-block-helpers-6', label: 'unless (truthy)'}
-            ]
-        },
-
-        {
-            title: 'paths',
-            links: [
-                {href: '#paths-1', label: 'simple/mustache'},
-                {href: '#paths-2', label: 'nested'},
-                {href: '#paths-3', label: '../'}
-            ]
-        },
-
-        {
-            title: 'helpers',
-            links: [
-                {href: '#helpers-1', label: 'example 1'},
-                {href: '#helpers-2', label: 'example 2 (this context)'}
-            ]
-        }
+require(["jquery"], function($){
+	
+     var handlebars_samples = [
+    	{
+    		title : 'handlebar expression',    		
+    		link : '#getting-started-1'
+    	},
+    	{
+    		title : 'expression with raw html',    		
+    		link : '#getting-started-2'
+    	},
+	{
+    		title : 'block expressions',    		
+    		link : '#block-expressions-1'
+    	},
+	{
+    		title : 'each block helper',    		
+    		link : '#built-in-block-helpers-1' //'#block-expressions-1'
+    	},
+	{
+    		title : 'if block helper (empty context)',    		
+    		link : '#built-in-block-helpers-2'
+    	},
+	{
+    		title : 'if block helper (truthy context)',    		
+    		link : '#built-in-block-helpers-3'
+    	},
+	{
+    		title : 'if/else',    		
+    		link : '#built-in-block-helpers-4' //'#block-expressions-4'
+    	},
+	{
+		title: 'unless (falsy)',
+		link: '#built-in-block-helpers-5'
+	},
+	{
+		title: 'unless (truthy)',
+		link: '#built-in-block-helpers-6'
+	},
+	{
+		title: 'paths - simple/mustache',
+		link: '#paths-1'
+	},
+	{
+		title: 'paths - nested',
+		link: '#paths-2'
+	},
+	{
+		title: 'paths - ../',
+		link: '#paths-3'
+	},
+	{
+		title: 'helpers',
+		link: '#helpers-1'
+	},
+	{
+		title: 'helpers (this context)',
+		link: '#helpers-2'
+	},
     ];
 
-    $(function () {
-
-        Handlebars.registerHelper('getHandlebarsVersion', function () {
-            return Handlebars.VERSION;
-        });
-
-        function renderMain(context) {
-            var options = {
-                'source': '#main-content',
-                'context': {
-                    source: '{{foo}}',
-                    context: '{ "foo" : "bar" }',
-                    samples: handlebars_samples
-                },
-                'helpers': '',
-                'output': 'Compile Me!',
-                'target': '#main'
-            };
-
-            options.context = $.extend(options.context, context || {});
-
-            var source = $(options.source).html();
-            var template = Handlebars.compile(source);
-            $(options.target).html('').append(template(options.context));
-        }
-
-        //main
-        renderMain();
-
-        $('.sample-link').on({
-            click: function(e) {
-                var id = $(this).attr('href');
-                var template = $.trim($(id).html());
-                var context = function () {
-                    var context = $.trim($(id + '-context').html());
-                    return context ? context : '{}';
-                };
-                var helpers = function () {
-                    var helpers = $.trim($(id + '-helpers').html());
-                    return helpers ? helpers : null;
-                };
-                $('textarea#source').text(template);
-                $('textarea#context').text(context);
-                $('textarea#helpers').text(helpers);
-
-                $('.compile').click();
-
-                return false;
-            }
-        });
-
-        $('.compile').on('click', function () {
-            try {
-                var source = $('textarea#source').val();
-                var template = Handlebars.compile(source);
-
-                //run any helpers code
-                var helpers = eval($('textarea#helpers').val());
-                var context = $('textarea#context').val();
-                var html = template(eval('(' + context + ')'));
-
-                //compile main template
-                $('#output-window').val(html);
-                $('#output-window-html').text(html).html(html);
-                $('.errors span').empty();
-            } catch (error) {
-                $('#output-window').val('');
-                $('#output-window-html').empty();
-                $('.errors span').html('Error(s): ' + error.toString());
-            }
-        });
-
+	$(function() {
+  
+    Handlebars.registerHelper('getHandlebarsVersion', function() {
+      return Handlebars.VERSION;
     });
+		
+		function renderMain(context) {
+			var options  = {
+				'source'      : '#main-content', 
+				'context'     : {
+					source   : '{{foo}}',
+					context  : '{ "foo" : "bar" }',
+					samples  : handlebars_samples
+				}, 
+				'helpers' 	  : '', 
+				'output'      : 'Compile Me!',
+				'target'      : '#main'
+			}
+			
+			options.context = $.extend(options.context, context || {});			
+			
+			var source   = $(options.source).html();
+			var template = Handlebars.compile(source);
+			$(options.target).html('').append(template(options.context));
+		}
+		
+		//main
+		renderMain();
 
-})(jQuery);
+		$(document).on('change','select', function(){
+			var id = $(this).val();
+			var template = $.trim($(id).html());
+			console.log($(this).val());
+			var context  = function() {
+				var context =  $.trim($(id + '-context').html());				
+				return context ? context : '{}';
+			}
+			var helpers  = function() {
+				var helpers =  $.trim($(id + '-helpers').html());
+				return helpers ? helpers : null;
+			}
+			$('textarea#source').text(template);
+			$('textarea#context').text(context);
+			$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
+			$('textarea#helpers').text(helpers);
+/*			
+			renderMain({
+				'source'  : template,
+				'context' : context,
+				'helpers' : helpers
+				});
+*/
+			$('.compile').click();
+			
+		});
+		
+		$(document).on('click', '.sample-link', function() {
+			var id       = $(this).attr('href');
+			var template = $.trim($(id).html());
+			var context  = function() {
+				var context =  $.trim($(id + '-context').html());				
+				return context ? context : '{}';
+			}
+			var helpers  = function() {
+				var helpers =  $.trim($(id + '-helpers').html());
+				return helpers ? helpers : null;
+			}
+			$('textarea#source').text(template);
+			$('textarea#context').text(context);
+			
+			renderMain({
+				'source'  : template,
+				'context' : context,
+				'helpers' : helpers
+				});
+			$('.compile').click();
+			
+			return false;
+		});
+
+					
+		$(document).on('click', '.compile', function() {
+			
+			try {
+				var source   = $('textarea#source').val();
+				var template = Handlebars.compile(source);
+				
+				//run any helpers code
+				var helpers = eval($('textarea#helpers').val());
+				var context =  $('textarea#context').val();
+				var html    =  template(eval('(' + context + ')'));
+				
+				//compile main template
+				$('#output-window').val(html);
+				$('#output-window-html').text(html).html(html);
+				$('p.errors span').empty();
+			} catch (error) {
+				$('#output-window').val('');
+				$('#output-window-html').empty();
+				$('p.errors span').html('Error(s): '+ error.toString());
+			}
+		});
+	
+	});
+});
