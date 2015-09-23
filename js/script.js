@@ -106,10 +106,10 @@ require(["jquery"], function($){
 				var helpers =  $.trim($(id + '-helpers').html());
 				return helpers ? helpers : null;
 			}
-			$('textarea#source').text(template);
-			$('textarea#context').text(context);
+			$('textarea#source').val(template);
+			$('textarea#context').val(context);
 			$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
-			$('textarea#helpers').text(helpers);
+			$('textarea#helpers').val(helpers);
 			$('.compile').click();
 			
 		});
