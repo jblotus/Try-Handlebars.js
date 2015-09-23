@@ -36,6 +36,7 @@ textarea, pre {
     padding: 10px;
     font-size: 13px;
     font-family: Monaco, monospace;
+    min-height: 140px;
 }
 
 #samples {
@@ -88,7 +89,15 @@ h2 {
   padding: 10px;
 }
 
+#output-window-html h1 {
+  color: #000;
+}
+
 a {
   color:#6666cc;
   text-decoration: none;
+}
+
+ul {
+  list-style: inside;
 }

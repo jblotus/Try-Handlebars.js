@@ -97,7 +97,7 @@ require(["jquery"], function($){
 		$(document).on('change','select', function(){
 			var id = $(this).val();
 			var template = $.trim($(id).html());
-			console.log($(this).val());
+			
 			var context  = function() {
 				var context =  $.trim($(id + '-context').html());				
 				return context ? context : '{}';
@@ -110,39 +110,8 @@ require(["jquery"], function($){
 			$('textarea#context').val(context);
 			$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
 			$('textarea#helpers').val(helpers);
-/*			
-			renderMain({
-				'source'  : template,
-				'context' : context,
-				'helpers' : helpers
-				});
-*/
 			$('.compile').click();
 			
-		});
-		
-		$(document).on('click', '.sample-link', function() {
-			var id       = $(this).attr('href');
-			var template = $.trim($(id).html());
-			var context  = function() {
-				var context =  $.trim($(id + '-context').html());				
-				return context ? context : '{}';
-			}
-			var helpers  = function() {
-				var helpers =  $.trim($(id + '-helpers').html());
-				return helpers ? helpers : null;
-			}
-			$('textarea#source').val(template);
-			$('textarea#context').val(context);
-			
-			renderMain({
-				'source'  : template,
-				'context' : context,
-				'helpers' : helpers
-				});
-			$('.compile').click();
-			
-			return false;
 		});
 
 					

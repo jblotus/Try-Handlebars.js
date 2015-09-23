@@ -1,4 +1,5 @@
 .idea
 components
+css
 node_modules
 .sass-cache
