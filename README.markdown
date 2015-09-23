@@ -15,7 +15,7 @@ They are eval'd when you click compile and HTML output is displayed in the outpu
 
 __Contributing__
 
-1) Fork the repo
-2) You need to run npm install, bower install, grunt build, grunt sass
-3) Do not commit build artifacts (node_modules, components, etc)
-4) Submit pull request (please rebase your changes into one commit)
+- Fork the repo
+- You need to run npm install, bower install, grunt build, grunt sass
+- Do not commit build artifacts (node_modules, components, etc)
+- Submit pull request (please rebase your changes into one commit)
