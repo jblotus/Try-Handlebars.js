@@ -110,39 +110,8 @@ require(["jquery"], function($){
 			$('textarea#context').text(context);
 			$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
 			$('textarea#helpers').text(helpers);
-/*			
-			renderMain({
-				'source'  : template,
-				'context' : context,
-				'helpers' : helpers
-				});
-*/
 			$('.compile').click();
 			
-		});
-		
-		$(document).on('click', '.sample-link', function() {
-			var id       = $(this).attr('href');
-			var template = $.trim($(id).html());
-			var context  = function() {
-				var context =  $.trim($(id + '-context').html());				
-				return context ? context : '{}';
-			}
-			var helpers  = function() {
-				var helpers =  $.trim($(id + '-helpers').html());
-				return helpers ? helpers : null;
-			}
-			$('textarea#source').text(template);
-			$('textarea#context').text(context);
-			
-			renderMain({
-				'source'  : template,
-				'context' : context,
-				'helpers' : helpers
-				});
-			$('.compile').click();
-			
-			return false;
 		});
 
 					
