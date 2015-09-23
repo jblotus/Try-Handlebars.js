@@ -1,0 +1,103 @@
+/*doc
+---
+title: Menu
+name: menu
+category: UI Components
+---
+Context menu style dropdoowns. Actions are delivered in-document
+next to the menu toggle as a non-js fallback. When a client is
+javascript-enabled, the menu is hidden and posisitioned __fixed__
+(assumes this style of menu will only be found within a `view-head`).
+
+Toggling of menu visibility is handled with javascript (supporting js
+for documentation TK).
+
+__NOTE:__ This visual example currently shows the non-js fallback only.
+Use as a guide for markup.
+
+```html_example
+<div class="menu">
+	<a class="menu-toggle" href="#">(icon)</a>
+
+	<ul role="menu" class="menu-actions">
+		<li class="menu-actions-item">
+			<a role="menuitem" href="#">Select All</a>
+		</li>
+		<li class="menu-actions-item">
+			<a role="menuitem" href="#">Select None</a>
+		</li>
+	</ul>
+</div>
+```
+*/
+
+
+// Unorderd list sibling of menu-toggle
+.menu-actions {
+	@extend %list--reset;
+	z-index: map-get($zindex-map, popup);
+
+	.hasJS & {
+		@extend %shadow;
+		border: 1px solid $C_border;
+		border-radius: $defaultRadius;
+		background-color: $C_white;
+		display: none;
+		min-width: $block-3;
+		max-width: $breakpoint-s*0.75;
+
+		// JS will remove the element from the DOM
+		// and append it as a direct child of <body>.
+		//
+		// These values will be overriden with JS to
+		// position the menu over the trigger element.
+		top: $space;
+		right: $space;
+
+
+		// use absolute positioning by default;
+		// set to fixed positioning if a child of a fixed
+		// position nav
+		position: absolute;
+		.position--fixed & {
+			position: fixed;
+		}
+	}
+}
+
+// List item
+.menu-actions-item {
+	display: inline;
+
+	.hasJS & {
+		@extend %listBorders;
+		padding-top: 0;
+	}
+}
+
+// Action
+.menu-actions-item a {
+	display: inline-block;
+	padding-right: $space;
+
+	.hasJS & {
+		@extend %buttonPersonality;
+		display: block;
+		padding: $space;
+		color: $C_textSecondary !important;
+		&:hover,
+		&:active {
+			background-color: $C_overlayPressed;
+		}
+	}
+}
+
+.menu-toggle {
+	display: none;
+	@extend .hasJS_display--block;
+}
+
+// Active state of menu-actions
+.menu-actions--active {
+	display: block !important;
+}

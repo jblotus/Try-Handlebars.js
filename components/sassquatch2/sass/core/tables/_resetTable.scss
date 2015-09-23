@@ -1,0 +1,58 @@
+/*doc
+---
+title: Reset table
+name: resetTable
+category: Tables
+---
+
+```html_example
+<table class="resetTable">
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+.resetTable {
+	caption,
+	tbody,
+	thead,
+	td,
+	th {
+		padding: 0;
+		font-size: $font-size;
+		font-weight: normal;
+		border-width: 0;
+		vertical-align: top;
+		color: $C_textPrimary;
+		.inverted & {
+			color: $C_textPrimaryInverted;
+		}
+	}
+}

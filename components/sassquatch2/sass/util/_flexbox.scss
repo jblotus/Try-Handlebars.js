@@ -1,0 +1,101 @@
+/*doc
+---
+title: Flexbox
+name: flexboxUtil
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+/*doc
+---
+title: Flex parent
+name: flexParentUtil
+parent: flexboxUtil
+---
+
+Sets flexbox properties for a flex parent (`display: flex;`)
+
+```
+@include flexParent('row'); // displays element as flex with children in row orientation
+@include flexParent('column'); // displays element as flex with children in column orientation
+
+@include flexParent('row', false); // optional second argument allows disabling of IE table display fallbacks
+```
+*/
+@mixin flexParent( $orientation, $useFallback:true ) {
+	@include display(flex);
+	@include justify-content(flex-start);
+	@include align-items(flex);
+	box-sizing: border-box;
+
+	@if '#{$orientation}' == 'row' {
+		@include flex-direction(row);
+		@include flex-wrap(nowrap);
+	} @else {
+		@include flex-direction(column);
+
+		@if $useFallback {
+			@include browser-lessThanIE( 10 ) {
+				height: 100%;
+			}
+		}
+	}
+
+	@if $useFallback {
+		@include browser-lessThanIE( 10 ) {
+			display: table;
+			table-layout: auto;
+			width: 100%;
+		}
+	}
+}
+
+
+/*doc
+---
+title: Flex child
+name: flexChildUtil
+parent: flexboxUtil
+---
+
+Sets flexbox properties for a flex children.
+
+```
+@include flexChild('grow'); // sets element to grow to fill remaining space in flex parent
+@include flexChild('shrink'); // sets element to shirnk to the width of its content
+
+@include flexChild('shrink', false); // optional second argument allows disabling of IE table display fallbacks
+```
+*/
+@mixin flexChild( $variant, $useFallback:true ) {
+	@if "#{$variant}" == "grow" {
+		@include flex-grow(1);
+		@include flex-basis(0);
+		box-sizing: border-box;
+		width: auto;
+		min-width: 0;
+
+		@if $useFallback {
+			@include browser-lessThanIE( 10 ) {
+				display: table-cell;
+			}
+		}
+	} @else {
+		@include flex-grow(0);
+		@include flex-shrink(0);
+		@include flex-basis(auto);
+		width: initial;
+
+		@if $useFallback {
+			@include browser-lessThanIE( 10 ) {
+				width: 1%;
+			}
+		}
+	}
+
+	@if $useFallback {
+		@include browser-lessThanIE( 10 ) {
+			vertical-align: top;
+		}
+	}
+}

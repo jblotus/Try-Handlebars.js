@@ -1,0 +1,17 @@
+////
+/// @group background
+////
+
+/// Sets background properties that center a background image,
+/// set size to `cover`, and `overflow` to `hidden`
+/// @access public
+///
+/// @example
+/// 	@extend %imgFill;
+///
+%imgFill {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}

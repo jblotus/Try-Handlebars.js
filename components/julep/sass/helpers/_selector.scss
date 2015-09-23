@@ -1,0 +1,24 @@
+////
+/// @access private
+/// @group selector
+////
+
+
+/// For use inside an existing rule block.
+/// Generates a selector that selects
+/// a parent element with the given `$class`
+/// and any children with the given `$class`.
+///
+/// @param {String} $class - class name
+/// @content
+///
+/// @example scss
+/// 	@include _sel-selfAndChild( 'row' ) {
+///   	... rules ...
+/// 	}
+@mixin _sel-selfAndChild( $class ) {
+	&.#{$class},
+	.#{$class} {
+		@content;
+	}
+}

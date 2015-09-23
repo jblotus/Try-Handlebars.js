@@ -1,0 +1,99 @@
+/*doc
+---
+title: Bounds
+name: bounds
+category: Layout
+---
+Used as a non-visual content container that manages content measure,
+ Similar to [sassquatch 1 `docBounds`](http://meetup.github.io/sassquatch/doc_desktop/layout.html#docstar).
+
+Centers children with auto margin, clears floats, applies
+padding, and sets a max-width.
+
+```html_example
+<section class="stripe">
+	<p>This is just a paragraph inside a stripe. There's no bounds element to center and set the measure of this text.</p>
+</section>
+
+<section class="stripe">
+	<div class="bounds">
+		<p>This paragraph is inside a bounds. It enjoyes auto-margin and a max-width to ensure the type measure remains readable at all viewport sizes.</p>
+	</div>
+</section>
+
+<section class="stripe">
+	<div class="bounds _DOC-SHADE">
+		<p><strong>Previous example, shaded to show detail</strong></p>
+		<p>This paragraph is inside a bounds. It enjoyes auto-margin and a max-width to ensure the type measure remains readable.</p>
+	</div>
+</section>
+```
+
+## Bounds variants
+
+Class                  | Description
+---------------------- | -------------------------------------
+`.bounds`              | standard (narrow) bounds for any type of content
+`.bounds--wide`        | bounds for wrapping wider content, such as gridList
+`.bounds--sideHeader`  | bounds for wrapping standard (narrow) content, offset by labels to the side at wide widths
+
+
+## Side Header example
+
+The `bounds--sideHeader` variant applies styles to accommodate a
+`bounds-header` element. A `bounds-header` is pulled to the left side
+of the bounds on wide screens (`large` breakpoint), and linearizes on small screens (less than `large`).
+
+```html_example
+	<section class="stripe">
+		<div class="bounds bounds--sideHeader">
+
+			<div class="bounds-header chunk">
+				<h2>I'm in a bounds header</h2>
+				<p class="text--caption">I linearize on small screens</p>
+			</div>
+
+			<p>This is just some content within the bounds, behaving like any other bounds content.</p>
+			<p>You can apply the bounds-header class to a single element, or wrap a group of elements you'd like to pull to the side on large screens.</p>
+		</div>
+	</section>
+```
+
+*/
+
+$space-bounds: $space * 1.5;
+$sideHeadergutter: $bounds-wide - $bounds;
+
+%bounds,
+.bounds {
+	@extend %clearfix;
+	box-sizing: border-box;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: $bounds;
+	padding: $space-bounds $space ($space-bounds - $space); // subtract for .chunk at bottom
+	width: 100%;
+}
+
+.bounds--wide{
+	max-width: $bounds-wide;
+}
+
+// side headers
+.bounds--sideHeader {
+	max-width: $bounds-wide;
+}
+@include atMediaUp(large) {
+	.bounds--sideHeader {
+		padding-left: $sideHeadergutter + $space;
+		position: relative;
+	}
+	.bounds-header {
+		position: absolute;
+		top: $space-bounds;
+		left: $space;
+		width: $sideHeadergutter - $space-bounds;
+		text-align: right;
+	}
+}
+

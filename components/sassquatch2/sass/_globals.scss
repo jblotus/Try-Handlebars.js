@@ -1,0 +1,222 @@
+// ---------------------------
+// PREFIXES
+// ---------------------------
+	// fore use in Bourbon prefixer() mixin
+	$prefixes: webkit ms spec;
+	$prefixes-edge: ms spec;
+
+	// bourbon global prefixer
+	$prefix-for-webkit:    true;
+	$prefix-for-mozilla:   false;
+	$prefix-for-microsoft: true;
+	$prefix-for-opera:     false;
+	$prefix-for-spec:      true;
+
+
+// ---------------------------
+// BOUNDS
+// ---------------------------
+	$bounds-wide	: 1100px;
+	$bounds			: 840px;
+
+
+// ---------------------------
+// TYPOGRAPHY
+// ---------------------------
+	$font : "Whitney", helvetica, arial, sans-serif;
+	$font--mono : Monaco, "Andale Mono", "Courier New", monospace;
+
+	// Sizes
+	$font-size-small    : 13px;
+	$font-size          : 16px;
+	$font-size-navbar   : 18px;
+	$font-size-display3 : 24px;
+	$font-size-display2 : 32px;
+	$font-size-display1 : 56px;
+
+	// Weights
+	$W_normal : 400;
+	$W_bold   : 700;
+
+	// Leading
+	$line-height       : 1.5;
+	$line-height-small : 1.5;
+
+
+// ---------------------------
+// METRICS
+// ---------------------------
+	// Spacing
+	// ---------------------------------------
+	// Double-stranded loosely based on a
+	// perfect-fifths scale.
+	// ----------------------------------------
+	// $block   : 48px @ 1:1.5
+	// $space   : 16px @ 1:1.5
+	// ---------------------------------------
+	//
+	$block           : 48px;
+	$block-2         : 72px;
+	$block-3         : 108px;
+	$block-4         : 160px;
+	$block-5         : 240px;
+	$block-6         : 384px;
+	$block-7         : 544px;
+
+	$space           : 16px;
+	$space-2         : 24px;
+	$space-3         : 36px;
+	$space-4         : 56px;
+	$space-5         : 80px;
+	$space-6         : 120px;
+	$space-7         : 184px;
+	$space-8         : 280px;
+
+
+	$space-and-half  : $space*1.5;
+	$space-double    : $space*2;
+	$space-half      : $space/2;
+	$space-quarter   : $space/4;
+
+
+	// View Head Heights
+	$view-head-height: 56px;
+	$view-head-height-tablet: 64px;
+
+
+	// Form size defaults
+	$form-min-height : $block;
+	$form-min-width  : $block;
+	$form-max-width  : 550px; // Come up with something smarter for this
+
+	$modal-width     : $breakpoint-s;
+
+	$defaultRadius   : 3px;
+
+	$pointer_size: 12px;
+
+	// Media sizes
+	// ---------------------------------------
+	$media-xs : $space-2; // 24px
+	$media-s  : $space-3; // 36px
+	$media-m  : $block;   // 48px
+	$media-l  : $block-2; // 72px
+	$media-xl : $block-4; // 160px
+
+	$media-map: (
+		xs: $media-xs,
+		s: $media-s,
+		m: $media-m,
+		l: $media-l,
+		xl: $media-xl
+	);
+
+
+// ---------------------------
+// ROOT CLASSES
+// ---------------------------
+	$root-debugEnable: 'enableDebug';
+
+
+// ---------------------------
+// EXTENDED COLORS
+// ---------------------------
+	// TODO: move to swatches?
+	$C_accentDark            : darken($C_red, 8%);
+
+
+// ---------------------------
+// Z-INDEX
+// ---------------------------
+	$zindex-map: (
+		main: 0,
+		main-header: 10,
+		splitList-view: 15,
+		shade: 20,
+		shade-content: 25,
+		modal: 30,
+		modal-header: 40,
+		popup: 50
+	);
+
+
+// ---------------------------
+// FORMS
+// ---------------------------
+	// TODO: replace with bourbon vars
+	$inputs-list: 'input[type="email"]',
+					  'input[type="number"]',
+					  'input[type="password"]',
+					  'input[type="search"]',
+					  'input[type="tel"]',
+					  'input[type="text"]',
+					  'input[type="url"]',
+
+					  // Webkit & Gecko may change the display of these in the future
+					  'input[type="color"]',
+					  'input[type="date"]',
+					  'input[type="datetime"]',
+					  'input[type="datetime-local"]',
+					  'input[type="month"]',
+					  'input[type="time"]',
+					  'input[type="week"]';
+
+	$unquoted-inputs-list: ();
+
+	@each $input-type in $inputs-list {
+	  $unquoted-inputs-list: append($unquoted-inputs-list, unquote($input-type), comma);
+	}
+
+	$all-text-inputs: $unquoted-inputs-list;
+
+	// for checkbox/radio input gutters
+	$inputGutter: $space/2;
+
+
+// ---------------------------
+// BUTTONS
+// ---------------------------
+	$btn-hover: lighten 10% !default;
+	$btn-hover-opacity: opacify .1 !default;
+	$btn-border: 1px solid !default;
+
+	// button variants e.g.: <button class="button button--primary"></button>
+
+
+// ---------------------------
+// BORDER
+// ---------------------------
+	$border-standard: 1px solid $C_border;
+
+
+// ---------------------------
+// DISPLAY
+// ---------------------------
+	$display-values: (
+		none,
+		block,
+		inline,
+		inline-block
+	);
+
+
+// ---------------------------
+// FLEXBOX
+// ---------------------------
+	$flexJustifyMap: ( // omits flex-start (default prop)
+		"flexEnd": flex-end,
+		"center": center,
+		"spaceBetween": space-between,
+		"spaceAround": space-around
+	);
+	$flexAlignMap: (
+		"top": flex-start,
+		"bottom": flex-end,
+		"center": center
+	);
+
+
+// ---------------------------
+// VIEW
+// ---------------------------
+	$view-minWidth: 320px;

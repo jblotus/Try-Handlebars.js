@@ -1,0 +1,150 @@
+/*doc
+---
+title: Modals
+name: modals
+category: Views
+---
+
+## view--modal variants
+
+Class                      | Description
+-------------------------- | ---------------------------
+`.view--modalFull`        | Makes a modal that is full screen on all screen sizes
+`.view--modalSnap`        | Creates a modal that is full screen on small sizes, overlay/dialog on larger screens
+
+
+*/
+
+/*doc
+---
+title: Full Modal View
+name: fullModalView
+parent: modals
+---
+
+Modal that is presented full screen on all sizes
+
+```html_example
+<a class="link" href="pages/modal-full.html">Demo</a>
+
+<div class="view view--modalFull display--none">
+	<header class="view-head row">
+		<a href="http://meetup.com/" class="row-item row-item--shrink row-item--alignMiddle">
+			<img src="style/img/logo.svg" width="35" height="24"></a>
+		</a>
+		<div class="row-item row-item--alignMiddle viewHead-heading">
+			<h1 class="wrap--singleLine--truncate">This is a header</h1>
+		</div>
+	</header>
+	<div id="modal_body" class="view-body">
+		<div class="stripe">
+			<div class="bounds">
+			... body content here ...
+			</div>
+		</div>
+	</div>
+</div>
+```
+
+*/
+
+// MODAL VIEW FULL
+// full screen at all screen widths
+
+.view--modalFull {
+	@include modal-full;
+	z-index: map-get($zindex-map, "modal");
+}
+
+/*doc
+---
+title: Snap Modal View (Dialog)
+name: snapModalView
+parent: modals
+---
+
+Modal that snaps to the whole viewport and is full screen on small screens,
+lays out as a dialog on background content on larger screens.
+
+
+```html_example
+<a class="link" href="pages/modal-snap.html">Demo</a>
+
+<div class="view view--modalSnap display--none">
+	<header class="view-head row inverted">
+		<a href="http://meetup.com/" class="row-item row-item--shrink row-item--alignMiddle">
+			Close
+		</a>
+		<div class="row-item row-item--alignMiddle viewHead-heading">
+			<h1 class="wrap--singleLine--truncate">Change your setting</h1>
+		</div>
+	</header>
+	<div id="modal_body" class="view-body">
+		<div class="stripe">
+			<div class="bounds">
+			... body content here ...
+
+				<button>Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+```
+*/
+
+// MODAL VIEW SNAP
+// full at narrow widths, dialog at wide widths
+
+.view--modalSnap {
+	@include modal-full;
+	@include atMediaUp(medium){
+		@include modal-dialog;
+	}
+	z-index: map-get($zindex-map, "modal");
+}
+
+
+/*doc
+---
+title: Overlay Shim
+name: overlayShim
+parent: modals
+---
+
+This overlay shim will most likely be written in with javascript
+when a modal is activated. It should be a direct child of `body`.
+
+The shim contains `overlayShim-content`, an element that is fixed
+just above the bottom of the viewport that can contain "close" or
+"back to top" prompts.
+
+We do not block scrolling when a modal is open.
+
+_See `.view--modalSnap` demo page for example_
+
+```
+<div id="shim" class="overlayShim">
+	<div class="overlayShim-content inverted">
+		overlayShim content (ie. close prompt)
+	</div>
+</div>
+```
+*/
+.overlayShim {
+	text-align: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+	z-index: map-get($zindex-map, shade);
+}
+
+.overlayShim-content {
+	position: fixed;
+	bottom: 4em;
+	z-index: map-get($zindex-map, shade-content);
+	margin: auto;
+	width: 100%;
+}

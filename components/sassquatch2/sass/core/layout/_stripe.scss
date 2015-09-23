@@ -1,0 +1,208 @@
+/*doc
+---
+title: Stripe
+name: stripe
+category: Layout
+---
+A `.stipe` class should be applied to `<section>` elements
+to visually divide the page with stripes of color.
+
+To align content within a stripe, use `.bounds`.
+
+```html_example
+<section class="stripe">
+	<div class="bounds">
+		<p>... default stripe ...</p>
+	</div>
+</section>
+
+<section class="stripe--inverted inverted">
+	<div class="bounds">
+		<p>... inverted stripe, using `inverted` class to set text colors  ...</p>
+	</div>
+</section>
+
+<section class="stripe--collection">
+	<div class="bounds">
+		<p>... collection variant of stripe, used to contain collections of cards </p>
+	</div>
+</section>
+```
+
+#### Stripe variants
+A class of `.stripe` is required; the following classes are
+optional variants:
+
+Class                | Description
+-------------------- | ------------------------------------------------------------
+`.stripe--inverted`  |  applies the standard `$C_contentBGInverted` background color
+`.stripe--collection`|  applies a light gray background; for use with card collections
+`.stripe--hero`      |  for hero sections without a photo (see below)
+`.stripe--photoHero` |  for hero sections with a photo (see below)
+`.stripe--overlap`   |  for sections that have content that visually overlaps into the next stripe (see below)
+*/
+
+%stripe,
+.stripe {
+	overflow: hidden;
+	border-top: 1px solid $C_border;
+	background-color: $C_contentBG;
+	margin-bottom: 0;
+}
+
+.stripe--collection {
+	@extend %stripe;
+	background-color: $C_collectionBGLight;
+}
+
+.stripe--inverted {
+	@extend %stripe;
+	background-color: $C_contentBGInverted;
+}
+
+
+/*doc
+---
+title: Hero Stripes
+name: heroStripes
+parent: stripe
+---
+Special `stripe` variants are avaiable for "hero" sections.
+Viewport size adjustments are built-in.
+
+**Note:** _Hero stripes require a `.bounds.stripe-heroContent`
+to properly position content within a hero. See examples below._
+
+### Basic hero
+Uses the `stripe--hero` variant.
+
+```html_example
+<section class="stripe stripe--hero inverted">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display">Chattanooga Tuba Enthusiasts</h1>
+	</div>
+</section>
+```
+
+### Photo hero
+Uses the `stripe--photoHero` variant.
+
+```html_example
+<section class="stripe stripe--photoHero inverted" style="background-image: url(http://photos2.meetupstatic.com/photos/event/4/a/2/9/600_434238985.jpeg);">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display">Manitoba Yoga Meetup</h1>
+	</div>
+</section>
+```
+*/
+
+// TODO: photoHero variant to just --photo?
+%_heroStripe {
+	@extend %stripe;
+	@include display(flex); // Allows IE10-11 correctly align hero content to bottom
+	background-color: $C_accent;
+	background-size: cover;
+	background-position: center 20%;
+	background-repeat: no-repeat;
+	border-top: none;
+	overflow: hidden;
+	position: relative;
+
+	//
+	// for use with valignChildren
+	// on stripe-heroContent in IE9 and below
+	//
+	@include browser-lessThanIE( 10 ) {
+		display: table;
+		width: 100%;
+	}
+}
+
+.stripe--hero {
+	@extend %_heroStripe;
+}
+.stripe--photoHero {
+	@extend %_heroStripe;
+	@include textProtectionScrim();
+}
+
+.stripe-heroContent {
+	@include valignChildren(bottom);
+	min-height: $block-5;
+	position: relative;
+	text-align: center;
+	max-width: $bounds-wide;
+	padding-top: $view-head-height;
+
+	@include atMediaUp(medium) {
+		min-height: $block-6;
+	}
+
+	@include atMediaUp(large) {
+		padding-top: $view-head-height-tablet;
+	}
+}
+
+/*doc
+---
+title: Overlapping Stripe
+name: overlappingStripe
+parent: stripe
+---
+Uses the `stripe--overlap` variant. Allows content from one appear as if it's overlapping onto the next stripe.
+
+Use `stripe--overlap--collection` to overlap onto a collection stripe, and `stripe--overlap--inverted` to overlap onto an inverted stripe.
+
+**Note:** No difference is seen unless the backgrounds of the adjacent stripes are different colors.
+
+```html_example
+<section class="stripe stripe--photoHero stripe--overlap" style="background-image: url(http://photos2.meetupstatic.com/photos/event/4/a/2/9/600_434238985.jpeg);">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display align--left inverted">Photo Hero Stripe</h1>
+
+		<div class="attachment text--small align--left">
+			<a href="#" class="card card--event" style="min-height: 0; max-width: 440px;">
+				<div class="chunk">
+					<p class="wrap--singleLine--truncate chunk"><span class="text--secondary">Saturday Jan 01 at 12:00 am</span></p>
+					<p class="text--secondary">123 Chapter Who went</p>
+					<p class="text--bold">Let's get together and have a Meetup</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</section>
+<section class="stripe">
+	<div class="bounds">
+		<p>... default stripe ...</p>
+	</div>
+</section>
+```
+*/
+
+.stripe--overlap {
+	&:before {
+		border-bottom: ($space-half+$space) solid white;
+		bottom: 0;
+		box-sizing: border-box;
+		content: '';
+		display: block;
+		position: absolute;
+		width: 100%;
+	}
+
+	& + .stripe {
+		border-width: 0 !important;
+	}
+}
+
+.stripe--overlap--collection {
+	&:before {
+		border-bottom: ($space-half+$space) solid $C_collectionBGLight;
+	}
+}
+
+.stripe--overlap--inverted {
+	&:before {
+		border-bottom: ($space-half+$space) solid $C_contentBGInverted;
+	}
+}

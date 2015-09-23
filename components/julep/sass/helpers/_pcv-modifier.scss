@@ -1,0 +1,58 @@
+////
+/// @access private
+/// @group modifier
+////
+
+/// Creates a placeholder __and__ a class for
+/// a given "base" and "modification" in the
+/// [PCV](https://github.com/meetup/sassquatch2/wiki/Code-standards-&-guidelines#pcv-class-name-convention)
+/// class naming convention. Use in place of a selector.
+///
+/// @param {String} $base - base class
+/// @param {String} $modification - modification
+/// @content
+///
+/// @example scss
+/// 	// create the placeholder and class margin--bottom
+/// 	@include _modifier('margin', 'bottom') {
+/// 		margin-bottom: 16px;
+/// 	}
+@mixin _modifier($base, $modification) {
+	%#{$base}--#{$modification},
+	.#{$base}--#{$modification} {
+		@content;
+	}
+}
+
+/// Generate media-conditional modifier
+/// placeholders and classes (ie. `.atMedium_margin--none`).
+///
+/// @requires atMediaUp
+/// @requires str-firstCharToUpper
+///
+/// @param {String} $base - base class
+/// @param {String} $modification - modification
+/// @content
+///
+/// @example scss
+/// 	// creates:
+/// 	// %atMedium_border--none, .atMedium_border--none
+/// 	// and
+/// 	// %atLarge_border--none, .atLarge_border--none
+/// 	@include _bpModifier('border', 'none') {
+/// 		border-width: 0;
+/// 	}
+
+@mixin _bpModifier($base, $modification) {
+
+	@each $breakpoint in (small, medium, large) {
+
+		@include atMediaUp($breakpoint) {
+			.at#{str-firstCharToUpper($breakpoint)}_#{$base}--#{$modification} {
+				@content;
+			}
+		}
+
+	}
+
+}

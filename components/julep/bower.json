@@ -1,0 +1,17 @@
+{
+  "name": "julep",
+  "version": "1.4.0",
+  "description": "Meetup Sass Utilities",
+  "main": [
+    "sass/julep.scss"
+  ],
+  "ignore": [
+    "Gemfile",
+    ".ruby-version",
+    ".bowerrc",
+    "**/*.sh",
+    "**/*.txt",
+    "**/*.lock"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,70 @@
+/*doc
+---
+title: Animation
+name: animation
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+%_origin--center {
+	@include transform-origin(center center);
+}
+
+
+/*doc
+---
+title: Subtle bounce-in
+name: bounce-in-subtle
+parent: animation
+---
+Subtle bounce effect using keyframes, provided via simple mixin
+_original keyframes generated with [Bounce.js](http://goo.gl/tT4jnp)_
+
+```
+@include animate--bounce-in-subtle($time: 750ms);
+```
+*/
+
+@include keyframes('bounce-in-subtle') {
+	0% {
+		@include transform(scale(1));
+	}
+	35% {
+		@include transform(scale(1.15));
+	}
+	75% {
+		@include transform(scale(1));
+	}
+
+}
+@mixin animate--bounceInSubtle($time: 250ms) {
+	@extend %_origin--center;
+	@include animation(bounce-in-subtle $time cubic-bezier(0.175, 0.885, 0.320, 1.275));
+}
+
+
+/*doc
+---
+title: Infinite spin
+name: spin
+parent: animation
+---
+Infinite 2d rotation; 0-360deg.
+
+```
+@include animate--spin($time: 0.8s);
+```
+*/
+@include keyframes(spin) {
+	0% {
+		@include transform(rotate(0deg));
+	}
+	100% {
+		@include transform(rotate(360deg));
+	}
+}
+@mixin animate--spin($time: 0.8s) {
+	@extend %_origin--center;
+	@include animation(spin $time linear);
+	@include animation-iteration-count(infinite);
+}

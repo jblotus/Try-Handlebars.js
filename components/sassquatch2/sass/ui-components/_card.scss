@@ -1,0 +1,248 @@
+/*doc
+---
+title: Cards
+name: uiCard
+category: UI Components
+---
+Card-like boxes.
+
+## Standard, Group, and Event cards
+(This example uses `gridList`, but cards may placed anywhere)
+
+```html_example
+<section class="stripe--collection">
+	<div class="bounds">
+		<ul class="gridList gridList--has1 atMedium_gridList--has3">
+
+			<!-- Base card styles -->
+			<li>
+				<div class="card">
+					<h4>Look at this card</h4>
+					<p>Just <em>look at it</em></p>
+				</div>
+			</li>
+
+			<!-- Group card -->
+			<li>
+				<div class="card card--group inverted" style="background-image: url(http://photos4.meetupstatic.com/photos/event/7/6/f/8/600_434010456.jpeg);">
+					<div class="card--group-content">
+						<h4 class="text--bold">Some Meetup Group Name</h4>
+						<p>457 [chapter.who]</p>
+					</div>
+				</div>
+			</li>
+
+			<!-- Group card with long name -->
+			<li>
+				<div class="card card--group inverted" style="background-image: url(http://photos4.meetupstatic.com/photos/event/7/6/f/8/600_434010456.jpeg);">
+					<div class="card--group-content">
+						<h4 class="text--bold">Béchamel Hell: French Cuisine for Survivalists Meetup</h4>
+						<p>457 [chapter.who]</p>
+					</div>
+				</div>
+			</li>
+
+			<!-- Event card -->
+			<li>
+				<div class="card card--event">
+					<h4>I'm an event card</h4>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+```
+
+### Event card detail
+An example of a full event card recipie using
+`.card` with other existing Sassquatch2 components.
+
+
+_(The inline style on the card element is for documentation purposes only)_
+
+```html_example
+<section class="stripe--collection">
+	<a href="#" class="chunk card card--event" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">No spots left</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--featured" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Featured</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--cancelled" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Cancelled</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3 class="text--strikethrough">Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--draft" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Draft</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+</section>
+```
+*/
+
+$_eventStripes: (
+	past: $C_mediumGray,
+	canceled: $C_mediumGray,
+	featured: $C_yellow,
+	draft: $C_green
+);
+
+.card {
+	box-sizing: border-box;
+	display: block;
+	background: $C_contentBG;
+	border: 1px solid $C_border;
+	border-radius: $defaultRadius;
+	padding: $space $space 0;
+	position: relative;
+	background-size: cover;
+	background-clip: padding-box;
+	min-height: $block-4;
+}
+
+.card--group {
+	@include valignChildren(bottom);
+	@include textProtectionScrim();
+	@extend %text--small;
+	border-radius: 0;
+	padding: $space;
+	height: $block-4;
+}
+.card--group-content {
+	position: relative;
+	white-space: normal;
+}
+
+.card--event {
+	position: relative;
+	&:before {
+		background: $C_accent;
+		content: '';
+		display: block;
+		height: $space-quarter;
+		left: 0;
+		position: absolute;
+
+
+		// to overlap border
+		left: -1px;
+		right: -1px;
+		top: -1px;
+	}
+}
+
+@each $eventVariant, $stripeColor in $_eventStripes {
+	.card--event--#{$eventVariant} {
+		&:before { background: $stripeColor; }
+	}
+}

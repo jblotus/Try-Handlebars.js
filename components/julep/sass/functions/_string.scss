@@ -1,0 +1,42 @@
+////
+/// @group string
+////
+
+/// Capitalize first character in string
+/// @access public
+///
+/// @param {String} $string - string to capitalize
+/// @returns {String} capitalized string
+///
+/// @example scss - Capitalize function
+/// 	str-firstCharToUpper('snowflake') // -> 'Snowflake'
+/// 	.special#{str-firstCharToUpper('snowflake')} // -> .specialSnowflake
+///
+@function str-firstCharToUpper( $string ) {
+	@return #{to-upper-case(str-slice($string, 1, 1))}#{str-slice($string, 2, -1)};
+}
+
+
+/// Find and replace substring in a given string
+/// @access public
+///
+/// @param {String} $string - string to search
+/// @param {String} $search - substring to search in $string
+/// @param {String} $replace [''] - replacement substring
+/// @returns {String}
+///
+/// @example scss - String replace
+/// 	str-replace('inline-block', '-', '')
+/// 	// -> 'inlineblock'
+///
+/// 	.display--#{str-replace('inline-block', '-block', 'Block')}
+/// 	// -> .display--inlineBlock
+///
+@function str-replace($string, $search, $replace: '') {
+	$index: str-index($string, $search);
+	@if str-index($string, $search) {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+	@return $string;
+}
+

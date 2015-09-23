@@ -1,0 +1,112 @@
+/*doc
+---
+title: Headings
+name: headings
+category: Typography
+---
+TK - notes about UI text vs. body text
+
+```html_example
+<h1 class="text--display">Heading 1 Display</h1>
+<h1>Heading 1 (white by default for use in navbar)</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<p>Body text</p>
+<p class="text--heading">Fake heading</p>
+<p class="text--hint">Hint text</p>
+<p class="text--small">Small text</p>
+<p class="text--caption">Caption text</p>
+```
+*/
+
+
+/*
+  Further Reading:
+  http:/csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/
+  http://alistapart.com/article/more-meaningful-typography
+*/
+
+// H1
+// Main header, in the header bar
+h1 {
+	color: $C_textPrimaryInverted;
+	font-size: $font-size;
+	font-weight: $W_bold;
+	line-height: 1.25;
+}
+
+
+// H2
+// Used to divide sections
+h2 {
+	color: $C_accent;
+	font-size: $font-size;
+	font-weight: $W_bold;
+	line-height: 1.5;
+	@include i18n-only('en') {
+		text-transform: uppercase;
+	}
+}
+
+// H3 - H6
+// We're sticking to limited visual hierarchy
+h3, h4, h5, h6 {
+	color: $C_textPrimary;
+	font-size: $font-size;
+	font-weight: $W_normal;
+	line-height: $line-height;
+	.inverted & {
+		color: $C_textPrimaryInverted;
+	}
+}
+
+/*doc
+---
+title: Display text
+name: displayText
+parent: headings
+---
+Display text for header hero elements.
+
+```html_example
+<h1 class="text--display">The hero gotham deserves</h1>
+```
+*/
+%text--display,
+.text--display {
+	color: $C_textPrimary;
+	font-size: $font-size-display2;
+	font-weight: normal;
+	line-height: 1.25;
+	.inverted &{
+		color: $C_textPrimaryInverted;
+	}
+}
+
+@include atMediaUp(medium) {
+	.text--display {
+		font-size: $font-size-display1;
+	}
+}
+
+/*doc
+---
+title: Headline text
+name: headlineText
+parent: headings
+---
+Headline text for when something between display and normal text is needed. Use sparingly and with caution.
+
+```html_example
+<h2 class="text--headline">If display text is Batman, I'm Robin</h2>
+```
+*/
+%text--headline,
+.text--headline {
+	@extend %text--display;
+	text-transform: none;
+}
+

@@ -1,0 +1,132 @@
+/*doc
+---
+title: Row
+name: flexRow
+category: Layout
+---
+Arranges content in rows using `display: flex`.
+
+The `.row` class is applied to a wrapping element.
+
+Direct children of `.row` are flex children, and require
+a class of `.row-item` with an optional `.row-item--shirnk`
+for a flex-shrink item.
+
+The flex children in flex row do not have a `flex-basis` set; a
+basis is not required for most common layout tasks.
+
+_Includes `table-cell` fallback for IE8._
+
+#### Examples:
+
+```html_example
+<div class="row">
+	<div class="_DOC-SHADE row-item">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+	<div class="_DOC-SHADE row-item">Item 4</div>
+</div>
+```
+
+```html_example
+<div class="row">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+</div>
+```
+
+```html_example
+<div class="row row--flexEnd">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+</div>
+```
+
+```html_example
+<div class="row row--spaceBetween row--reverse">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 4</div>
+</div>
+```
+*/
+.row {
+	@include flexParent('row');
+}
+.row-item {
+	@include flexChild('grow');
+	padding-left: $space;
+	&:first-child {
+		padding-left: 0;
+	}
+}
+
+
+/*doc
+---
+title: Row variants
+name: flexrowParent
+parent: flexRow
+---
+
+A class of `.row` is __required__ on the flex row parent. The
+following classes are optional variants:
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row--noGutters`       | removes padding from all `.row-item` children
+`.row--wrap`            | allows row wrapping (useful for collapsing rows in smaller viewports)
+`.row--reverse`         | reverses row order
+
+Content justification variants are also available (see also: <a class="link" target="_blank" href="https://css-tricks.com/almanac/properties/j/justify-content/">css tricks flexbox demo</a>)
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row--flexEnd`         | justifies content to `flex-end`
+`.row--center`          | justifies content to `center`
+`.row--spaceBetween`    | justifies content to `spaceBetween`
+`.row--spaceAround`     | justifies content to `spaceAround`
+*/
+.row--noGutters .row-item {
+	padding: 0;
+}
+.row--reverse {
+	@include flex-direction(row-reverse);
+}
+.row--wrap {
+	@include flex-wrap(wrap);
+}
+@each $jName, $jprop in $flexJustifyMap {
+	.row--#{$jName} {
+		@include justify-content($jprop);
+	}
+}
+
+/*doc
+---
+title: Row Item variants
+name: flexrowItemVars
+parent: flexRow
+---
+
+A class of `.row-item` is __required__ on row items.
+The following classes are optional variants:
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row-item--shrink`     | Item shrinks to fit content
+`.row-item--alignMiddle`| Vertically aligns content to middle
+*/
+.row-item--shrink {
+	@include flexChild('shrink');
+}
+.row-item--alignMiddle {
+	@include align-self(center);
+
+	@include browser-lessThanIE( 10 ) {
+		vertical-align: middle;
+	}
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Sassquatch 2: Modal snap example</title>
+
+		<!-- Whitney -->
+		<link rel="stylesheet" href="http://static1.meetupstatic.com/fonts/whitney.css" type="text/css" />
+
+		<!-- Styleguide CSS -->
+		<link rel="stylesheet" href="../css/doc.css">
+		<link rel="stylesheet" href="../css/github.css">
+
+		<!-- CSS to be documented -->
+		<link rel="stylesheet" href="../css/sassquatch.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	</head>
+
+	<body style="min-height: 2000px;">
+
+		<div id="modal" class="view view--modalSnap">
+			<header id="modal_header" class="view-head row inverted">
+				<div class="row-item row-item--alignMiddle viewHead-heading">
+					<h1 class="wrap--singleLine--truncate">Send a message...</h1>
+				</div>
+				<div class="viewHead-actions row row-item row-item--shrink row-item--alignMiddle">
+					<a href="#" class="j-close">Close</a>
+				</div>
+			</header>
+			<div id="modal_body" class="view-body">
+				<div class="stripe">
+					<div class="bounds">
+						<div class="chunk">
+							<div class="row">
+								<div class="row-item--shrink">
+									<div class="avatar avatar--person avatar--small" style="background-image: url(http://api.randomuser.me/0.3/portraits/women/7.jpg);"></div>
+								</div>
+								<div class="row-item">Sally Smeetup</div>
+							</div>
+						</div>
+						<div class="chunk">
+							<textarea id="post-textarea"></textarea>
+						</div>
+						<div class="chunk">
+							<div class="row">
+								<div class="row-item--shrink row-item--alignMiddle">
+									<a href="#" class="button button--primary">Post</a>
+								</div>
+								<div class="row-item row-item--alignMiddle">
+									<p class="text--caption">Visible to: members and non-members</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="shim" class="overlayShim">
+			<div class="overlayShim-content inverted">
+				overlayShim content (ie. close prompt)
+			</div>
+		</div>
+
+	</body>
+</html>
+
+

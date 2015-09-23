@@ -1,0 +1,29 @@
+{
+  "name": "JSON-js",
+  "homepage": "https://github.com/srfrnk/JSON-js",
+  "authors": [
+    "Douglas Crockford<douglas@crockford.com>"
+  ],
+  "main": "json2.js",
+  "keywords": [
+    "json",
+    "js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "ae0a21a003",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ae0a21a003d26445960b8a3f65880c470f4b95da"
+  },
+  "_source": "git://github.com/srfrnk/JSON-js.git",
+  "_target": "*",
+  "_originalSource": "json-js"
+}

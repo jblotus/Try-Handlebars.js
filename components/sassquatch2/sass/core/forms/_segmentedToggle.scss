@@ -1,0 +1,35 @@
+// TODO: fix selectors
+// TODO: doc
+//
+/* SEGMENTED SELECTION */
+//
+.segmented-toggle {
+	input {
+		display: none;
+		&:checked + label {
+			background: $C_shade;
+			border: 1px solid $C_link;
+			.segmented-toggle-title, p {
+				color: $C_link;
+			}
+		}
+	}
+
+	label {
+		box-sizing: border-box;
+		cursor: pointer;
+		display: inline-block;
+		line-height: $line-height;
+		padding: $space-half;
+		width: 100%;
+		&:hover {
+			border: 1px solid $C_link;
+			.segmented-toggle-title, p {
+				color: $C_textPrimary;
+			}
+		}
+	}
+	.segmented-toggle-title, p {
+		color: $C_textSecondary;
+	}
+}

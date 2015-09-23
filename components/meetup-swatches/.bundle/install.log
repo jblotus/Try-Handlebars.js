@@ -1,0 +1,9 @@
+# Logfile created on 2014-02-26 17:12:59 -0500 by logger.rb/36483
+I, [2014-02-26T17:12:59.432642 #56414]  INFO -- : 0:  rake (10.1.0) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/rake-10.1.0.gemspec
+I, [2014-02-26T17:12:59.433876 #56414]  INFO -- : 0:  sass (3.2.6) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/sass-3.2.6.gemspec
+I, [2014-02-26T17:12:59.434250 #56414]  INFO -- : 0:  bundler (1.5.1) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/bundler-1.5.1.gemspec
+I, [2014-02-28T17:40:17.186821 #67470]  INFO -- : 0:  rake (10.1.0) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/rake-10.1.0.gemspec
+I, [2014-02-28T17:40:17.188514 #67470]  INFO -- : 0:  builder (3.2.2) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/builder-3.2.2.gemspec
+I, [2014-02-28T17:40:17.188911 #67470]  INFO -- : 0:  json (1.8.1) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/json-1.8.1.gemspec
+I, [2014-02-28T17:40:17.189264 #67470]  INFO -- : 0:  sass (3.2.6) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/sass-3.2.6.gemspec
+I, [2014-02-28T17:40:17.189560 #67470]  INFO -- : 0:  bundler (1.5.1) from /Users/adamd/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/specifications/bundler-1.5.1.gemspec

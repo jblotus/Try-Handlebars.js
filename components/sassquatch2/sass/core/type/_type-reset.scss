@@ -1,0 +1,67 @@
+//
+// Text rendering
+// ------------------------------ //
+// For tracking, ligatures, and rendering in gerneral.
+//
+// Use ".foo { text-rendering: optimizeSpeed; }" on some elements
+// when/if performance is an issue
+//
+body,
+input,
+button  {
+	-webkit-font-smoothing: antialiased;
+}
+
+body  {
+	text-rendering: optimizeLegibility;
+}
+
+//
+// Word breaking
+//
+body {
+	word-wrap: normal;
+}
+
+//
+// Remove extraneous spacing
+//
+h1,h2,h3,h4,h5,h6,p,label {
+	padding-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+
+//
+// Hyphens
+//
+p {
+	// Ala Trent Walton
+	// http://trentwalton.com/2011/09/07/css-hyphenation
+	@include hyphens(auto);
+}
+
+
+input,
+abbr,
+acronym,
+blockquote,
+code,
+kbd,
+q,
+samp,
+var {
+	// Eric Meyer
+	// http://meyerweb.com/eric/thoughts/2012/12/17/where-to-avoid-css-hyphenation
+	@include hyphens(none);
+}
+
+code, pre {
+	font-family: $font--mono;
+}
+
+pre {
+	white-space: pre;
+	word-wrap: normal !important;
+}

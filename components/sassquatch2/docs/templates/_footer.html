@@ -1,0 +1,88 @@
+	</main>
+	</section>
+
+	<footer class="stripe stripe--collection">
+		<div class="bounds bounds--wide">
+			<div class="chunk row text--small">
+				<p class="row-item row-item--alignMiddle">
+					Built by <a class="text--bold" style="color:rgb(213,87,65)!important;" href="http://www.meetup.com">Meetup</a>
+				</p>
+				<p class="row-item row-item--alignMiddle align--right">
+					<a class="button button--bordered button--small" href="https://github.com/meetup/sassquatch2">Fork on github</a>
+				</p>
+			</div>
+		</div>
+	</footer>
+
+<!-- lunr.js search index -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="js/fuse.min.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript">
+$(function() {
+	//
+	// Disable links without real href
+	//
+	$('a').on("click", function(e) {
+		if ( this.getAttribute("href") == "#" || $(this).hasClass('noFollow') ) {
+			e.preventDefault();
+		}
+		return;
+	});
+
+	//
+	// collapsible example
+	//
+	var $c = $('#cContainer'),
+		CLASS_COL_CLOSE = 'collapsible--close';
+	if ( $c.length > 0 ) {
+		$('#cTrigger').on('click', function() {
+			if ( $c.hasClass(CLASS_COL_CLOSE) ) {
+				$c.removeClass(CLASS_COL_CLOSE);
+			} else {
+				$c.addClass(CLASS_COL_CLOSE);
+			}
+		});
+	}
+
+	//
+	// lunr search index
+	//
+	var fuseIndex = [];
+	<% @pages.each do |file_name, page| %>
+		<% if not page[:blocks].empty? %>
+			<% page[:blocks].each do |block| %>
+				<% file_path = block[:categories][0].to_s.gsub(' ', '_').downcase + '.html' %>
+				<% file_id = "#"+block[:name].to_s %>
+
+				<%= "fuseIndex.push({" %>
+					<%= "\"title\": \""+block[:title].to_s+"\"," %>
+					<%= "\"name\": \""+block[:name].to_s+"\"," %>
+					<%= "\"category\": \""+block[:categories][0].to_s+"\"," %>
+					<%= "\"url\": \""+file_path+file_id+"\"" %>
+				<%= "});" %>
+
+			<% end %>
+		<% end %>
+	<% end %>
+
+	var Searchable = new Fuse(fuseIndex, {
+		caseSensitive: false,
+		includeScore: false,
+		shouldSort: true,
+		threshold: 0.3,
+		keys: ["title","name","breadcrumb"]
+	});
+
+	$('#search').on('keyup', function(e) {
+		Autocomplete.displayResults( Searchable.search( $(this).val() ) );
+	});
+	$(document.body).on('click', Autocomplete.dismiss);
+	$(document.body).on('keydown', Autocomplete.dismiss);
+	$(window).on('scroll', Autocomplete.dismiss);
+
+});
+</script>
+
+</body>
+</html>

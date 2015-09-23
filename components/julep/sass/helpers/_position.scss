@@ -1,0 +1,23 @@
+////
+/// @group position
+/// @access public
+////
+
+
+/// Absolutely positions selected element
+/// and centers with `left` and negative margin
+/// 
+/// @param {Value} $elementWidth - width of element (in `px`)
+///
+/// @example scss
+/// 	.myClass {
+/// 		@include centerAbsolute($elementWidth);
+/// 		margin-top: 10vh; // specify your own `top` or `margin-top` value
+/// 	}
+///
+@mixin centerAbsolute( $elementWidth ) {
+	position: absolute;
+	left: 50%;
+	margin-left: -($elementWidth/2);
+}
+

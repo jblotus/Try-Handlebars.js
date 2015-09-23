@@ -1,0 +1,63 @@
+// Base color palette ()
+$C_white: rgb(255,255,255);
+$C_darkGray: rgb(53,62,72);
+$C_mediumGray: rgb(230,233,236);
+$C_lightGray: rgb(243,246,249);
+$C_red: rgb(226,55,60);
+$C_green: rgb(98,172,117);
+$C_blue: rgb(57,135,203);
+$C_lightBlue: rgb(104,165,217);
+$C_purple: rgb(113,96,170);
+$C_brown: rgb(113,63,25);
+$C_yellow: rgb(240,203,79);
+ 
+// Text colors ()
+$C_textPrimary: rgba(0,0,0,0.87);
+@mixin color_textPrimary($style: 'color') { #{$style}: lighten( rgb(0,0,0), 13%); #{$style}: $C_textPrimary; }
+$C_textSecondary: rgba(0,0,0,0.54);
+@mixin color_textSecondary($style: 'color') { #{$style}: lighten( rgb(0,0,0), 46%); #{$style}: $C_textSecondary; }
+$C_textTertiary: rgba(0,0,0,0.26);
+@mixin color_textTertiary($style: 'color') { #{$style}: lighten( rgb(0,0,0), 74%); #{$style}: $C_textTertiary; }
+$C_textPrimaryInverted: rgb(255,255,255);
+$C_textSecondaryInverted: rgba(255,255,255,0.7);
+@mixin color_textSecondaryInverted($style: 'color') { #{$style}: darken( rgb(255,255,255), 30%); #{$style}: $C_textSecondaryInverted; }
+$C_textTertiaryInverted: rgba(255,255,255,0.3);
+@mixin color_textTertiaryInverted($style: 'color') { #{$style}: darken( rgb(255,255,255), 70%); #{$style}: $C_textTertiaryInverted; }
+ 
+// UI Colors ()
+$C_accent: rgb(226,55,60);
+$C_link: rgb(57,135,203);
+$C_border: rgba(0,0,0,0.12);
+@mixin color_border($style: 'color') { #{$style}: lighten( rgb(0,0,0), 88%); #{$style}: $C_border; }
+$C_borderInverted: rgba(255,255,255,0.2);
+@mixin color_borderInverted($style: 'color') { #{$style}: darken( rgb(255,255,255), 80%); #{$style}: $C_borderInverted; }
+$C_overlayPressed: rgba(0,0,0,0.1);
+@mixin color_overlayPressed($style: 'color') { #{$style}: lighten( rgb(0,0,0), 90%); #{$style}: $C_overlayPressed; }
+$C_modalShade: rgba(0,0,0,0.75);
+@mixin color_modalShade($style: 'color') { #{$style}: lighten( rgb(0,0,0), 25%); #{$style}: $C_modalShade; }
+$C_shade: rgba(0,0,0,0.05);
+@mixin color_shade($style: 'color') { #{$style}: lighten( rgb(0,0,0), 95%); #{$style}: $C_shade; }
+$C_shadeInverted: rgba(255,255,255,0.1);
+@mixin color_shadeInverted($style: 'color') { #{$style}: darken( rgb(255,255,255), 90%); #{$style}: $C_shadeInverted; }
+$C_textProtection: rgba(0,0,0,0.05);
+@mixin color_textProtection($style: 'color') { #{$style}: lighten( rgb(0,0,0), 95%); #{$style}: $C_textProtection; }
+ 
+// Background colors ()
+$C_contentBG: rgb(255,255,255);
+$C_contentBGInverted: rgb(53,62,72);
+$C_collectionBGDark: rgb(230,233,236);
+$C_collectionBGLight: rgb(243,246,249);
+ 
+// EXTERNAL (third party colors)
+$C_facebook: rgb(59,89,152);
+$C_twitter: rgb(51,204,255);
+$C_linkedin: rgb(72,117,180);
+$C_tumblr: rgb(43,73,100);
+$C_flickr: rgb(254,8,131);
+$C_foursquare: rgb(12,186,223);
+$C_googleplus: rgb(198,61,45);
+$C_instagram: rgb(78,67,60);
+$C_reddit: rgb(206,227,248);
+$C_wepay: rgb(72,145,220);
+$C_yahoo: rgb(123,0,153);
+ 

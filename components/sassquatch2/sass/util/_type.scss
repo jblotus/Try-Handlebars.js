@@ -1,0 +1,98 @@
+/*doc
+---
+title: Text utils
+name: text
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+/*doc
+---
+title: Link color
+name: linkColorPlaceholder
+parent: text
+---
+Forces an element to use link-like styling.
+
+```
+@extend %link;
+```
+*/
+%link {
+	@include color-all($C_link);
+	&:hover, &:focus, &:active {
+		text-decoration: underline;
+	}
+}
+
+/*doc
+---
+title: Text wrap
+name: textWrapUtil
+parent: text
+---
+Nice hyphenation and wrapping for running text.
+
+```
+@extend %link;
+```
+*/
+%wrapNice {
+	@include hyphens(auto);
+	@include prefixer(hyphenate-limit-chars, 5 3 2, ms);
+	@include prefixer(hyphenate-limit-after, 2, webkit moz spec);
+	@include prefixer(hyphenate-limit-before, 3, webkit moz spec);
+	@include prefixer(hyphenate-limit-lines, 2, webkit ms spec);
+}
+
+
+/*doc
+---
+title: Text protection shim
+name: textProtection
+parent: text
+---
+Adds a pseudo-element gradient
+
+```
+@mixin textProtectionScrim($placement: 'top'); // 'bottom' will place gradent on bottom of el
+```
+*/
+$C_scrimGradient: #0F141F; // move to swatches?
+@mixin textProtectionScrim($placement: 'top') {
+	&:before {
+		@include linear-gradient(transparentize($C_scrimGradient, 1) 0%, transparentize($C_scrimGradient, .9) 25%, transparentize($C_scrimGradient, .1) 100%);
+		content: '';
+		display: block;
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		z-index: 0;
+		left: 0;
+
+		@if $placement == 'top' {
+			top: 0;
+		} @else {
+			bottom: 0;
+		}
+	}
+}
+
+
+//
+// PRIVATE
+// support for heading descendant specificity in
+// text variants (useful for applying a class to a
+// container instead of each individual element)
+//
+@mixin _headingDescendant() {
+	&,
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5,
+	& h6 {
+		@content;
+	}
+}

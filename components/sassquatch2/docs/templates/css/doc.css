@@ -1,0 +1,189 @@
+/*
+ * HACK ALERT
+ * this is super hacky, and that's ok for now.
+ * it's enough to make generated documentation presentable.
+ */
+
+a.styleguide {
+	color: rgb(57,135,203);
+}
+
+/* CODE EXAMPLES */
+
+.styleguide > code {
+  padding: 3px 6px;
+  color: #d01040;
+  white-space: nowrap;
+  background-color: rgb(243, 246, 249);
+  border-radius: 2px;
+}
+code.styleguide {
+  color: #d01040;
+  white-space: nowrap;
+}
+
+/* CODE EXAMPLES */
+.codeExample {
+	border: 1px solid rgba(0,0,0,.12);
+	box-shadow: 0 0 20px rgba(0,0,0,.12);
+	margin-bottom: 32px;
+	overflow: hidden;
+}
+.exampleOutput {
+	padding: 12px;
+}
+.codeBlock {
+	padding: 12px 12px 4px 12px;
+	background-color: rgb(243, 246, 249);
+	overflow: scroll;
+	max-height: 500px;
+}
+main > .codeBlock {
+	padding-bottom: 12px;
+	margin-bottom: 24px;
+}
+
+/* RENDERED EXAMPLES */
+._DOC-SHADE {
+	background-color: rgba(220, 192, 255, 0.45);
+	background-clip: content-box;
+	outline: 1px dotted red;
+}
+
+/* TYPE OVERRIDES */
+main > h1 {
+	color: #000;
+	font-size: 32px;
+	font-weight: normal;
+	margin-bottom: 12px;
+	padding-top: 8px;
+	border-top: 1px solid rgba(0,0,0,.12);
+	margin-top: 32px;
+}
+main > h1:first-child {
+	margin-top: 0;
+}
+
+main > h2 {
+	padding-top: 25px;
+	margin-bottom: 4px;
+	border-top: 1px solid transparent;
+}
+main > h3 {
+	margin-bottom: 4px;
+}
+
+main > h3,
+main > h4,
+main > h5,
+main > h6 {
+	font-weight: bold;
+}
+
+main > p,
+main > table {
+	margin-bottom: 18px;
+}
+
+/*
+ * repeating borderedTable rules
+ * because hologram doesn't let us
+ * add classes in docs (yet)
+ */
+main > table td,
+main > table tbody th {
+  border-width: 1px 0 0 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+main > table td:last-child,
+main > table tbody th:last-child {
+ border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+main > table tbody tr:last-child td,
+main > table tbody tr:last-child th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+main > table tr:first-child th { border-width: 0; }
+
+/* TABLES */
+main > table td:first-child {
+  background-color: rgb(243, 246, 249);
+}
+
+/* LAYOUT */
+#content {
+	display: block;
+}
+
+#hologramBody {
+	overflow: scroll;
+}
+@media only screen and (min-width: 840px) {
+	#navigation {
+		-webkit-flex-basis: 600px; /*obviously a hack.*/
+		flex-basis: 600px;
+		-ms-flex-preferred-size: 600px;
+	}
+}
+
+/* NAV */
+#navigation {
+	max-width: 300px;
+}
+#navigation h4 {
+	margin-bottom: 8px;
+}
+#navigation ul {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 12px;
+}
+#navigation li > a { /* all menu items */
+	display: block;
+	padding: 6px;
+	margin: 4px 0;
+}
+#navigation li > a:hover {
+	background: #E6E9EC;
+}
+
+#navigation > ul > li > a { /* categories */
+	font-size: 18px;
+	margin-bottom: 8px;
+}
+#navigation li ul a { /* components */
+	margin-left: 12px;
+	color: rgba(0,0,0,.54);
+}
+
+/* SEARCH */
+header.hasJS {
+	overflow: visible;
+}
+
+#docSearch {
+	position: relative;
+}
+
+#searchResults {
+	position: absolute;
+	width: 248px;
+	top: 41px;
+	left: 0px;
+}
+
+.result-title,
+.result-breadcrumb {
+	display: block;
+}
+
+.result-title {
+	color: rgb(57, 135, 203) !important;
+	padding-bottom: 4px;
+}
+
+.result-breadcrumb {
+	color: rgba(0, 0, 0, 0.541176) !important;
+	font-size: 10px;
+}

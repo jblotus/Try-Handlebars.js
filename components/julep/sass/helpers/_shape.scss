@@ -1,0 +1,22 @@
+////
+/// @group shape
+////
+
+
+/// Makes selected element a circle with `border-radius`
+/// @access public
+///
+/// @param {color} $color
+/// @param {value} $size - in px
+///
+/// @example scss
+/// 	.myCircle {
+/// 		@mixin circle(red, 20px);
+/// 	}
+///
+@mixin circle($color: black, $size: 12px){
+	width: $size;
+	height: $size;
+	border-radius: $size/2;
+	background: $color;
+}

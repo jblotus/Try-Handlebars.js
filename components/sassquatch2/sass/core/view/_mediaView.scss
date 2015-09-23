@@ -1,0 +1,102 @@
+/*doc
+---
+title: Media View
+name: mediaView
+category: Views
+---
+
+docs TK
+
+<a class="link followLink" href="pages/media-view.html">Demo</a>
+*/
+$_spreadAt: large;
+
+//
+// media content view
+//
+.view--mediaContent {
+	@include flexParent('column', false);
+	min-height: 0;
+	position: relative;
+	@include atMediaUp($_spreadAt) {
+		min-height: 100vh;
+	}
+}
+
+.view-head--mediaContent {
+	@include flexChild('shrink', false);
+	background-color: #000;
+}
+
+.view-body--mediaContent {
+	@include flexChild('grow', false);
+	background-color: #000;
+	position: relative;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+	min-height: $block-6;
+
+	@include atMediaUp(medium) {
+		min-height: $block-7;
+	}
+
+	&:hover {
+		.mediaNav-icon {
+			@include transform(translate(0, 0));
+			opacity: .5;
+		}
+	}
+}
+
+//
+// media meta view
+//
+.view--mediaMeta {
+	min-height: 0;
+	position: relative;
+	z-index: map-get($zindex-map, shade) - 1; // -1 to allow overlay shims to cover it
+}
+.bounds--mediaMeta {
+	max-width: 400px;
+	@include atMediaUp($_spreadAt) {
+		width: 320px;
+	}
+}
+
+
+// Photo modal navigation
+.mediaNav {
+	height: 100%;
+	position: absolute;
+	width: 50%;
+
+	&--prev {
+		left: 0;
+	}
+
+	&--next {
+		right: 0;
+	}
+
+	&:hover {
+		.mediaNav-icon {
+			opacity: 1;
+		}
+	}
+}
+
+.mediaNav-icon {
+	@include transition(opacity 50ms ease-in);
+	@include color-all(#fff);
+	opacity: .5;
+	position: absolute;
+	top: 50%;
+
+	.mediaNav--prev & {
+		left: $space;
+	}
+	.mediaNav--next & {
+		right: $space;
+	}
+}

@@ -1,0 +1,124 @@
+/*doc
+---
+title: Text Modifiers
+name: textMod
+category: Modifier Classes
+---
+*/
+
+/*doc
+---
+title: Hiding Text
+name: textHideUtil
+parent: textMod
+---
+To hide just the text node of an element, use
+the `text--hide` modifier.
+
+This is useful for links that only contain an
+SVG icon (use descriptive text for screen readers).
+
+_(this class will not work on `inline` elements)_
+
+```html_example
+<a class="display--block text--hide" href="#">
+	You can see the kitten, but you can't see this text.
+	<img src="https://placekitten.com/g/32/32" />
+</a>
+```
+
+Class          | Description
+-------------- | ----------------------------
+`.text--hide`  | Visually hides text; removes text from document flow
+*/
+.text--hide {
+	display: block;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+/*doc
+---
+title: Text decoration
+name: textDecoration
+parent: textMod
+---
+Basic text decoration
+
+Class                  | Description
+---------------------- | ----------------------------
+`.text--strikethrough` | strikethrough/strikeout/line-through
+*/
+.text--strikethrough {
+	text-decoration: line-through;
+}
+
+/*doc
+---
+title: No Hyphens
+name: textNoHyphens
+parent: textMod
+---
+Don't allow hyphens on line breaks
+
+Class              | Description
+-------------------| ----------------------------
+`.text--noHyphens` | Don't allow hyphens on line breaks
+*/
+.text--noHyphens {
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/*doc
+---
+title: Nice Hyphenation
+name: wrapNiceUtil
+parent: textMod
+---
+Enables breaking all words and auto-hyphenation.
+
+Class              | Description
+------------------ | ----------------------------
+`.text--wrapNice`  | Visually hides text; removes text from document flow
+*/
+.text--wrapNice {
+	@extend %wrapNice;
+}
+
+/*doc
+---
+title: Type wrap/whitespace
+name: typespaceMod
+parent: textMod
+---
+Sets type wrapping, witespace, and overflow properties on element
+
+Class                         | Description
+----------------------------- | --------------------------------
+`.wrap--singleLine`           | forces text to a single line (nowrap)
+`.wrap--singleLine--truncate` | forces text to a single line (nowrap) and truncates with &hellip;
+`.matchLineHeight`            | adds a small amount of top and bottom margin to a non-text element to match line height of nearby text
+
+*/
+@include _modifier(wrap, singleLine) {
+	white-space: nowrap !important;
+}
+
+%wrap--singleLine--truncate,
+.wrap--singleLine--truncate {
+	@extend %wrap--singleLine;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+%matchLineHeight,
+.matchLineHeight {
+	margin: 3px 0;
+}

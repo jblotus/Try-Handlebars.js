@@ -1,0 +1,139 @@
+/*doc
+---
+title: Basic Inputs
+name: forms
+category: Forms
+---
+
+## Text inputs
+
+```html_example
+<div class="chunk">
+	<label for="test-textinput">I'm a label</label>
+	<input id="test-textinput" type="text" value="Text input with value" />
+</div>
+
+<div class="chunk">
+	<label for="test-textinput2">Just another label</label>
+	<input id="test-textinput2" type="text" placeholder="Text input with placeholder" />
+</div>
+
+<div class="chunk">
+	<label for="test-textarea"l>Here's an area for your text</label>
+	<textarea id="test-textarea"></textarea>
+</div>
+
+<div class="chunk">
+	<label for="test-select">What is this?</label>
+	<select id="text-select">
+		<option value="One">One</option>
+		<option value="Two">Two</option>
+		<option value="Three">Three</option>
+		<option value="Four">Four</option>
+	</select>
+</div>
+
+<div class="row">
+	<div class="row-item chunk">
+		<label for="split1">Unicorn name</label>
+		<input id="split1" type="text" placeholder="ie. Fluffy, Resplendent" />
+	</div>
+	<div class="row-item chunk">
+		<label for="split2">Unicorn color</label>
+		<select id="split2">
+			<option value="clear">Transparent</option>
+			<option value="green">Toasted clove saffron</option>
+			<option value="brown">Midnight brown</option>
+			<option value="black">Seabreeze black</option>
+		</select>
+	</div>
+</div>
+```
+
+*/
+%label,
+label {
+	font-size: $font-size-small;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+
+%_formFont,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+%_formDecoration,
+input,
+textarea,
+select,
+.launcher {
+	background-color: $C_shade;
+	border-radius: $defaultRadius;
+	border: 1px solid $C_border;
+	box-shadow: none;
+	box-sizing: border-box;
+	display: block;
+	margin: 0 0 $space-quarter 0;
+	max-width: 100%;
+	padding: $space-half;
+	width: 100%;
+	&:focus {
+		border-color: $C_blue;
+		box-shadow: none;
+		outline: none;
+	}
+
+	.inverted & {
+		background-color: $C_shadeInverted;
+		border-color: $C_borderInverted;
+		color: $C_textPrimaryInverted;
+	}
+
+	.shaded & {
+		// when on an already gray background, don't get gray-er
+		background-color: white;
+	}
+}
+
+input,
+select {
+	height: ($font-size * $line-height) + $space;
+}
+
+textarea {
+	min-height: (3 * $font-size * $line-height) + $space;
+}
+
+.checkbox,
+.radio {
+	border: none; // iOS Safari shows weird black area around checkbox without this
+	background: transparent; // iOS Safari shows weird black area around checkbox without this
+	-webkit-appearance: none;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+	font-style: normal;
+	color: $C_textTertiary;
+	.inverted &{
+		color: $C_textTertiaryInverted;
+	}
+}
+
+// switch labels
+.label--switch {
+  font-size: $font-size;
+  position: relative;
+}
+

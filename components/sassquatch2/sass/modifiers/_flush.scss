@@ -1,0 +1,32 @@
+/*doc
+---
+title: Flush
+name: flushMod
+category: Modifier Classes
+---
+
+__Applies `!important` declaration__
+
+The following classes "flush" an element, removing
+padding and margin for a given side variant.
+
+Class               | Description
+------------------- | ------------------------------------------------------------
+`.flush--all`       | removes `padding` and `margin` from all sides of an element
+`.flush--top`       | removes `padding` and `margin` from the top side of an element
+`.flush--right`     | removes `padding` and `margin` from the right side of an element
+`.flush--bottom`    | removes `padding` and `margin` from the bottom side of an element
+`.flush--left`      | removes `padding` and `margin` from the left side of an element
+*/
+
+@include _modifier(flush, all) {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+@each $direction in (top, right, left, bottom) {
+	@include _modifier(flush, $direction) {
+		padding-#{$direction}: 0 !important;
+		margin-#{$direction}: 0 !important;
+	}
+}

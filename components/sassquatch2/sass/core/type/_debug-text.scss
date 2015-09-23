@@ -1,0 +1,53 @@
+/*doc
+---
+title: Debug text
+name: debugText
+category: Typography
+---
+
+Sometimes you just need to dump some text into a document
+to debug.
+
+By default, the `debug` element is hidden. Apply the `enableDebug` class
+to a parent element to display `debug` elements.
+
+_Setting the `enableDebug` class on `body` for dev only is recommended._
+
+```html_example
+<p class="debug">Invisible debug</p>
+
+<div class="enableDebug">
+<p class="debug">
+	Visible debug [ ChapterProto =>
+	chapterId=530569
+	parentChapterId=0
+	transitionalVenueId=0
+	relocatedZip=
+	name=Foreign Androids Feel Frustrated
+</p>
+</div>
+```
+*/
+
+.debug {
+	display: none;
+
+	.#{$root-debugEnable} & {
+		display: block;
+		padding: 0.25em 0.5em;
+		margin-bottom: $space;
+		font-family: $font--mono;
+		font-size: $font-size-small;
+		color: purple;
+		background: pink;
+		outline: 1px dotted red;
+
+		&:before {
+			display: inline;
+			content: "DEBUG:";
+			color: red;
+			font-weight: $W_bold;
+			padding-right: 0.25em;
+		}
+	}
+}

@@ -1,0 +1,50 @@
+/*doc
+---
+title: Collapsible
+name: collapsible
+category: UI Components
+---
+Collapses elements using class toggling. A base
+class of `collapsible` is __required__.
+
+To collapse the element, add the `collapsible--close` class.
+
+__NOTE:__ to hide the collapsible content from screen readers, use `display--none` when the collapsible is closed.
+
+```html_example
+<a id="cTrigger" class="button button--primary chunk followLink">Toggle</a>
+
+<section class="stripe collapsible" id="cContainer">
+	<div class="bounds collapsible-content">
+		<h2>I'm collapsible content</h2>
+		<p>Adding a class of `collapsible--close` to this `section` will set max height to 0vh</p>
+	</div>
+</section>
+```
+*/
+$_transitionSpeed: 300ms;
+$_easingFunc: ease-in-out;
+
+.hasJS {
+	.collapsible {
+		@include transition(max-height $_transitionSpeed $_easingFunc);
+		will-change: max-height;
+		height: auto;
+		min-height: 0 !important; /* override any min-height rules */
+		max-height: 4000px; /* We have to use an obscenely high number to accommodate our obscenely high character limit on group descriptions */
+	}
+
+	.collapsible-content {
+		@include transition(transform $_transitionSpeed $_easingFunc);
+	}
+
+	.collapsible--close {
+		border-width: 0;
+		max-height: 0;
+		overflow: hidden;
+
+		.collapsible-content {
+			@include transform(translateY(-100%))
+		}
+	}
+}

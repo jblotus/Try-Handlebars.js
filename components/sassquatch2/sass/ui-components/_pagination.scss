@@ -1,0 +1,218 @@
+/*doc
+---
+title: Pagination
+name: uiPager
+category: UI Components
+---
+
+```html_example
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>2 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>3</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>4</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>5</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>6</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>7</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>11</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>12</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>13</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>14 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>15</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>16</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>17</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>19</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>20</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>21</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>22</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>23</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>24 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+```
+*/
+
+.pagination {
+	@extend %list--reset;
+	@include flexParent('row');
+	@include justify-content(space-between);
+}
+
+.pagination-page {
+	@extend %align--center;
+	@extend %valign--middle;
+	@include a11yVisibility('hidden');
+	border-radius: $defaultRadius;
+
+	&:not(.pagination-page--control){
+		@include flexChild('shrink');
+		padding: $space-half;
+	}
+
+	@include atMediaUp(small) {
+	@include a11yVisibility('visibile');
+		min-width: $media-xs;
+	}
+}
+
+.pagination-page--persist {
+	@include a11yVisibility('visibile');
+	min-width: $media-xs;
+}
+
+.pagination-page--control {
+	@include flexChild('grow');
+
+	&:first-child {
+		@extend %align--left;
+	}
+	&:last-child {
+		@extend %align--right;
+	}
+}
+
+.pagination-page--current {
+	background: $C_link;
+	font-weight: bold; // @extend %text--bold gives me an error
+	margin: 0 $space-half;
+
+	@include atMediaUp(small) {
+		margin: 0;
+	}
+}
+
+
+/* TODO: organize and doc ellipses classes */
+/* see: in chapstick, templates/handlebars/util/pagination.hbs */
+$_pageSpacing: 32px;
+$_ellipsesOffset: -32px;
+%_psuedoEllipses {
+	position: relative;
+	&:before,
+	&:after {
+		@extend %text--hint;
+		position: absolute;
+		bottom: 7px;
+	}
+}
+
+.pagination-page--ellipsesBefore {
+	@extend %_psuedoEllipses;
+	margin-left: $_pageSpacing;
+	&:before {
+		display: block;
+		content: "\2026";
+		left: $_ellipsesOffset;
+	}
+}
+
+.pagination-page--ellipsesAfter {
+	@extend %_psuedoEllipses;
+	margin-right: $_pageSpacing;
+	&:after {
+		display: block;
+		content: "\2026";
+		right: $_pageSpacing * -1;
+	}
+}
+
+@include atMediaUp(small) {
+	.pagination-page--ellipsesBefore,
+	.pagination-page--ellipsesAfter {
+		margin: 0;
+		&:before,
+		&:after {
+			display: none;
+		}
+	}
+}

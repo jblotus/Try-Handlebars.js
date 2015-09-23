@@ -1,0 +1,65 @@
+////
+/// @group breakpoint
+////
+
+/// wraps content in a media query corresponding
+/// with the given breakpoint
+/// @access private
+///
+/// @param {breakpoint} $breakpoint - (ie. medium)
+/// @content
+///
+/// @example scss
+/// 	@include _wrapMediaQuery( medium ) {
+/// 		// styles for medium sizes and up
+/// 	}
+///
+@mixin _wrapMediaQuery( $breakpoint ) {
+	@each $query in (
+		(
+			small "only screen and (min-width: #{$breakpoint-s})"
+		),
+		(
+			medium "only screen and (min-width: #{$breakpoint-m})"
+		),
+		(
+			large "only screen and (min-width: #{$breakpoint-l})"
+		),
+		(
+			huge "only screen and (min-width: #{$breakpoint-xl})"
+		)
+	) {
+		@if $breakpoint == nth($query, 1) {
+			@media #{nth($query, 2)} {
+				@content;
+			}
+		}
+	}
+}
+
+/// This breakpoint mixin uses a **mobile first**
+/// strategy, meaning the `medium` breakpoint, for
+/// example, applies to _medium screens and larger_.
+///
+/// - `atMediaUp(small)` _Small sreens and up_
+/// - `atMediaUp(medium)` _Landscape on most phones and up; portrait on some phablets_
+/// - `atMediaUp(large)` _Landscape on phabelts and up; portrait on most tablets or old desktops_
+/// - `atMediaUp(huge)` _Modern desktop viewports and up or [ridiculous huge tablets](http://liliputing.com/wp-content/uploads/2013/10/fox-big-tablets.jpg)_
+///
+/// @access public
+///
+/// @param {value} $breakpoint - breakpoint keyword (ie. small, medium, large, huge)
+/// @content
+///
+/// @example
+/// 	@include atMediaUp(medium) {
+/// 		body::after {
+/// 			content: "medium screens and larger can see me";
+/// 		}
+/// 	}
+///
+@mixin atMediaUp($breakpoint: small) {
+	@include _wrapMediaQuery( $breakpoint ) {
+		@content;
+	}
+}

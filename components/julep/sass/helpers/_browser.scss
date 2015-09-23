@@ -1,0 +1,29 @@
+////
+/// @group browser
+////
+
+
+/// Targets styles to specific IE versions using the
+/// root class method (applying classes to the `body` tag
+/// with IE conditional comments).
+/// @access public
+///
+/// @param {String} $IE_version - IE version number
+/// @content
+///
+/// @example scss
+/// 	.myClass {
+/// 		@include browser-lessThanIE( 10 ) { ...styles for all IE versions below 10... }
+/// 		@include browser-lessThanIE( 9 ) { ...styles for all IE versions below 9... }
+/// 	}
+///
+@mixin browser-lessThanIE( $IE_version ) {
+	@if $IE_version == 10 or $IE_version == 9 {
+		.#{$root-browserIEPrefix}#{$IE_version} & {
+			@content;
+		}
+	} @else {
+		@error "invalid argument for mixin 'browser-lessThanIE'; must be a number, 9 or 10";
+	}
+}
+

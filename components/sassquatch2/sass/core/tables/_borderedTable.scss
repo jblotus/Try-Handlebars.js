@@ -1,0 +1,60 @@
+/*doc
+---
+title: Bordered table
+name: borderedTable
+category: Tables
+---
+Apply the `borderedTable` class to apply borders to table cells.
+
+```html_example
+<table class="borderedTable">
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+.borderedTable {
+	td, tbody th {
+		border-width: 1px 0 0 1px;
+		border-style: solid;
+		border-color: $C_border;
+		&:last-child {
+			border-right: 1px solid $C_border;
+		}
+	}
+	thead th {
+		border-width: 0;
+	}
+	tbody tr:last-child {
+		td, th {
+			border-bottom: 1px solid $C_border;
+		}
+	}
+}

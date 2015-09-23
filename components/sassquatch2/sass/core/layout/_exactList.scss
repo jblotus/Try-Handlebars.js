@@ -1,0 +1,45 @@
+/*doc
+---
+title: Exact list
+name: exactList
+category: Layout
+---
+Adaptive overflow control for inline block lists
+
+_better docs TK_
+
+```html_example
+<div class="exactList">
+	<ul class="inlineblockList exactList-content">
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+	</ul>
+</div>
+```
+
+*/
+
+.exactList {
+	display: block;
+	overflow: hidden;
+	margin-right: -8px;
+	height: $media-s;
+	@include atMediaUp(small) {
+		height: $media-m;
+	}
+}
+
+.exactList-content {
+	text-align: center;
+}

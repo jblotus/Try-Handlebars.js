@@ -1,0 +1,65 @@
+////
+/// @group i18n
+////
+
+/// Filter style rules to a specific language or set of languages
+/// using classes applied to the `body` element of a document
+///
+/// *i18n helpers assume your document has a `lang_{lang}` class on
+/// the `body` element.*
+///
+/// @access public
+///
+/// @param {String | String...} $langs - ISO 639-1 language codes (ie. 'en')
+/// @content style rules
+///
+/// @example scss
+/// 	@include i18n-only('en') {
+/// 		text-transform: uppercase; // only upercasse for English
+/// 	}
+///
+/// 	@include i18n-only('en', 'it') { ... } // multiple languages supported
+///
+@mixin i18n-only($langs...) {
+	@each $lang in $langs {
+		$class: map-get($root-language-map, $lang);
+
+		@if $class {
+			.lang_#{$lang} & {
+				@content;
+			}
+		}
+	}
+}
+
+
+/// Excludes styles from a specific language or set of languages
+/// using classes applied to the `body` element of a document
+///
+/// *i18n helpers assume your document has a `lang_{lang}` class on
+/// the `body` element.*
+///
+/// @access public
+///
+/// @param {String | String...} $langs - ISO 639-1 language codes (ie. 'en')
+/// @content style rules
+///
+/// @example scss
+/// 	@include i18n-exclude('de') {
+/// 		text-transform: uppercase; // uppercase every language except German
+/// 	}
+///
+/// 	@include i18n-exclude('ja', 'es', 'de') { ... } // multiple languages supported
+///
+@mixin i18n-exclude($langs...) {
+	@each $lang in $langs {
+		$class: map-get($root-language-map, $lang);
+
+		@if $class {
+			body:not(#{$class}) & {
+				@content;
+			}
+		}
+	}
+}
+

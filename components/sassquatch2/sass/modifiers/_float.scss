@@ -1,0 +1,25 @@
+/*doc
+---
+title: Float
+name: floatMod
+category: Modifier Classes
+---
+Float clearing.
+
+Class             | Description
+----------------- | -----------------------------------------
+`.clearfix`       | clears `float` property of children
+
+*/
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	height: 0;
+
+	@include browser-lessThanIE( 10 ) {
+		zoom: 1;
+	}
+}
+

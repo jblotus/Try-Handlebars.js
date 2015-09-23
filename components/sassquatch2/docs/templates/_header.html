@@ -1,0 +1,74 @@
+<% isIndex = title.empty? %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<title>Sassquatch 2 <%= (isIndex ? "" : ": #{title}") %></title>
+
+	<!-- Whitney -->
+	<link rel="stylesheet" href="http://static1.meetupstatic.com/fonts/whitney.css" type="text/css" />
+
+	<!-- Styleguide CSS -->
+	<link rel="stylesheet" href="css/doc.css">
+	<link rel="stylesheet" href="css/github.css">
+
+	<!-- CSS to be documented -->
+	<link rel="stylesheet" href="css/sassquatch.css">
+</head>
+
+<!--[if IE 8]> <body class="lang_en ieRoot_IE8 ieRoot_lt_IE9 ieRoot_lt_IE10"> <![endif]-->
+<!--[if IE 9]> <body class="lang_en ieRoot_IE9 ieRoot_lt_IE10"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body class="lang_en"> <!--<![endif]-->
+
+	<!-- HOTDOGS -->
+	<header class="stripe--inverted inverted hasJS">
+		<div class="bounds bounds--wide">
+			<div class="spreadable spreadable--spaceBetween atLarge_spreadable--spread">
+				<div class="spreadable-item">
+					<h1 class="text--display"><a href="index.html">Sassquatch 2</a></h1>
+				</div>
+				<div class="spreadable-item spreadable-item--shrink">
+					<div class="row margin--top" style="align-items: baseline;">
+						<div id="docSearch" class="row-item">
+							<input autocomplete="off" id="search" name="search" style="min-width: 250px;" class="chunk" type="text" placeholder="Search" />
+							<ul id="searchResults" class="menu-actions text--mono text--small"></ul>
+						</div>
+						<div class="row-item row-item--shrink align--right">
+							<a href="https://github.com/meetup/sassquatch2/releases" class="text--bold followLink software-version">v<!-- @echo VERSION --></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section id="hologramBody" class="bounds bounds--wide spreadable atLarge_spreadable--spread">
+		<nav id="navigation" class="spreadable-item spreadable-item--shrink">
+			<ul>
+				<% @categories.each do |category, file_name| %>
+					<li class="display--inlineBlock--mediumDown">
+						<a class="followLink" href="<%= file_name %>"><%= category %></a>
+						<% if title == category %>
+							<ul class="display--none atMedium_display--block">
+								<% @blocks.each do |b| %>
+
+									<%# Only put top-level blocks in this list %>
+									<% if b[:parent].nil? %>
+										<li class="display--inline--mediumDown">
+											<a class="followLink" href="#<%= b[:name] %>"><%= b[:title] %></a>
+										</li>
+									<% end %>
+
+								<% end %>
+							</ul>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+		</nav>
+
+	 	<main id="content" class="spreadable-item">

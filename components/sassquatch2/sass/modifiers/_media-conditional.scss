@@ -1,0 +1,74 @@
+/*doc
+---
+title: Media-conditional modifiers
+name: mediaMod
+category: Modifier Classes
+---
+
+Media-conditional modifiers allow us to apply
+a modification at a specific breakpoint.
+
+_Uses atMediaUp_
+
+### Example
+
+```html_example
+	<p class="atLarge_align--center">
+		This text inherits the default left alignment by default, but at `large` viewports and up, the text should center
+	</p>
+```
+
+### Supported modifications
+Using this signature: `.at[Breakpoint]_[property]--[variant]`
+
+Breakpoints        | Property       | Variants
+------------------ | -------------- | ---------------------------
+`medium`, `large`  | `align`        | `center`, `right`, `left`
+`medium`, `large`  | `display`      | `none`, `block`, `inline`, `inlineBlock`
+`medium`, `large`  | `padding`      | `none`
+`medium`, `large`  | `margin`       | `center`
+`medium`, `large`  | `border`       | `top`, `none`
+`medium`, `large`  | `visibility`   | `a11yHide`, `a11yShow`
+*/
+
+// text align
+@each $alignment in (center, right, left) {
+	@include _bpModifier('align', $alignment) {
+		text-align: $alignment !important;
+	}
+}
+
+// display
+@each $display in $display-values {
+	@include _bpModifier('display', str-replace($display, '-block', 'Block')) {
+		display: $display !important;
+	}
+}
+
+// a11y display hide and show
+@include _bpModifier( 'visibility', 'a11yHide' ) {
+	@include a11yVisibility('hidden');
+}
+
+@include _bpModifier( 'visibility', 'a11yShow') {
+	@include a11yVisibility('visible');
+}
+
+// padding
+@include _bpModifier('padding', 'none') {
+	padding: 0 !important;
+};
+
+// margin
+@include _bpModifier('margin', 'center') {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// border
+@include _bpModifier('border', 'top') {
+	border-top: $border-standard !important;
+}
+@include _bpModifier('border', 'none') {
+	border-width: 0 !important;
+}

@@ -1,0 +1,25 @@
+/*doc
+---
+title: Shadow utilities
+name: shadow
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+
+
+/*doc
+---
+title: Shadow placeholder
+name: shadowPlaceholder
+parent: shadow
+---
+Applies standard box-shadow
+
+```
+@extend %shadow;
+```
+*/
+%shadow {
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,83 @@
+/*doc
+---
+title: View Head
+name: viewHead
+category: Views
+---
+The `view-head` element is the first child (the
+fixed top nav bar) within every view.
+
+```
+<div class="view">
+	<header class="view-head row inverted">
+		<a href="#" class="row-item row-item--shrink row-item--alignMiddle">[...]</a>
+		<a href="#" class="row-item row-item--alignMiddle">Page Title</a>
+		<a href="#" class="row-item row-item--shrink row-item--alignMiddle">[...]</a>
+	</header>
+</div>
+```
+
+## view-head variants
+A class of `.view-head` is required for view headers. The following classes
+are optional variants (most likely added/removed with javascript to accommodate
+hero headers).
+
+Class                      | Description
+-------------------------- | ---------------------------
+`.view-head--transparent`  | Makes view header transparent; hides `h1` heading
+`.view-head--photoOverlay` | Adds text protext gradient (`view-head--trasnparent` required with this class)
+
+*/
+.view-head {
+	box-sizing: border-box;
+	background: $C_accent;
+	color: $C_textPrimaryInverted;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: map-get($zindex-map, "main-header");
+	height: $view-head-height;
+	padding: 0 $space;
+
+	@include atMediaUp(large){
+		height: $view-head-height-tablet;
+	}
+}
+
+@include atMediaUp(medium){
+	.ieRoot_modern .view-head {
+		.view--splitList & {
+			@include flex-basis($view-head-height);
+			@include flex-grow(0);
+			box-sizing: border-box;
+			border-right: 1px solid $C_border;
+			width: $view-minWidth;
+		}
+		.view--splitDetail & {
+			left: $view-minWidth;
+			right: 0;
+			width: auto;
+		}
+	}
+}
+
+//
+// view-head variants
+//
+.view-head--transparent {
+	background: transparent;
+	border-bottom: none;
+	color: $C_textPrimaryInverted;
+	position: absolute;
+	h1, h2, p { // hide text content in view-head title
+		opacity: 0;
+	}
+}
+
+//
+// photoOverlay adds gradient to transparent
+// view-head (both classes required)
+//
+.view-head--transparent.view-head--photoOverlay {
+	@include background(linear-gradient(transparentize($C_scrimGradient, .2), transparentize($C_scrimGradient, 1) ));
+}

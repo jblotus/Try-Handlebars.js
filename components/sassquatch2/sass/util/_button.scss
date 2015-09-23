@@ -1,0 +1,77 @@
+/*doc
+---
+title: Button utilities
+name: button
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+
+/*doc
+---
+title: Button personality placeholder
+name: buttonPersonality
+parent: button
+---
+Disables user-select, sets cursor, and resets text-decoration.
+
+```
+@extend %buttonPersonality;
+```
+*/
+%buttonPersonality {
+	@include user-select(none) ;
+	cursor: pointer;
+	text-decoration: none !important;
+}
+
+//
+// Various button utils follow this comment...
+// they support `sass/ui-components/_buttons.scss`,
+// but have been temporarily moved to this file
+// while we use transitional style buttons
+// (`sass/ui-components/_buttons_transitional.scss`)
+//
+$btn-color-map: (
+	default: transparent,
+	primary: $C_link,
+	contrast: $C_textPrimaryInverted
+) !default;
+
+@mixin buttonBase() { // for specificity accuracy in transitional buttons
+	box-sizing: border-box;
+	@include transition(background .15s);
+	-webkit-appearance: none;
+	background: transparent;
+	border: $border-standard;
+	border-radius: 50px;
+	display: inline-block;
+	font-size: $font-size;
+	font-weight: $W_bold;
+	margin: 0;
+	padding: $space-half $space;
+	text-align: center;
+	&:focus {
+		outline: 0;
+	}
+}
+%buttonBase {
+	@include buttonBase;
+}
+
+//
+// Button border modifiers
+//
+@mixin button--bordered() {
+	@include color-all( map-get($btn-color-map, "primary") );
+	border: $btn-border;
+	font-weight: $W_normal;
+	&:hover,
+	&:active,
+	&:focus {
+		background: transparentize(map-get($btn-color-map, "primary"), .8) !important;
+	}
+}
+%button--bordered {
+	@include button--bordered;
+}

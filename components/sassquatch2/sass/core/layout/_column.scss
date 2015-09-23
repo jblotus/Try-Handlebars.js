@@ -1,0 +1,130 @@
+/*doc
+---
+title: Column
+name: flexColumn
+category: Layout
+---
+Vertically stacked content using `display: flex` to
+allow source order independent display and `flex-grow` items
+for columns inside elements with a fixed height.
+
+The `.column` element is the flex parent, and `.column-item` elements
+are flex children.
+
+__Columns are only necessary when you need to use flex alignment, source
+order reversing, or shrink/grow flexing of column items__
+
+_See also: `.row`._
+
+```html_example
+<div class="chunk" style="height: 160px;">
+	<div class="column">
+		<div class="_DOC-SHADE column-item">
+			column-item 1
+		</div>
+		<div class="_DOC-SHADE column-item column-item--shrink">
+			column-item 2 (shrink)
+		</div>
+		<div class="_DOC-SHADE column-item">
+			column-item 3 (shrink)
+		</div>
+	</div>
+</div>
+
+<div class="chunk" style="height: 160px;">
+	<div class="column column--reverse">
+		<div class="_DOC-SHADE column-item">
+			column-item 1
+		</div>
+		<div class="_DOC-SHADE column-item column-item--shrink">
+			column-item 2 (shrink)
+		</div>
+		<div class="_DOC-SHADE column-item">
+			column-item 3 (shrink)
+		</div>
+	</div>
+</div>
+
+<div class="chunk" style="height: 240px; outline: 1px dotted red;">
+	<div class="column">
+		<div class="column-item">
+			<section class="stripe">
+				<div class="bounds">
+					<h2>Example</h2>
+					<p>Columns are a great solution for sticky footers</p>
+					<p>The content area is a `column-item` that grows</p>
+				</div>
+			</section>
+		</div>
+		<div class="column-item column-item--shrink">
+			<section class="stripe stripe--inverted inverted">
+				<div class="bounds">
+					<p>And the `column-item--shrink` gets pushed to the bottom</p>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+```
+*/
+.column {
+	@include flexParent('column');
+	@include flex-wrap('nowrap');
+	height: 100%;
+}
+
+
+/*doc
+---
+title: Column variants
+name: columnParent
+parent: flexColumn
+---
+
+A class of `.column` is __required__ on the flex column parent. The
+following classes are optional variants:
+
+Class                      | Description
+-------------------------- | -------------------------------
+`.column--reverse`         | reverses display order of column items
+*/
+.column--reverse {
+	@include flex-direction(column-reverse);
+}
+
+/*doc
+---
+title: Column Item variants
+name: columnChild
+parent: flexColumn
+---
+
+A class of `.column-item` is __required__ on column items.
+The following classes are optional variants:
+
+Class                      | Description
+-------------------------- | -------------------------------
+`.column-item--shrink`     | Item shrinks to fit content AKA height auto
+*/
+%_columnItemBase {
+	@include flex-basis(auto);
+	box-sizing: border-box;
+	height: initial;
+}
+.column-item {
+	@extend %_columnItemBase;
+	@include flex-grow(1);
+
+	@include browser-lessThanIE(10) {
+		display: table-row;
+		height: auto;
+	}
+}
+.column-item--shrink {
+	@extend %_columnItemBase;
+	@include flex-grow(0);
+
+	@include browser-lessThanIE(10) {
+		height: 1%;
+	}
+}

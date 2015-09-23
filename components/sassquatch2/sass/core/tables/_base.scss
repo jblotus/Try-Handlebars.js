@@ -1,0 +1,69 @@
+/*doc
+---
+title: Default table styles
+name: tableDefault
+category: Tables
+---
+
+```html_example
+<table>
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+table {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: auto;
+}
+
+caption,
+td,
+th {
+	padding: $space-half $space;
+	text-align: left;
+	vertical-align: middle;
+	color: $C_textSecondary;
+	.inverted & {
+		color: $C_textSecondaryInverted;
+	}
+}
+
+caption {
+	padding-left: 0;
+}
+
+thead th {
+	color: $C_textPrimary;
+	font-weight: $W_bold;
+	border-bottom: 1px solid $C_border;
+}

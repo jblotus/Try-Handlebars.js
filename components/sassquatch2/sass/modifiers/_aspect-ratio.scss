@@ -1,0 +1,48 @@
+/*doc
+---
+title: Aspect ratio helper
+name: keepAspect
+category: Modifier Classes
+---
+Maintains a given aspect ratio for flexible media.
+Apply to elements with background images.
+
+Class              | Description
+------------------ | ------------------------------
+`.keepAspect`      | maintains 1:1 aspect ratio when resized
+`.keepAspect--16-9`| maintains 16:9 aspect ratio when resized
+`.keepAspect--2-1` | maintains 2:1 aspect ratio when resized
+`.keepAspect--2-3` | maintains 2:3 aspect ratio when resized
+`.keepAspect--3-4` | maintains 3:4 aspect ratio when resized
+
+*/
+
+$_aspectRatios: (
+	/* (dividend, divisor) */
+	(9, 16),
+	(1, 2),
+	(3, 2),
+	(2, 3),
+	(3, 4)
+);
+
+@mixin _aspect( $ratio ) {
+  margin-bottom: 0;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: $ratio;
+  }
+}
+
+// 1:1 default
+.keepAspect {
+	@include _aspect(percentage(1/1));
+}
+
+// other ratio variants
+@each $dividend, $divisor in $_aspectRatios {
+	@include _modifier(keepAspect, #{$divisor}-#{$dividend}) {
+		@include _aspect(percentage($dividend/$divisor))
+	}
+}

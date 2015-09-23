@@ -1,0 +1,108 @@
+/*doc
+---
+title: View
+name: view
+category: Views
+---
+A "view" contains all layout and content for a given screen.
+Typically, a document only has a single view. Split views,
+where a document contains two view elements are possible (see below).
+
+A class of `.view` is required for view elements; the
+following classes are optional variants:
+
+Class                  | Description
+---------------------- | ---------------------------
+`view--splitList`      | Sets view to "list style" when viewport is wide enough
+`view--splitDetail`    | Sets view to "detail style" when viewport is wide enough
+`view--dimmed`         | Dims view (for use with modal overlays)
+`view--collection`     | Sets the style for views that are primarily "collections"
+
+## Basic view (<a class="link followLink" href="pages/full-view.html">Demo</a>)
+Basic example of a single view in a document:
+
+```
+<div class="view">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+```
+
+## Split view (DEMO)
+Basic example of two views in one document, where we specify
+which view has the "list" responsibility, and which view has
+the "detail" responsibility.
+
+```
+<div class="view view--splitList">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+
+<div class="view view--splitDetail">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+```
+*/
+
+
+.view {
+	box-sizing: border-box;
+	background: white;
+	width: 100%;
+	min-height: 100vh;
+	position: relative;
+}
+
+.view--collection {
+	background-color: $C_collectionBGLight;
+}
+
+.view--splitList, .view--splitDetail{
+  display: none;
+  &.focus{
+	  display: block;
+  }
+}
+
+.view--splitList {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	z-index: map-get($zindex-map, splitList-view);
+}
+
+@include atMediaUp(medium){
+	.ieRoot_modern .view--splitList {
+		@include flexParent('column');
+		@include flex-wrap('nowrap');
+
+		// NOTE: uses fixed position
+		// try not to put forms in the split part
+		// usually the split view will be a list
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: $view-minWidth;
+		border-right: 1px solid $C_border;
+		display: block;
+	}
+
+	.ieRoot_modern .view--splitDetail {
+		display: block;
+		padding-left: $view-minWidth;
+	}
+}

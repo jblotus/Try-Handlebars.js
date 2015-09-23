@@ -1,0 +1,33 @@
+////
+/// @group accessibility
+////
+
+/// Removes element from document flow and hides it according to
+/// [a11y](http://a11yproject.com/posts/how-to-hide-content/) best practices
+/// @access public
+///
+/// @param {String} $val - 'hidden' or 'visible'
+///
+/// @example scss
+/// 	.visualHide { @include a11yVisibility('hidden'); }
+/// 	.visualShow { @include a11yVisibility('visible'); }
+@mixin a11yVisibility( $val ) {
+	@if '#{$val}' == 'hidden' {
+		border: 0;
+		clip: rect(0 0 0 0);
+		position: absolute;
+		overflow: hidden;
+		margin: -1px;
+		padding: 0;
+		width: 1px;
+		height: 1px;
+	} @else {
+		clip: auto;
+		clip: rect(auto auto auto auto);
+		position: static;
+		overflow: visible;
+		margin: 0;
+		width: auto;
+		height: auto;
+	}
+}

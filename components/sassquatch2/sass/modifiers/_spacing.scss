@@ -1,0 +1,61 @@
+/*doc
+---
+title: Margin/Padding
+name: spacingMod
+category: Modifier Classes
+---
+Applies the standard unit of space as margin or padding
+to an element.
+
+## Margin
+
+Class                    | Description
+------------------------ | --------------------------------
+`.margin--top`           | Adds top margin to element
+`.margin--right`         | Adds right margin to element
+`.margin--bottom`        | Adds bottom margin to element
+`.margin--left`          | Adds left margin to element
+`.margin--all`           | Adds margin to all sides of element
+`.margin--none`          | Sets `margin` to `0`
+`.margin--center`        | Sets left and right margin to `auto`
+
+
+## Margin
+
+Class                    | Description
+------------------------ | --------------------------------
+`.padding--top`          | Adds top padding to element
+`.padding--right`        | Adds right padding to element
+`.padding--bottom`       | Adds bottom padding to element
+`.padding--left`         | Adds left padding to element
+`.padding--all`          | Adds padding to all sides of element
+`.padding--none`         | Sets `padding` to `0`
+
+*/
+
+
+@each $property in (margin, padding) {
+
+	// directional
+	@each $direction in (top, right, left, bottom) {
+		@include _modifier($property, $direction) {
+			#{$property}-#{$direction}: $space;
+		}
+	}
+
+	// all sides
+	@include _modifier($property, all) {
+		#{$property}: $space;
+	}
+
+	// reset
+	@include _modifier($property, none) {
+		#{$property}: 0;
+	}
+
+}
+
+.margin--center {
+	margin-left: auto;
+	margin-right: auto;
+}

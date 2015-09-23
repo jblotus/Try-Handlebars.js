@@ -1,0 +1,22 @@
+/*doc
+---
+title: Validation errors
+name: formValidation
+category: Forms
+---
+Field errors set explicitly with `field--error`.
+
+Error text is set explicitly with `text--error`.
+
+```html_example
+<div class="chunk">
+	<label for="test-textinput">First name</label>
+	<input class="field--error" id="test-textinput" type="text" value="" />
+	<p class="text--error">First name can't be empty</p>
+</div>
+```
+
+*/
+.field--error {
+	border-color: $C_red;
+}

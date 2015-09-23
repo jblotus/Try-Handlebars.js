@@ -1,0 +1,21 @@
+{
+  "name": "JSON-js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/srfrnk/JSON-js",
+  "authors": [
+    "Douglas Crockford<douglas@crockford.com>"
+  ],
+  "main": "json2.js",
+  "keywords": [
+    "json",
+    "js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

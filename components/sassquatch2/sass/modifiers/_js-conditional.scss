@@ -1,0 +1,29 @@
+/*doc
+---
+title: Javascript-conditional modifiers
+name: jsMod
+category: Modifier Classes
+---
+Conditionally changes the display property of an element based
+javascript availability.
+
+_Assumes a class of `hasJS` is added to the `body` tag with
+javascript on page load_
+
+Class                        | Description
+---------------------------- | ----------------------------------------------------
+`hasJS_display--block`       | Sets `display` property to `block` if user has JS
+`hasJS_display--inline`      | Sets `display` property to `inline` if user has JS
+`hasJS_display--inlineBlock` | Sets `display` property to `inline-block` if user has JS
+`hasJS_display--none`        | Sets `display` property to `none` if user has JS
+*/
+.hasJS_display--block,
+.hasJS_display--inline,
+.hasJS_display--inlineBlock,
+.hasJS .hasJS_display--none {
+	display: none;
+}
+
+.hasJS .hasJS_display--block			{ display: block; }
+.hasJS .hasJS_display--inline			{ display: inline; }
+.hasJS .hasJS_display--inlineBlock	{ display: inline-block; }

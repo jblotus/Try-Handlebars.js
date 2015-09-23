@@ -1,0 +1,23 @@
+/*doc
+---
+title: Visibility
+name: visibilityMod
+category: Modifier Classes
+---
+Modifies `visibility` property of an element __or__
+in the case of `a11y` classes, visually hides an element
+that will [not be ignored by screen readers](http://a11yproject.com/posts/how-to-hide-content/).
+
+Class                    | Description
+------------------------ | --------------------------------
+`.visibility--a11yHide`  | takes element out of document flow and hides it (screen readers will NOT ignore the element)
+`.visibility--a11yShow`  | reveals a a11y hidden element for sighted users
+*/
+
+@include _modifier( visibility, 'a11yHide' ) {
+	@include a11yVisibility('hidden');
+}
+
+@include _modifier( visibility, 'a11yShow' ) {
+	@include a11yVisibility('visible');
+}

@@ -1,0 +1,79 @@
+/*doc
+---
+title: Floating Action
+name: floatingAction
+category: UI Components
+---
+If a page has a single important action, you can use a `floatingAction` wrapper to
+call it out. At small screen sizes, the element with the `floatingAction` class
+will fix to the bottom of the viewport.
+
+__Note:__ A class of `hasFloatingAction` is available if extra space is needed at the bottom
+of a page for the floating action to "land" in. Apply to the `body` tag.
+
+```html_example
+	<div class="bounds">
+		<p class="chunk">The button below will fix to the bottom of the viewport at small sizes</p>
+		<div class="floatingAction">
+			<a href="#" class="floatingAction-content button button--primary button--fullWidth">Floating Action</a>
+		</div>
+	</div>
+```
+*/
+
+$_buttonHeight: 40px;
+$_containerHeight: $space*2 + $_buttonHeight;
+
+.floatingAction {
+	box-sizing: border-box;
+	padding: 0 $space;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+
+	&:before {
+		@extend %shadow;
+		display: block;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		content: "";
+		background-color: $C_contentBG;
+		z-index: 2;
+		height: $_containerHeight;
+		width: 100%;
+	}
+
+	> a, /* TODO: remove this; requires chapstick changes */
+	.floatingAction-content {
+		@extend %chunk;
+		position: relative;
+		z-index: map-get($zindex-map, modal);
+	}
+}
+
+// for `body` tag
+.hasFloatingAction {
+	background-color: $C_contentBGInverted;
+	padding-bottom: $_containerHeight;
+}
+
+@include atMediaUp(medium) {
+	.floatingAction {
+		position: static;
+		&:before {
+			position: static;
+			height: 0;
+			width: 0;
+		}
+		> a {
+			z-index: map-get($zindex-map, main);
+		}
+	}
+	.hasFloatingAction {
+		background-color: transparent;
+		padding-bottom: 0;
+	}
+}

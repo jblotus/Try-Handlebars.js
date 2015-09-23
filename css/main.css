@@ -1,0 +1,6945 @@
+@charset "UTF-8";
+/*
+ *---------------------------------------------------
+ *   __,                                         __
+ *  (                              _/_    /        )
+ *   `.  __,  (   (   _,  , , __,  /  _, /_    .--'
+ * (___)(_/(_/_)_/_)_(_/_(_/_(_/(_(__(__/ /_  (__
+ *                    /|
+ *                   (/
+ *---------------------------------------------------
+ *
+ * DOCUMENTATION: http://meetup.github.io/sassquatch2/
+ * GITHUB: https://github.com/meetup/sassquatch2
+ * EMAIL: <adamd@meetup.com>, <mikep@meetup.com>, <richard@meetup.com>
+ */
+/*
+-----------------------------------------
+
+/\___ \         /\_ \
+\/__/\ \  __  __\//\ \      __   _____
+   _\ \ \/\ \/\ \ \ \ \   /'__`\/\ '__`\
+  /\ \_\ \ \ \_\ \ \_\ \_/\  __/\ \ \L\ \
+  \ \____/\ \____/ /\____\ \____\ \ ,__/
+   \/___/  \/___/  \/____/\/____/ \ \ \/
+                                   \ \_\
+
+-----------------------------------------
+
+Meetup Sass utilities
+
+https://github.com/meetup/julep
+*/
+/*doc
+---
+title: Programmatic contrast text
+name: getPrimaryTextColor
+parent: brightness
+---
+For a given background color, this function returns
+a text color value with appropriate contrast.
+
+_returns `color` value_
+
+```
+// -> color: $C_textPrimaryInverted; (white text on dark)
+color: getPrimaryTextColor(#000);
+
+// -> color: $C_textPrimary; (dark text on white)
+color: getPrimaryTextColor(#FFF);
+```
+*/
+.avatar--person,
+.avatar, .imgFill {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.floatingAction > a,
+.floatingAction .floatingAction-content,
+.chunk,
+.bounds {
+  /**
+  * For IE 6/7 only
+  * Include this rule to trigger hasLayout and contain floats.
+  */
+  *zoom: 1;
+}
+.floatingAction > a:before,
+.floatingAction .floatingAction-content:before,
+.chunk:before,
+.bounds:before, .floatingAction > a:after,
+.floatingAction .floatingAction-content:after,
+.chunk:after,
+.bounds:after {
+  content: " ";
+  display: table;
+}
+.floatingAction > a:after,
+.floatingAction .floatingAction-content:after,
+.chunk:after,
+.bounds:after {
+  clear: both;
+}
+
+/*doc
+---
+title: Flexbox
+name: flexboxUtil
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Flex parent
+name: flexParentUtil
+parent: flexboxUtil
+---
+
+Sets flexbox properties for a flex parent (`display: flex;`)
+
+```
+@include flexParent('row'); // displays element as flex with children in row orientation
+@include flexParent('column'); // displays element as flex with children in column orientation
+
+@include flexParent('row', false); // optional second argument allows disabling of IE table display fallbacks
+```
+*/
+/*doc
+---
+title: Flex child
+name: flexChildUtil
+parent: flexboxUtil
+---
+
+Sets flexbox properties for a flex children.
+
+```
+@include flexChild('grow'); // sets element to grow to fill remaining space in flex parent
+@include flexChild('shrink'); // sets element to shirnk to the width of its content
+
+@include flexChild('shrink', false); // optional second argument allows disabling of IE table display fallbacks
+```
+*/
+/*doc
+---
+title: Alignment Utilities
+name: align
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Vertical-align children
+name: valign
+parent: align
+---
+Aligns children of selected element using flexbox
+with a table-cell fallback for old IE.
+
+```
+@include valignChildren(center); // centers children in element
+@include valignChildren(top); // positions children to top of element
+@include valignChildren(bottom); // positions children to bottom of element
+```
+*/
+/*doc
+---
+title: Button utilities
+name: button
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Button personality placeholder
+name: buttonPersonality
+parent: button
+---
+Disables user-select, sets cursor, and resets text-decoration.
+
+```
+@extend %buttonPersonality;
+```
+*/
+.button--primary, .button--contrast, .button, .button--borderless, .hasJS .menu-actions-item a, .buttonPersonality {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.toggleButton-label {
+  box-sizing: border-box;
+  -webkit-transition: background 0.15s;
+  transition: background 0.15s;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 50px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  padding: 8px 16px;
+  text-align: center;
+}
+.toggleButton-label:focus {
+  outline: 0;
+}
+
+.toggleButton-label {
+  stroke: transparent;
+  fill: #3987cb;
+  color: #3987cb;
+  border: 1px solid;
+  font-weight: 400;
+}
+.toggleButton-label:hover, .toggleButton-label:active, .toggleButton-label:focus {
+  background: rgba(57, 135, 203, 0.2) !important;
+}
+
+/*doc
+---
+title: data uri images
+name: datauri
+category: Sass Utils | Mixins & Placeholders
+---
+Sassquatch image dependencies are stored
+as data uris in a Sass map.
+
+```
+map-get($data-img-map, "orgBadge") // raw data uri
+
+// OR
+
+.elWithImgBackground {
+	@extend %backgroundImg--orgBadge; // sets background-image property
+}
+```
+
+Img Name            | Description
+------------------- | ----------------------------
+`orgBadge`          | Organizer badge
+`launcher`          | Form launcher input icon
+
+*/
+.avatar--org:after {
+  background-image: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20width%3D%2212px%22%20height%3D%2215px%22%20viewBox%3D%220%200%2012%2015%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20xmlns%3Asketch%3D%22http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%2Fns%22%3E%0A%20%20%20%20%3C%21--%20Generator%3A%20Sketch%203.0%20%287573%29%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3EImported%20Layers%2020%3C%2Ftitle%3E%0A%20%20%20%20%3Cdescription%3ECreated%20with%20Sketch.%3C%2Fdescription%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%20sketch%3Atype%3D%22MSPage%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M6.00051201%2C3%20C4.34599537%2C3%203%2C4.34613047%203%2C6.00058353%20C3%2C7.65445306%204.34599537%2C9%206.00051201%2C9%20C7.65451664%2C9%209%2C7.65445306%209%2C6.00058353%20C9%2C4.34613047%207.65451664%2C3%206.00051201%2C3%20L6.00051201%2C3%20Z%20M6.00046296%2C10%20C3.79449969%2C10%202%2C8.20594137%202%2C6.00056821%20C2%2C3.79455582%203.79449969%2C2%206.00046296%2C2%20C8.20585643%2C2%2010%2C3.79455582%2010%2C6.00056821%20C10%2C8.20594137%208.20585643%2C10%206.00046296%2C10%20L6.00046296%2C10%20Z%20M6.00014417%2C0%20C5.84004189%2C0%205.68001169%2C0.0448959264%205.55861941%2C0.134907498%20L4.66482913%2C0.796481566%20C4.4219004%2C0.976504709%203.99356732%2C1.17234762%203.69333049%2C1.17234762%20L2.77063385%2C1.17234762%20C2.47039701%2C1.17234762%202.1308014%2C1.36159897%202.03802713%2C1.65250699%20L1.75256786%2C2.54815509%20C1.65986568%2C2.83928284%201.38514718%2C3.2243771%201.14221845%2C3.40410728%20L0.303934136%2C4.02415445%20C0.0609333262%2C4.20388463%20-0.0617564926%2C4.58897889%200.0309456854%2C4.87981368%20L0.351366511%2C5.88385651%20C0.444140774%2C6.17469129%200.444140774%2C6.65074924%200.351366511%2C6.94165727%20L0.0309456854%2C7.94562686%20C-0.0617564926%2C8.23646164%200.0610774975%2C8.6215559%200.304078308%2C8.80135933%20L1.14207428%2C9.42133326%20C1.385003%2C9.60084372%201.65972151%2C9.98593798%201.75242369%2C10.2770657%20L2.0381713%2C11.1735195%20C2.07003317%2C11.2734916%202.13015263%2C11.3660666%202.20569841%2C11.4458978%20L0.912193062%2C14.2035184%20L2.7859881%2C13.5650149%20L3.49768997%2C15%20L4.83307709%2C12.1536862%20L5.55861941%2C12.690533%20C5.68015586%2C12.7804714%205.84018606%2C12.8253673%206.00028834%2C12.8253673%20C6.16031854%2C12.8253673%206.32042083%2C12.7804714%206.44195727%2C12.690533%20L7.16281402%2C12.1569087%20L8.49726404%2C15%20L9.20838922%2C13.5650149%20L11.0827609%2C14.2035184%20L9.79098565%2C11.4502922%20C9.86854983%2C11.3693624%209.92996683%2C11.2751029%209.9623333%2C11.1735195%20L10.2480809%2C10.2770657%20C10.3408552%2C9.98593798%2010.6153574%2C9.60084372%2010.8582861%2C9.42111354%20L11.6960659%2C8.80135933%20C11.9390667%2C8.6215559%2012.0617565%2C8.23646164%2011.9690543%2C7.94562686%20L11.6486335%2C6.94165727%20C11.5558592%2C6.65074924%2011.5558592%2C6.17469129%2011.6486335%2C5.88385651%20L11.9690543%2C4.87981368%20C12.0617565%2C4.58897889%2011.9390667%2C4.20388463%2011.6960659%2C4.02415445%20L10.8582861%2C3.40410728%20C10.6153574%2C3.2243771%2010.340711%2C2.83928284%2010.2479367%2C2.54815509%20L9.96247747%2C1.65250699%20C9.8697032%2C1.36159897%209.52974716%2C1.17234762%209.22951032%2C1.17234762%20L8.30681368%2C1.17234762%20C8.00657685%2C1.17234762%207.57781125%2C0.97628499%207.3350267%2C0.796481566%20L6.4418131%2C0.134907498%20C6.32042083%2C0.0450424058%206.16017437%2C0%206.00014417%2C0%20L6.00014417%2C0%20Z%22%20id%3D%22Imported-Layers-20%22%20fill%3D%22%23FFFFFF%22%20sketch%3Atype%3D%22MSShapeGroup%22%3E%3C%2Fpath%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+}
+
+.launcher {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRoLTI0eiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTE5IDE5aC0xNHYtMTRoN3YtMmgtN2MtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0ydi03aC0ydjd6bS01LTE2djJoMy41OWwtOS44MyA5LjgzIDEuNDEgMS40MSA5LjgzLTkuODN2My41OWgydi03aC03eiIvPgo8L3N2Zz4K");
+}
+
+/*doc
+---
+title: Display utils
+name: display
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Pseudo-element display mixin
+name: pseudoDisplay
+parent: display
+---
+Sets display property for psuedo-elements
+
+```
+@include pseudoDisplay($value: block);
+```
+*/
+/*doc
+---
+title: Modal mixins
+name: modalUtils
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Modal Dialog Mixin
+parent: modalUtils
+---
+
+Use this mixin to get the behavior of a [Snap Modal View][snapModalView],
+a view that snaps to full page on small screens and a dialog on larger formats.
+
+```
+	@include modal-dialog;
+
+```
+*/
+/*doc
+---
+title: Modal Full Mixin
+parent: modalUtils
+---
+
+Use this mixin to get behavior of a full page modal.
+See [the Full Modal View documentation][fullModalView]
+
+```
+	@include modal-full;
+
+```
+*/
+/*doc
+---
+title: Shadow utilities
+name: shadow
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Shadow placeholder
+name: shadowPlaceholder
+parent: shadow
+---
+Applies standard box-shadow
+
+```
+@extend %shadow;
+```
+*/
+.floatingAction:before, .hasJS .menu-actions {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/*doc
+---
+title: Text utils
+name: text
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+/*doc
+---
+title: Link color
+name: linkColorPlaceholder
+parent: text
+---
+Forces an element to use link-like styling.
+
+```
+@extend %link;
+```
+*/
+a.link, .runningText a {
+  stroke: transparent;
+  fill: #3987cb;
+  color: #3987cb;
+}
+a.link:hover, .runningText a:hover, a.link:focus, .runningText a:focus, a.link:active, .runningText a:active {
+  text-decoration: underline;
+}
+
+/*doc
+---
+title: Text wrap
+name: textWrapUtil
+parent: text
+---
+Nice hyphenation and wrapping for running text.
+
+```
+@extend %link;
+```
+*/
+.runningText p, .text--wrapNice {
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  -ms-hyphenate-limit-chars: 5 3 2;
+  -webkit-hyphenate-limit-after: 2;
+  hyphenate-limit-after: 2;
+  -webkit-hyphenate-limit-before: 3;
+  hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-lines: 2;
+  -ms-hyphenate-limit-lines: 2;
+  hyphenate-limit-lines: 2;
+}
+
+/*doc
+---
+title: Text protection shim
+name: textProtection
+parent: text
+---
+Adds a pseudo-element gradient
+
+```
+@mixin textProtectionScrim($placement: 'top'); // 'bottom' will place gradent on bottom of el
+```
+*/
+/*doc
+---
+title: Animation
+name: animation
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+.toggleButton-input:checked + .toggleButton-label,
+.animate--bounceInSubtle,
+.animate--spin {
+  -webkit-transform-origin: center center;
+  -ms-transform-origin: center center;
+  transform-origin: center center;
+}
+
+/*doc
+---
+title: Subtle bounce-in
+name: bounce-in-subtle
+parent: animation
+---
+Subtle bounce effect using keyframes, provided via simple mixin
+_original keyframes generated with [Bounce.js](http://goo.gl/tT4jnp)_
+
+```
+@include animate--bounce-in-subtle($time: 750ms);
+```
+*/
+@-webkit-keyframes bounce-in-subtle {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  35% {
+    -webkit-transform: scale(1.15);
+  }
+  75% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes bounce-in-subtle {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+  35% {
+    -webkit-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+  }
+  75% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+/*doc
+---
+title: Infinite spin
+name: spin
+parent: animation
+---
+Infinite 2d rotation; 0-360deg.
+
+```
+@include animate--spin($time: 0.8s);
+```
+*/
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+html {
+  overflow-y: scroll;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+body {
+  position: relative;
+}
+
+/* {{{ Inline tag defaults */
+abbr, strong, acronym, span, small, time, strike, sub, sup, a {
+  display: inline;
+}
+
+abbr, acronym {
+  border-width: 0;
+}
+
+b, strong {
+  font-weight: 700;
+}
+
+sup, sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* }}} */
+/* {{{ Block tag defaults */
+p, ul, ol, blockquote,
+form, fieldset, legend,
+table, dl, dd,
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+form, legend {
+  margin-bottom: 0;
+}
+
+img {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 0;
+}
+img.resample {
+  /* assuming we're sizing an img down on the client */
+  -ms-interpolation-mode: bicubic;
+  image-rendering: optimizeQuality;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* }}} */
+/* {{{ HTML5 element defaults (for when the time comes) */
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+audio, canvas, video {
+  display: inline-block;
+}
+
+/* }}} */
+body,
+input,
+button {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  word-wrap: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p {
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+input,
+abbr,
+acronym,
+blockquote,
+code,
+kbd,
+q,
+samp,
+var {
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+code, pre {
+  font-family: Monaco, "Andale Mono", "Courier New", monospace;
+}
+
+pre {
+  white-space: pre;
+  word-wrap: normal !important;
+}
+
+/*doc
+---
+title: Headings
+name: headings
+category: Typography
+---
+TK - notes about UI text vs. body text
+
+```html_example
+<h1 class="text--display">Heading 1 Display</h1>
+<h1>Heading 1 (white by default for use in navbar)</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+<p>Body text</p>
+<p class="text--heading">Fake heading</p>
+<p class="text--hint">Hint text</p>
+<p class="text--small">Small text</p>
+<p class="text--caption">Caption text</p>
+```
+*/
+/*
+  Further Reading:
+  http:/csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/
+  http://alistapart.com/article/more-meaningful-typography
+*/
+h1 {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h2 {
+  color: #e2373c;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.lang_en h2 {
+  text-transform: uppercase;
+}
+
+h3, h4, h5, h6 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.inverted h3, .inverted h4, .inverted h5, .inverted h6 {
+  color: white;
+}
+
+/*doc
+---
+title: Display text
+name: displayText
+parent: headings
+---
+Display text for header hero elements.
+
+```html_example
+<h1 class="text--display">The hero gotham deserves</h1>
+```
+*/
+.text--headline,
+.text--graphic,
+.text--display {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 32px;
+  font-weight: normal;
+  line-height: 1.25;
+}
+.inverted .text--headline,
+.inverted .text--graphic, .inverted
+.text--display {
+  color: white;
+}
+
+@media only screen and (min-width: 640px) {
+  .text--display {
+    font-size: 56px;
+  }
+}
+/*doc
+---
+title: Headline text
+name: headlineText
+parent: headings
+---
+Headline text for when something between display and normal text is needed. Use sparingly and with caution.
+
+```html_example
+<h2 class="text--headline">If display text is Batman, I'm Robin</h2>
+```
+*/
+.text--headline {
+  text-transform: none;
+}
+
+/*doc
+---
+title: Body/primary text
+name: bodyText
+category: Typography
+---
+
+```html_example
+<p>This is default body text, inheritied from type styles applied to &lt;body&gt;</p>
+```
+
+*/
+body {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Whitney", helvetica, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/*doc
+---
+title: Inverted text
+name: invertedText
+parent: bodyText
+---
+
+Apply the `inverted` class to a container with
+a dark background color or photo to flip all text
+elements to inveted colors.
+
+```html_example
+<div style="background: #353E48;" class="inverted">
+	<p>This is default body text, inheritied from type styles applied to &lt;body&gt;</p>
+</div>
+```
+*/
+.inverted {
+  color: white;
+}
+
+/*doc
+---
+title: Hint text
+name: hintText
+parent: bodyText
+---
+```html_example
+<p class="text--hint">This is hint text</p>
+```
+*/
+.pagination-page--ellipsesBefore:before, .pagination-page--ellipsesAfter:before, .pagination-page--ellipsesBefore:after, .pagination-page--ellipsesAfter:after,
+.text--hint {
+  stroke: transparent;
+  fill: rgba(0, 0, 0, 0.26);
+  color: rgba(0, 0, 0, 0.26);
+}
+.inverted .pagination-page--ellipsesBefore:before, .inverted .pagination-page--ellipsesAfter:before, .inverted .pagination-page--ellipsesBefore:after, .inverted .pagination-page--ellipsesAfter:after, .inverted
+.text--hint {
+  stroke: transparent;
+  fill: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/*doc
+---
+title: Secondary text
+name: secondaryText
+parent: bodyText
+---
+```html_example
+<p class="text--secondary">Secondary text is secondary</p>
+```
+*/
+.text--secondary {
+  stroke: transparent;
+  fill: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
+}
+.inverted
+.text--secondary {
+  stroke: transparent;
+  fill: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/*doc
+---
+title: Tertiary text
+name: tertiaryText
+parent: bodyText
+---
+```html_example
+<p class="text--tertiary">Tertiary text is tertiary</p>
+```
+*/
+.text--tertiary {
+  stroke: transparent;
+  fill: rgba(0, 0, 0, 0.26);
+  color: rgba(0, 0, 0, 0.26);
+}
+.inverted
+.text--tertiary {
+  stroke: transparent;
+  fill: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/*doc
+---
+title: Bold text
+name: boldText
+parent: bodyText
+---
+```html_example
+<p class="text--bold">Bold text is bold</p>
+```
+*/
+.text--bold {
+  font-weight: 700;
+}
+
+/*doc
+---
+title: Small text
+name: smallText
+parent: bodyText
+---
+```html_example
+<p class="text--small">Small text is small</p>
+```
+*/
+.text--caption,
+.text--error, .card--group,
+.text--caption h1,
+.text--error h1, .card--group h1,
+.text--caption h2,
+.text--error h2, .card--group h2,
+.text--caption h3,
+.text--error h3, .card--group h3,
+.text--caption h4,
+.text--error h4, .card--group h4,
+.text--caption h5,
+.text--error h5, .card--group h5,
+.text--caption h6,
+.text--error h6, .card--group h6,
+.text--small,
+.text--small h1,
+.text--small h2,
+.text--small h3,
+.text--small h4,
+.text--small h5,
+.text--small h6 {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/*doc
+---
+title: Monospaced text
+name: monoText
+parent: bodyText
+---
+The `code` and `pre` elements use a monospaced
+font by default. To apply monospaced type rules
+to any other element, use `text--mono`.
+
+```html_example
+<p class="text--mono">Is this code? What is this?</p>
+<code>This is code</code>
+<pre>We can safely assume a pre tag on Meetup is also code</pre>
+```
+*/
+.text--mono {
+  font-family: Monaco, "Andale Mono", "Courier New", monospace;
+}
+
+/*doc
+---
+title: Caption text
+name: captionText
+parent: bodyText
+---
+```html_example
+<p class="text--caption">I'm captioning all the things</p>
+```
+*/
+.text--caption {
+  stroke: transparent;
+  fill: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
+}
+.inverted
+.text--caption {
+  stroke: transparent;
+  fill: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/*doc
+---
+title: Error text
+name: errorText
+parent: bodyText
+---
+```html_example
+<p class="text--error">I'm erroring all the things</p>
+```
+*/
+.text--error {
+  stroke: transparent;
+  fill: #e2373c;
+  color: #e2373c;
+}
+
+/*doc
+---
+title: Label text
+name: textLabel
+parent: bodyText
+---
+Applies form label styling
+
+```html_example
+	<p class="text--label">I share styling with the `label` element</p>
+```
+*/
+/*doc
+---
+title: Graphic text
+name: textGraphic
+parent: bodyText
+---
+Useful when using large text in a graphical way.
+Cuts line height to give the glyph spacing similar to that of an image or icon.
+
+```html_example
+<p class="text--graphic">102</p>
+<p>Miles per hour</p>
+```
+*/
+.text--graphic {
+  line-height: .9;
+}
+
+/*doc
+---
+title: Running text
+name: runningText
+parent: bodyText
+---
+By default, paragraphs and headings are not styled
+with any bottom spacing. Links are not blue by default,
+as the most common case on Meetup will be block-level
+anchors with large touch targets.
+
+However, there will be instaces where you want the blue
+links and properly spaced paragraphs of running text (ie.
+event descriptions).
+
+```html_example
+<p>The robot is partially dressed in waterproof surgical garb.</p>
+<p>"Bruce Springsteen" is a terrible name for a <a href="#">cat</a>.</p>
+
+<hr style="margin: 8px;" /> <!-- lol, hr -->
+
+<div class="runningText">
+	<p>The robot is partially dressed in waterproof surgical garb.</p>
+	<p>"Bruce Springsteen" is a terrible name for a <a href="#">cat</a>.</p>
+</div>
+```
+*/
+.runningText p {
+  margin-bottom: 16px;
+}
+.runningText p:last-child {
+  margin-bottom: 0;
+}
+
+/*doc
+---
+title: Link color
+name: linkColor
+parent: runningText
+---
+You can always force an anchor to apply a
+linky blue color by applying the `.link` class.
+
+```html_example
+<p>Let's force this <a class="link" href="#">link</a> to be blue</p>
+```
+*/
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a.link.button, .runningText a.button {
+  text-decoration: none;
+}
+
+/*doc
+---
+title: Bulleted lists
+name: bulletedList
+parent: bodyText
+---
+
+`<ul>` and `<ol>` element list styles are
+reset by default.
+
+```html_example
+<ul>
+	<li>Eggs</li>
+	<li>More Eggs</li>
+</ul>
+```
+
+List style bullets are applied when list
+elements are inside a `.runningText` container.
+
+```html_example
+<div class="runningText">
+	<ul>
+		<li>Eggs</li>
+		<li>More Eggs</li>
+	</ul>
+</div>
+```
+
+You may also use the `.bullets` class to apply
+numbers/bullets to a list.
+
+```html_example
+<ul class="bullets">
+	<li>Eggs</li>
+	<li>More Eggs</li>
+</ul>
+```
+
+*/
+ul.bullets, .runningText ul, ol.bullets, .runningText ol {
+  list-style-position: outside;
+  padding-left: 1.33em;
+  /* indent by default */
+}
+
+ul.bullets, .runningText ul {
+  list-style-type: disc;
+}
+
+ol.bullets, .runningText ol {
+  list-style-type: decimal;
+}
+
+/*doc
+---
+title: Debug text
+name: debugText
+category: Typography
+---
+
+Sometimes you just need to dump some text into a document
+to debug.
+
+By default, the `debug` element is hidden. Apply the `enableDebug` class
+to a parent element to display `debug` elements.
+
+_Setting the `enableDebug` class on `body` for dev only is recommended._
+
+```html_example
+<p class="debug">Invisible debug</p>
+
+<div class="enableDebug">
+<p class="debug">
+	Visible debug [ ChapterProto =>
+	chapterId=530569
+	parentChapterId=0
+	transitionalVenueId=0
+	relocatedZip=
+	name=Foreign Androids Feel Frustrated
+</p>
+</div>
+```
+*/
+.debug {
+  display: none;
+}
+.enableDebug .debug {
+  display: block;
+  padding: 0.25em 0.5em;
+  margin-bottom: 16px;
+  font-family: Monaco, "Andale Mono", "Courier New", monospace;
+  font-size: 13px;
+  color: purple;
+  background: pink;
+  outline: 1px dotted red;
+}
+.enableDebug .debug:before {
+  display: inline;
+  content: "DEBUG:";
+  color: red;
+  font-weight: 700;
+  padding-right: 0.25em;
+}
+
+/*doc
+---
+title: Basic Inputs
+name: forms
+category: Forms
+---
+
+## Text inputs
+
+```html_example
+<div class="chunk">
+	<label for="test-textinput">I'm a label</label>
+	<input id="test-textinput" type="text" value="Text input with value" />
+</div>
+
+<div class="chunk">
+	<label for="test-textinput2">Just another label</label>
+	<input id="test-textinput2" type="text" placeholder="Text input with placeholder" />
+</div>
+
+<div class="chunk">
+	<label for="test-textarea"l>Here's an area for your text</label>
+	<textarea id="test-textarea"></textarea>
+</div>
+
+<div class="chunk">
+	<label for="test-select">What is this?</label>
+	<select id="text-select">
+		<option value="One">One</option>
+		<option value="Two">Two</option>
+		<option value="Three">Three</option>
+		<option value="Four">Four</option>
+	</select>
+</div>
+
+<div class="row">
+	<div class="row-item chunk">
+		<label for="split1">Unicorn name</label>
+		<input id="split1" type="text" placeholder="ie. Fluffy, Resplendent" />
+	</div>
+	<div class="row-item chunk">
+		<label for="split2">Unicorn color</label>
+		<select id="split2">
+			<option value="clear">Transparent</option>
+			<option value="green">Toasted clove saffron</option>
+			<option value="brown">Midnight brown</option>
+			<option value="black">Seabreeze black</option>
+		</select>
+	</div>
+</div>
+```
+
+*/
+.text--label,
+label {
+  font-size: 13px;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.launcher,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+.launcher,
+input,
+textarea,
+select,
+.launcher {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 0 4px 0;
+  max-width: 100%;
+  padding: 8px;
+  width: 100%;
+}
+.launcher:focus,
+input:focus,
+textarea:focus,
+select:focus,
+.launcher:focus {
+  border-color: #3987cb;
+  box-shadow: none;
+  outline: none;
+}
+.inverted .launcher, .inverted
+input, .inverted
+textarea, .inverted
+select, .inverted
+.launcher {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+.shaded .launcher, .shaded
+input, .shaded
+textarea, .shaded
+select, .shaded
+.launcher {
+  background-color: white;
+}
+
+input,
+select {
+  height: 40px;
+}
+
+textarea {
+  min-height: 88px;
+}
+
+.checkbox,
+.radio {
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.26);
+}
+.inverted input::-webkit-input-placeholder, .inverted
+textarea::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.label--switch {
+  font-size: 16px;
+  position: relative;
+}
+
+/*doc
+---
+title: Checkboxes
+name: checkbox
+category: Forms
+---
+A label variant class of `label--switch` is
+used for side-by-side inputs and labels.
+
+For radios and checkboxes, we put the `input`
+element inside the `label` element.
+
+A class of `checkbox` is __required__ on checkbox
+input elements.
+
+```html_example
+<label for="check1" class="label--switch chunk">
+	<input id="check1" class="checkbox" value="green" type="checkbox" />
+	Green
+</label>
+<label for="check2" class="label--switch chunk">
+	<input id="check2" class="checkbox" value="blue" type="checkbox" />
+	Blue
+</label>
+```
+*/
+/* CHECKBOXES */
+.checkbox {
+  -webkit-appearance: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  position: relative;
+  top: 0.0625em;
+  width: 16px;
+  z-index: 0;
+}
+.checkbox:before {
+  -webkit-transition: -webkit-transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: -moz-transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -webkit-transform: rotate(-45deg) scale(0, 0);
+  -ms-transform: rotate(-45deg) scale(0, 0);
+  transform: rotate(-45deg) scale(0, 0);
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.1875em;
+  z-index: 1;
+  width: 0.5em;
+  height: 0.25em;
+  border: 2px solid white;
+  border-top-style: none;
+  border-right-style: none;
+}
+.checkbox:checked:before {
+  -webkit-transform: rotate(-45deg) scale(1, 1);
+  -ms-transform: rotate(-45deg) scale(1, 1);
+  transform: rotate(-45deg) scale(1, 1);
+}
+.checkbox:after {
+  content: "";
+  position: absolute;
+  top: -0.125em;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.checkbox:checked:after, .checkbox:active:after {
+  background: #3987cb;
+}
+.checkbox:hover, .checkbox:focus {
+  outline: none;
+}
+.checkbox:hover:after, .checkbox:focus:after {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.54);
+}
+
+.inverted .checkbox:after {
+  background: #353e48;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.inverted .checkbox:hover:after, .inverted .checkbox:focus:after {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.12);
+  border: 1px solid white;
+}
+.inverted .checkbox:checked:after, .inverted .checkbox:active:after {
+  background: #3987cb;
+}
+
+/*doc
+---
+title: Radios
+name: radio
+category: Forms
+---
+A label variant class of `label--switch` is
+used for side-by-side inputs and labels.
+
+For radios and checkboxes, we put the `input`
+element inside the `label` element.
+
+A class of `radio` is __required__ on radio input
+elements.
+
+```html_example
+<label for="radio1" class="label--switch chunk">
+	<input id="radio1" class="radio" name="radioExample" value="green" type="radio" />
+	Green
+</label>
+<label for="radio2" class="label--switch chunk">
+	<input id="radio2" class="radio" name="radioExample" value="red" type="radio" />
+	Red
+</label>
+```
+*/
+/* RADIOS */
+.radio {
+  -webkit-appearance: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  position: relative;
+  top: 0;
+  width: 16px;
+  z-index: 0;
+}
+.radio:before {
+  -webkit-transition: -webkit-transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: -moz-transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform, 100ms, cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -webkit-transform: scale(0, 0);
+  -ms-transform: scale(0, 0);
+  transform: scale(0, 0);
+  content: "";
+  position: absolute;
+  top: 0.1875em;
+  left: 0.125em;
+  z-index: 1;
+  width: 0.75em;
+  height: 0.75em;
+  background: #3987cb;
+  border-radius: 999px;
+}
+.radio:checked:before, .radio:active:before {
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.radio:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.0625em;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 999px;
+}
+.radio:checked, .radio:hover, .radio:focus {
+  outline: none;
+}
+.radio:checked:after, .radio:hover:after, .radio:focus:after {
+  border: 1px solid #3987cb;
+}
+
+.inverted .radio:after {
+  background: #353e48;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.inverted .radio:hover:after, .inverted .radio:focus:after {
+  border: 1px solid white;
+}
+
+/*doc
+---
+title: Launcher
+name: launcher
+category: Forms
+---
+Applies form field styles to an anchor, for use
+in launching custom input (ie. date/location pickers).
+
+```html_example
+<div class="chunk">
+	<label for="specialPicker2">Pick a location</label>
+	<a id="specialPicker2" class="launcher" href="#">Boise, Idaho</a>
+</div>
+```
+
+## Launcher variants
+A class of `launcher` is __required__ for launcher
+anchors. The following classes are optional variants
+
+Class                    | Description
+------------------------ | ------------------------------------------------------------
+`launcher--placeholder`  | Applies placeholder-like text styles for "unselected" values
+
+*/
+.launcher {
+  background-position: center right 4px;
+  background-repeat: no-repeat;
+}
+
+.launcher--placeholder {
+  font-style: normal;
+  color: rgba(0, 0, 0, 0.26);
+}
+.inverted .launcher--placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/*doc
+---
+title: Validation errors
+name: formValidation
+category: Forms
+---
+Field errors set explicitly with `field--error`.
+
+Error text is set explicitly with `text--error`.
+
+```html_example
+<div class="chunk">
+	<label for="test-textinput">First name</label>
+	<input class="field--error" id="test-textinput" type="text" value="" />
+	<p class="text--error">First name can't be empty</p>
+</div>
+```
+
+*/
+.field--error {
+  border-color: #e2373c;
+}
+
+/*doc
+---
+title: Default table styles
+name: tableDefault
+category: Tables
+---
+
+```html_example
+<table>
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+caption,
+td,
+th {
+  padding: 8px 16px;
+  text-align: left;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 0.54);
+}
+.inverted caption, .inverted
+td, .inverted
+th {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+caption {
+  padding-left: 0;
+}
+
+thead th {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/*doc
+---
+title: Reset table
+name: resetTable
+category: Tables
+---
+
+```html_example
+<table class="resetTable">
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+.resetTable caption,
+.resetTable tbody,
+.resetTable thead,
+.resetTable td,
+.resetTable th {
+  padding: 0;
+  font-size: 16px;
+  font-weight: normal;
+  border-width: 0;
+  vertical-align: top;
+  color: rgba(0, 0, 0, 0.87);
+}
+.inverted .resetTable caption, .inverted
+.resetTable tbody, .inverted
+.resetTable thead, .inverted
+.resetTable td, .inverted
+.resetTable th {
+  color: white;
+}
+
+/*doc
+---
+title: Bordered table
+name: borderedTable
+category: Tables
+---
+Apply the `borderedTable` class to apply borders to table cells.
+
+```html_example
+<table class="borderedTable">
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+*/
+.borderedTable td, .borderedTable tbody th {
+  border-width: 1px 0 0 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+.borderedTable td:last-child, .borderedTable tbody th:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+.borderedTable thead th {
+  border-width: 0;
+}
+.borderedTable tbody tr:last-child td, .borderedTable tbody tr:last-child th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/*doc
+---
+title: Striped table
+name: stripedTable
+category: Tables
+---
+Apply the `stripedTable` class to add a background
+stripe to every other row of the table.
+
+```html_example
+<table class="stripedTable">
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Number of escalators</th>
+			<th>State bird</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>New York</th>
+			<td>7,674</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Wyoming</th>
+			<td>2</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Oregon</th>
+			<td>400</td>
+			<td>Cardinal</td>
+		</tr>
+		<tr>
+			<th>Florida</th>
+			<td>n/a</td>
+			<td>Cardinal</td>
+		</tr>
+	</tbody>
+</table>
+```
+
+*/
+.stripedTable tbody tr:nth-child(odd) td,
+.stripedTable tbody tr:nth-child(odd) th {
+  background-color: #f3f6f9;
+}
+.inverted .stripedTable tbody tr:nth-child(odd) td, .inverted
+.stripedTable tbody tr:nth-child(odd) th {
+  background-color: rgba(0, 0, 0, 0.26);
+}
+
+/*doc
+---
+title: Stripe
+name: stripe
+category: Layout
+---
+A `.stipe` class should be applied to `<section>` elements
+to visually divide the page with stripes of color.
+
+To align content within a stripe, use `.bounds`.
+
+```html_example
+<section class="stripe">
+	<div class="bounds">
+		<p>... default stripe ...</p>
+	</div>
+</section>
+
+<section class="stripe--inverted inverted">
+	<div class="bounds">
+		<p>... inverted stripe, using `inverted` class to set text colors  ...</p>
+	</div>
+</section>
+
+<section class="stripe--collection">
+	<div class="bounds">
+		<p>... collection variant of stripe, used to contain collections of cards </p>
+	</div>
+</section>
+```
+
+#### Stripe variants
+A class of `.stripe` is required; the following classes are
+optional variants:
+
+Class                | Description
+-------------------- | ------------------------------------------------------------
+`.stripe--inverted`  |  applies the standard `$C_contentBGInverted` background color
+`.stripe--collection`|  applies a light gray background; for use with card collections
+`.stripe--hero`      |  for hero sections without a photo (see below)
+`.stripe--photoHero` |  for hero sections with a photo (see below)
+`.stripe--overlap`   |  for sections that have content that visually overlaps into the next stripe (see below)
+*/
+.stripe--collection, .stripe--inverted, .stripe--hero, .stripe--photoHero,
+.stripe {
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: white;
+  margin-bottom: 0;
+}
+
+.stripe--collection {
+  background-color: #f3f6f9;
+}
+
+.stripe--inverted {
+  background-color: #353e48;
+}
+
+/*doc
+---
+title: Hero Stripes
+name: heroStripes
+parent: stripe
+---
+Special `stripe` variants are avaiable for "hero" sections.
+Viewport size adjustments are built-in.
+
+**Note:** _Hero stripes require a `.bounds.stripe-heroContent`
+to properly position content within a hero. See examples below._
+
+### Basic hero
+Uses the `stripe--hero` variant.
+
+```html_example
+<section class="stripe stripe--hero inverted">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display">Chattanooga Tuba Enthusiasts</h1>
+	</div>
+</section>
+```
+
+### Photo hero
+Uses the `stripe--photoHero` variant.
+
+```html_example
+<section class="stripe stripe--photoHero inverted" style="background-image: url(http://photos2.meetupstatic.com/photos/event/4/a/2/9/600_434238985.jpeg);">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display">Manitoba Yoga Meetup</h1>
+	</div>
+</section>
+```
+*/
+.stripe--hero, .stripe--photoHero {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #e2373c;
+  background-size: cover;
+  background-position: center 20%;
+  background-repeat: no-repeat;
+  border-top: none;
+  overflow: hidden;
+  position: relative;
+}
+.ieRoot_lt_IE10 .stripe--hero, .ieRoot_lt_IE10 .stripe--photoHero {
+  display: table;
+  width: 100%;
+}
+
+.stripe--photoHero:before {
+  background-color: rgba(15, 20, 31, 0);
+  background-image: -webkit-linear-gradient(rgba(15, 20, 31, 0) 0%, rgba(15, 20, 31, 0.1) 25%, rgba(15, 20, 31, 0.9) 100%);
+  background-image: linear-gradient(rgba(15, 20, 31, 0) 0%, rgba(15, 20, 31, 0.1) 25%, rgba(15, 20, 31, 0.9) 100%);
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  left: 0;
+  top: 0;
+}
+
+.stripe-heroContent {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-pack: end;
+  box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  justify-content: flex-end;
+  -ms-flex-pack: end;
+  min-height: 240px;
+  position: relative;
+  text-align: center;
+  max-width: 1100px;
+  padding-top: 56px;
+}
+.ieRoot_lt_IE10 .stripe-heroContent {
+  display: table-cell;
+  vertical-align: bottom;
+}
+@media only screen and (min-width: 640px) {
+  .stripe-heroContent {
+    min-height: 384px;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .stripe-heroContent {
+    padding-top: 64px;
+  }
+}
+
+/*doc
+---
+title: Overlapping Stripe
+name: overlappingStripe
+parent: stripe
+---
+Uses the `stripe--overlap` variant. Allows content from one appear as if it's overlapping onto the next stripe.
+
+Use `stripe--overlap--collection` to overlap onto a collection stripe, and `stripe--overlap--inverted` to overlap onto an inverted stripe.
+
+**Note:** No difference is seen unless the backgrounds of the adjacent stripes are different colors.
+
+```html_example
+<section class="stripe stripe--photoHero stripe--overlap" style="background-image: url(http://photos2.meetupstatic.com/photos/event/4/a/2/9/600_434238985.jpeg);">
+	<div class="bounds stripe-heroContent">
+		<h1 class="text--display align--left inverted">Photo Hero Stripe</h1>
+
+		<div class="attachment text--small align--left">
+			<a href="#" class="card card--event" style="min-height: 0; max-width: 440px;">
+				<div class="chunk">
+					<p class="wrap--singleLine--truncate chunk"><span class="text--secondary">Saturday Jan 01 at 12:00 am</span></p>
+					<p class="text--secondary">123 Chapter Who went</p>
+					<p class="text--bold">Let's get together and have a Meetup</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</section>
+<section class="stripe">
+	<div class="bounds">
+		<p>... default stripe ...</p>
+	</div>
+</section>
+```
+*/
+.stripe--overlap:before {
+  border-bottom: 24px solid white;
+  bottom: 0;
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+}
+.stripe--overlap + .stripe {
+  border-width: 0 !important;
+}
+
+.stripe--overlap--collection:before {
+  border-bottom: 24px solid #f3f6f9;
+}
+
+.stripe--overlap--inverted:before {
+  border-bottom: 24px solid #353e48;
+}
+
+/*doc
+---
+title: Divided list
+name: list
+category: Layout
+---
+Standard divided/spaced list; similar to
+an iOS table view.
+
+Bottom spacing is provided with `chunk`.
+
+```html_example
+<ul class="list">
+	<li class="list-item">
+		<h2 class="chunk">Just a list item</h2>
+	</li>
+	<li class="list-item">
+		<h2 class="chunk">Just a list item</h2>
+	</li>
+	<li class="list-item">
+		<h2 class="chunk">Just a list item</h2>
+	</li>
+</ul>
+```
+
+*/
+ul, ol, .list, .menu-actions, .pagination,
+.list--reset {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list-item, .hasJS .menu-actions-item {
+  display: block;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 16px;
+}
+.list-item:first-child, .hasJS .menu-actions-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.list-item {
+  margin: 0;
+}
+
+/*doc
+---
+title: Grid List
+name: gridList
+category: Layout
+---
+A grid layout with breakpoint-specific configurable columns.
+Useful for collections of photos, group cards, or event cards.
+
+For a layout with a fixed number of columns, use `row`.
+
+```html_example
+<ul class="gridList gridList--has1 atMedium_gridList--has3 atLarge_gridList--has4">
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+	<li class="gridList-item _DOC-SHADE">grid cell</li>
+</ul>
+```
+*/
+.gridList > li, .gridList-item {
+  font-size: 1rem;
+  display: inline-block;
+  margin: 0;
+  padding: 0 16px 16px 0;
+  vertical-align: top;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.gridList {
+  margin: 0 -16px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+/*doc
+---
+title: Grid List variants
+name: gridListVariants
+parent: gridList
+---
+
+A class of `gridList` is __required__ on the gridList
+parent element. By default, gridList creates a 2 column
+grid.
+
+The following classes are optional variants:
+
+Class                         | Description
+----------------------------- | ------------------------------
+`.gridList--photoGrid`        | Optimizes list item spacing for a grid of photos
+`.gridList--has[n]`           | Adjusts number of columns (ie. `.gridList--has4` creates a 4 column grid for all screen sizes)
+`.atMedium_gridList--has[n]`  | Sets number of columns for medium breakpoint and up (ie. `.atMedium_gridList--has6`)
+`.atLarge_gridList--has[n]`   | Sets number of columns for large breakpoint and up (ie. `.atLarge_gridList--has10`)
+
+*/
+.gridList--photoGrid {
+  margin: 0 -24px 0 -16px;
+  padding: 0;
+}
+.gridList--photoGrid > li {
+  padding: 0 4px 4px 0;
+}
+
+.gridList--has1 > li {
+  width: 100%;
+}
+
+.gridList--has2 > li {
+  width: 50%;
+}
+
+.gridList--has3 > li {
+  width: 33.33333%;
+}
+
+.gridList--has4 > li {
+  width: 25%;
+}
+
+.gridList--has5 > li {
+  width: 20%;
+}
+
+.gridList--has6 > li {
+  width: 16.66667%;
+}
+
+.gridList--has7 > li {
+  width: 14.28571%;
+}
+
+.gridList--has8 > li {
+  width: 12.5%;
+}
+
+.gridList--has9 > li {
+  width: 11.11111%;
+}
+
+.gridList--has10 > li {
+  width: 10%;
+}
+
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has1 > li {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has1 > li {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has1 > li {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has2 > li {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has2 > li {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has2 > li {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has3 > li {
+    width: 33.33333%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has3 > li {
+    width: 33.33333%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has3 > li {
+    width: 33.33333%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has4 > li {
+    width: 25%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has4 > li {
+    width: 25%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has4 > li {
+    width: 25%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has5 > li {
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has5 > li {
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has5 > li {
+    width: 20%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has6 > li {
+    width: 16.66667%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has6 > li {
+    width: 16.66667%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has6 > li {
+    width: 16.66667%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has7 > li {
+    width: 14.28571%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has7 > li {
+    width: 14.28571%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has7 > li {
+    width: 14.28571%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has8 > li {
+    width: 12.5%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has8 > li {
+    width: 12.5%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has8 > li {
+    width: 12.5%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has9 > li {
+    width: 11.11111%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has9 > li {
+    width: 11.11111%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has9 > li {
+    width: 11.11111%;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_gridList--has10 > li {
+    width: 10%;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_gridList--has10 > li {
+    width: 10%;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_gridList--has10 > li {
+    width: 10%;
+  }
+}
+/*doc
+---
+title: Exact list
+name: exactList
+category: Layout
+---
+Adaptive overflow control for inline block lists
+
+_better docs TK_
+
+```html_example
+<div class="exactList">
+	<ul class="inlineblockList exactList-content">
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+		<li><img src="https://placekitten.com/g/42/60" /></li>
+	</ul>
+</div>
+```
+
+*/
+.exactList {
+  display: block;
+  overflow: hidden;
+  margin-right: -8px;
+  height: 36px;
+}
+@media only screen and (min-width: 440px) {
+  .exactList {
+    height: 48px;
+  }
+}
+
+.exactList-content {
+  text-align: center;
+}
+
+/*doc
+---
+title: Inline-block list
+name: inlineblockList
+category: Layout
+---
+Resets list styles; adds `display: inline-block` to
+each list item and right gutters between items.
+
+```html_example
+<ul class="inlineblockList">
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+</ul>
+
+<ul class="inlineblockList inlineblockList--overlap">
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+	<li><img src="https://placekitten.com/g/72/72" alt="fluffy kitten" /></li>
+</ul>
+```
+
+### Variants
+A class of `inlineblockList` is required; the following classes are
+optional variants:
+
+Class                        | Description
+---------------------------- | ------------------------------------------------------------
+`.inlineblockList--overlap`  | Creates an inline block list with overlapping list items
+*/
+.hscroll-content,
+.inlineblockList {
+  margin: 0;
+  padding: 0;
+}
+.hscroll-content > li,
+.inlineblockList > li {
+  display: inline-block;
+  padding-right: 8px;
+}
+.hscroll-content > li:last-child,
+.inlineblockList > li:last-child {
+  padding-right: 0;
+}
+
+.inlineblockList--overlap > li {
+  padding: 0;
+  margin-right: -8px;
+  border: 3px solid white;
+}
+.stripe--collection .inlineblockList--overlap > li {
+  border-color: #f3f6f9;
+}
+.inverted .inlineblockList--overlap > li {
+  border-color: #353e48;
+}
+
+/*doc
+---
+title: Horizontal Scroll
+name: hscroll
+category: Layout
+---
+Applies styles for horizontal scrolling lists.
+
+## Basic `hscroll`
+
+```html_example
+<div class="hscroll">
+	<ul class="hscroll-content">
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+		<li>
+			<p>This is some content in an hscroll list. It can be almost anything.</p>
+			<a class="button">Button</a>
+		</li>
+	</ul>
+</div>
+```
+
+## Group cards `hscroll`
+
+```html_example
+<div class="hscroll">
+	<ul class="hscroll-content hscroll-content--cards">
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">Béchamel Hell: French Cuisine for Survivalists Meetup</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
+```
+
+## Gradient `hscroll`
+Wrap the `hscroll` element with `hscrollGradientWrap` to add
+gradient overlays to both sides of the `hscroll`.
+
+```html_example
+<div class="hscrollGradientWrap">
+	<div class="hscroll">
+		<ul class="hscroll-content">
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+			<li>
+				<p>This is some content in an hscroll list. It can be almost anything.</p>
+				<a class="button">Button</a>
+			</li>
+		</ul>
+	</div>
+</div>
+```
+## Media-conditional `hscroll`
+It's possible to create an `hscroll` for small screens that expands
+into a non-scrolling list in the document flow for larger screens.
+
+```html_example
+<div class="hscroll atMedium_hscroll--unclip">
+	<ul class="hscroll-content hscroll-content--cards">
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+		<li>
+			<a class="card card--group inverted" href="http://www.dev.meetup.com/New-York-City-Social-Group/" style="background-image: url(http://photos1.dev.meetupstatic.com/photos/event/1/b/3/2/600_406026962.jpeg);">
+				<div class="card--group-content">
+					<h4 class="text--bold">New York City Social Group</h4>
+					<p>979 Members</p>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
+```
+
+A class of `hscroll` is __required__; the following classes are
+optional variants:
+
+Class                       | Description
+--------------------------- | ----------------------------------
+`atMedium_hscroll--unclip`  | Allows visible overflow (as inline block list) at medium & up
+`atLarge_hscroll--unclip`  | Allows visible overflow (as inline block list) at large & up
+
+*/
+.hscrollGradientWrap {
+  position: relative;
+}
+.hscrollGradientWrap:before, .hscrollGradientWrap:after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 16px;
+  top: 0;
+}
+.hscrollGradientWrap:before {
+  left: 0;
+  background-image: -webkit-linear-gradient( left , #fff, rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+}
+.hscrollGradientWrap:after {
+  right: 0;
+  background-image: -webkit-linear-gradient( right , #fff, rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to left, #fff, rgba(255, 255, 255, 0));
+}
+.stripe--collection .hscrollGradientWrap:before {
+  background-image: -webkit-linear-gradient( left , #f3f6f9, rgba(243, 246, 249, 0));
+  background-image: linear-gradient(to right, #f3f6f9, rgba(243, 246, 249, 0));
+}
+.stripe--collection .hscrollGradientWrap:after {
+  background-image: -webkit-linear-gradient( right , #f3f6f9, rgba(243, 246, 249, 0));
+  background-image: linear-gradient(to left, #f3f6f9, rgba(243, 246, 249, 0));
+}
+.hscrollGradientWrap .stripe--inverted:before {
+  background-image: -webkit-linear-gradient( left , #353e48, rgba(53, 62, 72, 0));
+  background-image: linear-gradient(to right, #353e48, rgba(53, 62, 72, 0));
+}
+.hscrollGradientWrap .stripe--inverted:after {
+  background-image: -webkit-linear-gradient( right , #353e48, rgba(53, 62, 72, 0));
+  background-image: linear-gradient(to left, #353e48, rgba(53, 62, 72, 0));
+}
+
+.hscroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+}
+
+.hscroll-content {
+  box-sizing: content-box;
+  white-space: nowrap;
+}
+.hscroll-content > li {
+  vertical-align: top;
+}
+
+.hscroll-content--cards > li {
+  width: 240px;
+}
+
+@media only screen and (min-width: 440px) {
+  .atSmall_hscroll--unclip {
+    -webkit-overflow-scrolling: auto;
+    -ms-overflow-style: auto;
+    overflow-x: visible;
+  }
+  .atSmall_hscroll--unclip .hscroll-content {
+    white-space: normal;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_hscroll--unclip {
+    -webkit-overflow-scrolling: auto;
+    -ms-overflow-style: auto;
+    overflow-x: visible;
+  }
+  .atMedium_hscroll--unclip .hscroll-content {
+    white-space: normal;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_hscroll--unclip {
+    -webkit-overflow-scrolling: auto;
+    -ms-overflow-style: auto;
+    overflow-x: visible;
+  }
+  .atLarge_hscroll--unclip .hscroll-content {
+    white-space: normal;
+  }
+}
+/*doc
+---
+title: Chunk
+name: chunk
+category: Layout
+---
+Adds bottom space to an element
+or a group of elements.
+
+_Can be used in combination with any other component
+(ie. `class="row chunk"`)_
+
+```html_example
+<div class="_DOC-SHADE chunk">
+	<h2>Some heading</h2>
+	<p>Some text</p>
+	<p class="text--caption">Some kind of caption</p>
+</div>
+
+<p class="text--caption chunk">Chunky caption</p>
+
+<div class="_DOC-SHADE chunk">
+	<h2>Some heading</h2>
+	<p>Some text</p>
+	<p class="text--caption">Some kind of caption</p>
+</div>
+```
+*/
+.floatingAction > a,
+.floatingAction .floatingAction-content,
+.chunk {
+  display: block;
+  margin-bottom: 16px !important;
+}
+
+/*doc
+---
+title: Bounds
+name: bounds
+category: Layout
+---
+Used as a non-visual content container that manages content measure,
+ Similar to [sassquatch 1 `docBounds`](http://meetup.github.io/sassquatch/doc_desktop/layout.html#docstar).
+
+Centers children with auto margin, clears floats, applies
+padding, and sets a max-width.
+
+```html_example
+<section class="stripe">
+	<p>This is just a paragraph inside a stripe. There's no bounds element to center and set the measure of this text.</p>
+</section>
+
+<section class="stripe">
+	<div class="bounds">
+		<p>This paragraph is inside a bounds. It enjoyes auto-margin and a max-width to ensure the type measure remains readable at all viewport sizes.</p>
+	</div>
+</section>
+
+<section class="stripe">
+	<div class="bounds _DOC-SHADE">
+		<p><strong>Previous example, shaded to show detail</strong></p>
+		<p>This paragraph is inside a bounds. It enjoyes auto-margin and a max-width to ensure the type measure remains readable.</p>
+	</div>
+</section>
+```
+
+## Bounds variants
+
+Class                  | Description
+---------------------- | -------------------------------------
+`.bounds`              | standard (narrow) bounds for any type of content
+`.bounds--wide`        | bounds for wrapping wider content, such as gridList
+`.bounds--sideHeader`  | bounds for wrapping standard (narrow) content, offset by labels to the side at wide widths
+
+
+## Side Header example
+
+The `bounds--sideHeader` variant applies styles to accommodate a
+`bounds-header` element. A `bounds-header` is pulled to the left side
+of the bounds on wide screens (`large` breakpoint), and linearizes on small screens (less than `large`).
+
+```html_example
+	<section class="stripe">
+		<div class="bounds bounds--sideHeader">
+
+			<div class="bounds-header chunk">
+				<h2>I'm in a bounds header</h2>
+				<p class="text--caption">I linearize on small screens</p>
+			</div>
+
+			<p>This is just some content within the bounds, behaving like any other bounds content.</p>
+			<p>You can apply the bounds-header class to a single element, or wrap a group of elements you'd like to pull to the side on large screens.</p>
+		</div>
+	</section>
+```
+
+*/
+.bounds {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 840px;
+  padding: 24px 16px 8px;
+  width: 100%;
+}
+
+.bounds--wide {
+  max-width: 1100px;
+}
+
+.bounds--sideHeader {
+  max-width: 1100px;
+}
+
+@media only screen and (min-width: 840px) {
+  .bounds--sideHeader {
+    padding-left: 276px;
+    position: relative;
+  }
+
+  .bounds-header {
+    position: absolute;
+    top: 24px;
+    left: 16px;
+    width: 236px;
+    text-align: right;
+  }
+}
+/*doc
+---
+title: Row
+name: flexRow
+category: Layout
+---
+Arranges content in rows using `display: flex`.
+
+The `.row` class is applied to a wrapping element.
+
+Direct children of `.row` are flex children, and require
+a class of `.row-item` with an optional `.row-item--shirnk`
+for a flex-shrink item.
+
+The flex children in flex row do not have a `flex-basis` set; a
+basis is not required for most common layout tasks.
+
+_Includes `table-cell` fallback for IE8._
+
+#### Examples:
+
+```html_example
+<div class="row">
+	<div class="_DOC-SHADE row-item">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+	<div class="_DOC-SHADE row-item">Item 4</div>
+</div>
+```
+
+```html_example
+<div class="row">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+</div>
+```
+
+```html_example
+<div class="row row--flexEnd">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+</div>
+```
+
+```html_example
+<div class="row row--spaceBetween row--reverse">
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 1</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 2</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 3</div>
+	<div class="_DOC-SHADE row-item row-item--shrink">Item 4</div>
+</div>
+```
+*/
+.row {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: flex;
+  box-align: flex;
+  -webkit-align-items: flex;
+  -ms-align-items: flex;
+  align-items: flex;
+  -ms-flex-align: flex;
+  box-sizing: border-box;
+  -webkit-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-lines: single;
+  box-lines: single;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+.ieRoot_lt_IE10 .row {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+}
+
+.row-item {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-flex-basis: 0;
+  flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 0;
+  padding-left: 16px;
+}
+.ieRoot_lt_IE10 .row-item {
+  display: table-cell;
+}
+.ieRoot_lt_IE10 .row-item {
+  vertical-align: top;
+}
+.row-item:first-child {
+  padding-left: 0;
+}
+
+/*doc
+---
+title: Row variants
+name: flexrowParent
+parent: flexRow
+---
+
+A class of `.row` is __required__ on the flex row parent. The
+following classes are optional variants:
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row--noGutters`       | removes padding from all `.row-item` children
+`.row--wrap`            | allows row wrapping (useful for collapsing rows in smaller viewports)
+`.row--reverse`         | reverses row order
+
+Content justification variants are also available (see also: <a class="link" target="_blank" href="https://css-tricks.com/almanac/properties/j/justify-content/">css tricks flexbox demo</a>)
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row--flexEnd`         | justifies content to `flex-end`
+`.row--center`          | justifies content to `center`
+`.row--spaceBetween`    | justifies content to `spaceBetween`
+`.row--spaceAround`     | justifies content to `spaceAround`
+*/
+.row--noGutters .row-item {
+  padding: 0;
+}
+
+.row--reverse {
+  -webkit-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+}
+
+.row--wrap {
+  -webkit-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.row--flexEnd {
+  -webkit-box-pack: end;
+  box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  justify-content: flex-end;
+  -ms-flex-pack: end;
+}
+
+.row--center {
+  -webkit-box-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+}
+
+.row--spaceBetween {
+  -webkit-box-pack: justify;
+  box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-pack: justify;
+}
+
+.row--spaceAround {
+  -webkit-box-pack: distribute;
+  box-pack: distribute;
+  -webkit-justify-content: space-around;
+  -ms-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: distribute;
+}
+
+/*doc
+---
+title: Row Item variants
+name: flexrowItemVars
+parent: flexRow
+---
+
+A class of `.row-item` is __required__ on row items.
+The following classes are optional variants:
+
+Class                   | Description
+----------------------- | -------------------------------
+`.row-item--shrink`     | Item shrinks to fit content
+`.row-item--alignMiddle`| Vertically aligns content to middle
+*/
+.row-item--shrink {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  -ms-flex-positive: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -ms-flex-negative: 0;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  width: initial;
+}
+.ieRoot_lt_IE10 .row-item--shrink {
+  width: 1%;
+}
+.ieRoot_lt_IE10 .row-item--shrink {
+  vertical-align: top;
+}
+
+.row-item--alignMiddle {
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+}
+.ieRoot_lt_IE10 .row-item--alignMiddle {
+  vertical-align: middle;
+}
+
+/*doc
+---
+title: Column
+name: flexColumn
+category: Layout
+---
+Vertically stacked content using `display: flex` to
+allow source order independent display and `flex-grow` items
+for columns inside elements with a fixed height.
+
+The `.column` element is the flex parent, and `.column-item` elements
+are flex children.
+
+__Columns are only necessary when you need to use flex alignment, source
+order reversing, or shrink/grow flexing of column items__
+
+_See also: `.row`._
+
+```html_example
+<div class="chunk" style="height: 160px;">
+	<div class="column">
+		<div class="_DOC-SHADE column-item">
+			column-item 1
+		</div>
+		<div class="_DOC-SHADE column-item column-item--shrink">
+			column-item 2 (shrink)
+		</div>
+		<div class="_DOC-SHADE column-item">
+			column-item 3 (shrink)
+		</div>
+	</div>
+</div>
+
+<div class="chunk" style="height: 160px;">
+	<div class="column column--reverse">
+		<div class="_DOC-SHADE column-item">
+			column-item 1
+		</div>
+		<div class="_DOC-SHADE column-item column-item--shrink">
+			column-item 2 (shrink)
+		</div>
+		<div class="_DOC-SHADE column-item">
+			column-item 3 (shrink)
+		</div>
+	</div>
+</div>
+
+<div class="chunk" style="height: 240px; outline: 1px dotted red;">
+	<div class="column">
+		<div class="column-item">
+			<section class="stripe">
+				<div class="bounds">
+					<h2>Example</h2>
+					<p>Columns are a great solution for sticky footers</p>
+					<p>The content area is a `column-item` that grows</p>
+				</div>
+			</section>
+		</div>
+		<div class="column-item column-item--shrink">
+			<section class="stripe stripe--inverted inverted">
+				<div class="bounds">
+					<p>And the `column-item--shrink` gets pushed to the bottom</p>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+```
+*/
+.column {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: flex;
+  box-align: flex;
+  -webkit-align-items: flex;
+  -ms-align-items: flex;
+  align-items: flex;
+  -ms-flex-align: flex;
+  box-sizing: border-box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-lines: single;
+  box-lines: single;
+  -webkit-flex-wrap: "nowrap";
+  -ms-flex-wrap: "nowrap";
+  flex-wrap: "nowrap";
+  height: 100%;
+}
+.ieRoot_lt_IE10 .column {
+  height: 100%;
+}
+.ieRoot_lt_IE10 .column {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+}
+
+/*doc
+---
+title: Column variants
+name: columnParent
+parent: flexColumn
+---
+
+A class of `.column` is __required__ on the flex column parent. The
+following classes are optional variants:
+
+Class                      | Description
+-------------------------- | -------------------------------
+`.column--reverse`         | reverses display order of column items
+*/
+.column--reverse {
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: reverse;
+  box-direction: reverse;
+  -webkit-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  -ms-flex-direction: column-reverse;
+}
+
+/*doc
+---
+title: Column Item variants
+name: columnChild
+parent: flexColumn
+---
+
+A class of `.column-item` is __required__ on column items.
+The following classes are optional variants:
+
+Class                      | Description
+-------------------------- | -------------------------------
+`.column-item--shrink`     | Item shrinks to fit content AKA height auto
+*/
+.column-item, .column-item--shrink {
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  box-sizing: border-box;
+  height: initial;
+}
+
+.column-item {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+}
+.ieRoot_lt_IE10 .column-item {
+  display: table-row;
+  height: auto;
+}
+
+.column-item--shrink {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  -ms-flex-positive: 0;
+}
+.ieRoot_lt_IE10 .column-item--shrink {
+  height: 1%;
+}
+
+/*doc
+---
+title: Spreadable
+name: spreadable
+category: Layout
+---
+The `spreadable` layout tool is for elements that
+should be stacked in a column by default at small sizes,
+and can be spread across horizontal space at a given
+breakpoint.
+
+```html_example
+<div class="spreadable atLarge_spreadable--spread">
+	<div class="spreadable-item spreadable-item--shrink _DOC-SHADE">
+		<p>Spreadable Item (shrinks when spread)</p>
+	</div>
+	<div class="spreadable-item _DOC-SHADE">
+		<p>Spreadable Item</p>
+	</div>
+</div>
+```
+
+## Spreadable variants
+A class of `spreadable` on the parent element is required.
+Collapsing of the spreadable doesn't happen at any viewport
+size by default, so __you must specify a spread point__
+with one of the following classes.
+
+Class                            | Description
+-------------------------------- | ----------------------------------
+`atMedium_spreadable--spread`    | Spreads out the spreadable elements horizontally at `medium` breakpoint
+`atLarge_spreadable--spread`     | Spreads out the spreadable elements horizontally at `large` breakpoint
+
+
+## spreadable-item variants
+
+Class                   | Description
+----------------------- | -------------------------------
+`.spreadable-item--shrink`   | Item shrinks to fit content __only when spread__
+
+*/
+.spreadable {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: flex;
+  box-align: flex;
+  -webkit-align-items: flex;
+  -ms-align-items: flex;
+  align-items: flex;
+  -ms-flex-align: flex;
+  box-sizing: border-box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+}
+.ieRoot_lt_IE10 .spreadable {
+  height: 100%;
+}
+.ieRoot_lt_IE10 .spreadable {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+}
+.ieRoot_lt_IE10 .spreadable {
+  display: block;
+}
+
+.spreadable-item {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  width: 100%;
+  min-width: 0;
+}
+.ieRoot_lt_IE10 .spreadable-item {
+  display: block;
+  padding-left: 0 !important;
+}
+
+@media only screen and (min-width: 440px) {
+  .atSmall_spreadable--spread {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    justify-content: flex-start;
+    -ms-flex-pack: start;
+    -webkit-box-align: flex;
+    box-align: flex;
+    -webkit-align-items: flex;
+    -ms-align-items: flex;
+    align-items: flex;
+    -ms-flex-align: flex;
+    box-sizing: border-box;
+    -webkit-box-orient: horizontal;
+    box-orient: horizontal;
+    -webkit-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-box-lines: single;
+    box-lines: single;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+  }
+  .ieRoot_lt_IE10 .atSmall_spreadable--spread {
+    display: table;
+    table-layout: auto;
+    width: 100%;
+  }
+  .atSmall_spreadable--spread > .spreadable-item {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-basis: 0;
+    flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 0;
+    padding-left: 16px;
+  }
+  .ieRoot_lt_IE10 .atSmall_spreadable--spread > .spreadable-item {
+    display: table-cell;
+  }
+  .ieRoot_lt_IE10 .atSmall_spreadable--spread > .spreadable-item {
+    vertical-align: top;
+  }
+  .atSmall_spreadable--spread > .spreadable-item:first-child {
+    padding-left: 0;
+  }
+  .atSmall_spreadable--spread .spreadable-item--shrink {
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+    -ms-flex-positive: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -ms-flex-negative: 0;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    width: initial;
+  }
+  .ieRoot_lt_IE10 .atSmall_spreadable--spread .spreadable-item--shrink {
+    width: 1%;
+  }
+  .ieRoot_lt_IE10 .atSmall_spreadable--spread .spreadable-item--shrink {
+    vertical-align: top;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_spreadable--spread {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    justify-content: flex-start;
+    -ms-flex-pack: start;
+    -webkit-box-align: flex;
+    box-align: flex;
+    -webkit-align-items: flex;
+    -ms-align-items: flex;
+    align-items: flex;
+    -ms-flex-align: flex;
+    box-sizing: border-box;
+    -webkit-box-orient: horizontal;
+    box-orient: horizontal;
+    -webkit-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-box-lines: single;
+    box-lines: single;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+  }
+  .ieRoot_lt_IE10 .atMedium_spreadable--spread {
+    display: table;
+    table-layout: auto;
+    width: 100%;
+  }
+  .atMedium_spreadable--spread > .spreadable-item {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-basis: 0;
+    flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 0;
+    padding-left: 16px;
+  }
+  .ieRoot_lt_IE10 .atMedium_spreadable--spread > .spreadable-item {
+    display: table-cell;
+  }
+  .ieRoot_lt_IE10 .atMedium_spreadable--spread > .spreadable-item {
+    vertical-align: top;
+  }
+  .atMedium_spreadable--spread > .spreadable-item:first-child {
+    padding-left: 0;
+  }
+  .atMedium_spreadable--spread .spreadable-item--shrink {
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+    -ms-flex-positive: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -ms-flex-negative: 0;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    width: initial;
+  }
+  .ieRoot_lt_IE10 .atMedium_spreadable--spread .spreadable-item--shrink {
+    width: 1%;
+  }
+  .ieRoot_lt_IE10 .atMedium_spreadable--spread .spreadable-item--shrink {
+    vertical-align: top;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_spreadable--spread {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    justify-content: flex-start;
+    -ms-flex-pack: start;
+    -webkit-box-align: flex;
+    box-align: flex;
+    -webkit-align-items: flex;
+    -ms-align-items: flex;
+    align-items: flex;
+    -ms-flex-align: flex;
+    box-sizing: border-box;
+    -webkit-box-orient: horizontal;
+    box-orient: horizontal;
+    -webkit-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-box-lines: single;
+    box-lines: single;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+  }
+  .ieRoot_lt_IE10 .atLarge_spreadable--spread {
+    display: table;
+    table-layout: auto;
+    width: 100%;
+  }
+  .atLarge_spreadable--spread > .spreadable-item {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-basis: 0;
+    flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 0;
+    padding-left: 16px;
+  }
+  .ieRoot_lt_IE10 .atLarge_spreadable--spread > .spreadable-item {
+    display: table-cell;
+  }
+  .ieRoot_lt_IE10 .atLarge_spreadable--spread > .spreadable-item {
+    vertical-align: top;
+  }
+  .atLarge_spreadable--spread > .spreadable-item:first-child {
+    padding-left: 0;
+  }
+  .atLarge_spreadable--spread .spreadable-item--shrink {
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+    -ms-flex-positive: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -ms-flex-negative: 0;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    width: initial;
+  }
+  .ieRoot_lt_IE10 .atLarge_spreadable--spread .spreadable-item--shrink {
+    width: 1%;
+  }
+  .ieRoot_lt_IE10 .atLarge_spreadable--spread .spreadable-item--shrink {
+    vertical-align: top;
+  }
+}
+/*doc
+---
+title: View
+name: view
+category: Views
+---
+A "view" contains all layout and content for a given screen.
+Typically, a document only has a single view. Split views,
+where a document contains two view elements are possible (see below).
+
+A class of `.view` is required for view elements; the
+following classes are optional variants:
+
+Class                  | Description
+---------------------- | ---------------------------
+`view--splitList`      | Sets view to "list style" when viewport is wide enough
+`view--splitDetail`    | Sets view to "detail style" when viewport is wide enough
+`view--dimmed`         | Dims view (for use with modal overlays)
+`view--collection`     | Sets the style for views that are primarily "collections"
+
+## Basic view (<a class="link followLink" href="pages/full-view.html">Demo</a>)
+Basic example of a single view in a document:
+
+```
+<div class="view">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+```
+
+## Split view (DEMO)
+Basic example of two views in one document, where we specify
+which view has the "list" responsibility, and which view has
+the "detail" responsibility.
+
+```
+<div class="view view--splitList">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+
+<div class="view view--splitDetail">
+	<header class="view-head">
+		... view-head ...
+	</header>
+	<main class="view-body">
+		... view-body ...
+	</main>
+</div>
+```
+*/
+.view {
+  box-sizing: border-box;
+  background: white;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.view--collection {
+  background-color: #f3f6f9;
+}
+
+.view--splitList, .view--splitDetail {
+  display: none;
+}
+.view--splitList.focus, .view--splitDetail.focus {
+  display: block;
+}
+
+.view--splitList {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 15;
+}
+
+@media only screen and (min-width: 640px) {
+  .ieRoot_modern .view--splitList {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    justify-content: flex-start;
+    -ms-flex-pack: start;
+    -webkit-box-align: flex;
+    box-align: flex;
+    -webkit-align-items: flex;
+    -ms-align-items: flex;
+    align-items: flex;
+    -ms-flex-align: flex;
+    box-sizing: border-box;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-box-lines: single;
+    box-lines: single;
+    -webkit-flex-wrap: "nowrap";
+    -ms-flex-wrap: "nowrap";
+    flex-wrap: "nowrap";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 320px;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    display: block;
+  }
+  .ieRoot_lt_IE10 .ieRoot_modern .view--splitList {
+    height: 100%;
+  }
+  .ieRoot_lt_IE10 .ieRoot_modern .view--splitList {
+    display: table;
+    table-layout: auto;
+    width: 100%;
+  }
+
+  .ieRoot_modern .view--splitDetail {
+    display: block;
+    padding-left: 320px;
+  }
+}
+/*doc
+---
+title: View Head
+name: viewHead
+category: Views
+---
+The `view-head` element is the first child (the
+fixed top nav bar) within every view.
+
+```
+<div class="view">
+	<header class="view-head row inverted">
+		<a href="#" class="row-item row-item--shrink row-item--alignMiddle">[...]</a>
+		<a href="#" class="row-item row-item--alignMiddle">Page Title</a>
+		<a href="#" class="row-item row-item--shrink row-item--alignMiddle">[...]</a>
+	</header>
+</div>
+```
+
+## view-head variants
+A class of `.view-head` is required for view headers. The following classes
+are optional variants (most likely added/removed with javascript to accommodate
+hero headers).
+
+Class                      | Description
+-------------------------- | ---------------------------
+`.view-head--transparent`  | Makes view header transparent; hides `h1` heading
+`.view-head--photoOverlay` | Adds text protext gradient (`view-head--trasnparent` required with this class)
+
+*/
+.view-head {
+  box-sizing: border-box;
+  background: #e2373c;
+  color: white;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  height: 56px;
+  padding: 0 16px;
+}
+@media only screen and (min-width: 840px) {
+  .view-head {
+    height: 64px;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .view--splitList .ieRoot_modern .view-head {
+    -webkit-flex-basis: 56px;
+    flex-basis: 56px;
+    -ms-flex-preferred-size: 56px;
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+    -ms-flex-positive: 0;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    width: 320px;
+  }
+  .view--splitDetail .ieRoot_modern .view-head {
+    left: 320px;
+    right: 0;
+    width: auto;
+  }
+}
+.view-head--transparent {
+  background: transparent;
+  border-bottom: none;
+  color: white;
+  position: absolute;
+}
+.view-head--transparent h1, .view-head--transparent h2, .view-head--transparent p {
+  opacity: 0;
+}
+
+.view-head--transparent.view-head--photoOverlay {
+  background: -webkit-linear-gradient(rgba(15, 20, 31, 0.8), rgba(15, 20, 31, 0));
+  background: linear-gradient(rgba(15, 20, 31, 0.8), rgba(15, 20, 31, 0));
+}
+
+/*doc
+---
+title: View Body
+name: viewBody
+category: Views
+---
+The `view-body` element is our main
+content container for the view.
+
+```
+<div class="view">
+	<main class="view-body">
+		... stripes, bounds, etc ...
+		... all content ...
+	</main>
+</div>
+```
+*/
+.view--splitList .ieRoot_modern .view-body {
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  box-sizing: border-box;
+  height: auto;
+}
+
+/*doc
+---
+title: Modals
+name: modals
+category: Views
+---
+
+## view--modal variants
+
+Class                      | Description
+-------------------------- | ---------------------------
+`.view--modalFull`        | Makes a modal that is full screen on all screen sizes
+`.view--modalSnap`        | Creates a modal that is full screen on small sizes, overlay/dialog on larger screens
+
+
+*/
+/*doc
+---
+title: Full Modal View
+name: fullModalView
+parent: modals
+---
+
+Modal that is presented full screen on all sizes
+
+```html_example
+<a class="link" href="pages/modal-full.html">Demo</a>
+
+<div class="view view--modalFull display--none">
+	<header class="view-head row">
+		<a href="http://meetup.com/" class="row-item row-item--shrink row-item--alignMiddle">
+			<img src="style/img/logo.svg" width="35" height="24"></a>
+		</a>
+		<div class="row-item row-item--alignMiddle viewHead-heading">
+			<h1 class="wrap--singleLine--truncate">This is a header</h1>
+		</div>
+	</header>
+	<div id="modal_body" class="view-body">
+		<div class="stripe">
+			<div class="bounds">
+			... body content here ...
+			</div>
+		</div>
+	</div>
+</div>
+```
+
+*/
+.view--modalFull {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+  left: 0;
+  margin: 0;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+}
+.view--modalFull.off {
+  -webkit-transform: translateY(100vh);
+  -ms-transform: translateY(100vh);
+  transform: translateY(100vh);
+}
+
+/*doc
+---
+title: Snap Modal View (Dialog)
+name: snapModalView
+parent: modals
+---
+
+Modal that snaps to the whole viewport and is full screen on small screens,
+lays out as a dialog on background content on larger screens.
+
+
+```html_example
+<a class="link" href="pages/modal-snap.html">Demo</a>
+
+<div class="view view--modalSnap display--none">
+	<header class="view-head row inverted">
+		<a href="http://meetup.com/" class="row-item row-item--shrink row-item--alignMiddle">
+			Close
+		</a>
+		<div class="row-item row-item--alignMiddle viewHead-heading">
+			<h1 class="wrap--singleLine--truncate">Change your setting</h1>
+		</div>
+	</header>
+	<div id="modal_body" class="view-body">
+		<div class="stripe">
+			<div class="bounds">
+			... body content here ...
+
+				<button>Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+```
+*/
+.view--modalSnap {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+  left: 0;
+  margin: 0;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+}
+.view--modalSnap.off {
+  -webkit-transform: translateY(100vh);
+  -ms-transform: translateY(100vh);
+  transform: translateY(100vh);
+}
+@media only screen and (min-width: 640px) {
+  .view--modalSnap {
+    -webkit-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: -webkit-transform 0.2s ease;
+    -moz-transition: -moz-transform 0.2s ease;
+    transition: transform 0.2s ease;
+    position: absolute;
+    left: 50%;
+    margin-left: -220px;
+    min-height: 0;
+    width: 440px;
+    margin-top: 10vh;
+  }
+  .view--modalSnap.off {
+    -webkit-transform: translateY(100vh);
+    -ms-transform: translateY(100vh);
+    transform: translateY(100vh);
+  }
+}
+
+/*doc
+---
+title: Overlay Shim
+name: overlayShim
+parent: modals
+---
+
+This overlay shim will most likely be written in with javascript
+when a modal is activated. It should be a direct child of `body`.
+
+The shim contains `overlayShim-content`, an element that is fixed
+just above the bottom of the viewport that can contain "close" or
+"back to top" prompts.
+
+We do not block scrolling when a modal is open.
+
+_See `.view--modalSnap` demo page for example_
+
+```
+<div id="shim" class="overlayShim">
+	<div class="overlayShim-content inverted">
+		overlayShim content (ie. close prompt)
+	</div>
+</div>
+```
+*/
+.overlayShim {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 20;
+}
+
+.overlayShim-content {
+  position: fixed;
+  bottom: 4em;
+  z-index: 25;
+  margin: auto;
+  width: 100%;
+}
+
+/*doc
+---
+title: Media View
+name: mediaView
+category: Views
+---
+
+docs TK
+
+<a class="link followLink" href="pages/media-view.html">Demo</a>
+*/
+.view--mediaContent {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: flex;
+  box-align: flex;
+  -webkit-align-items: flex;
+  -ms-align-items: flex;
+  align-items: flex;
+  -ms-flex-align: flex;
+  box-sizing: border-box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+@media only screen and (min-width: 840px) {
+  .view--mediaContent {
+    min-height: 100vh;
+  }
+}
+
+.view-head--mediaContent {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  -ms-flex-positive: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -ms-flex-negative: 0;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  width: initial;
+  background-color: #000;
+}
+
+.view-body--mediaContent {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-flex-basis: 0;
+  flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 0;
+  background-color: #000;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  min-height: 384px;
+}
+@media only screen and (min-width: 640px) {
+  .view-body--mediaContent {
+    min-height: 544px;
+  }
+}
+.view-body--mediaContent:hover .mediaNav-icon {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  opacity: .5;
+}
+
+.view--mediaMeta {
+  min-height: 0;
+  position: relative;
+  z-index: 19;
+}
+
+.bounds--mediaMeta {
+  max-width: 400px;
+}
+@media only screen and (min-width: 840px) {
+  .bounds--mediaMeta {
+    width: 320px;
+  }
+}
+
+.mediaNav {
+  height: 100%;
+  position: absolute;
+  width: 50%;
+}
+.mediaNav--prev {
+  left: 0;
+}
+.mediaNav--next {
+  right: 0;
+}
+.mediaNav:hover .mediaNav-icon {
+  opacity: 1;
+}
+
+.mediaNav-icon {
+  -webkit-transition: opacity 50ms ease-in;
+  transition: opacity 50ms ease-in;
+  stroke: transparent;
+  fill: #fff;
+  color: #fff;
+  opacity: .5;
+  position: absolute;
+  top: 50%;
+}
+.mediaNav--prev .mediaNav-icon {
+  left: 16px;
+}
+.mediaNav--next .mediaNav-icon {
+  right: 16px;
+}
+
+/*doc
+---
+title: Avatar
+name: avatar
+category: UI Components
+---
+
+```html_example
+<ul class="inlineblockList">
+	<li>
+		<a href="#" class="avatar avatar--person" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--small" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--big" style="background-image: url(http://photos4.meetupstatic.com/photos/member/d/0/2/c/member_156833292.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--fbFriend" style="background-image: url(http://photos4.meetupstatic.com/photos/member/5/a/2/thumb_109681442.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person">
+			<abbr title="Member name" class="avatar-initial">M</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--big avatar--person">
+			<abbr title="Teresa Wall" class="avatar-initial">T</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--small avatar--person">
+			<abbr title="Jake Levine" class="avatar-initial">J</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--org">
+			<abbr title="Jake Levine" class="avatar-initial">J</abbr>
+		</a>
+	</li>
+</ul>
+```
+
+## Avatar variants
+A base class of `avatar` is __required__. The following classes are
+optional variants:
+
+Class                     | Description
+------------------------- | ------------------------------------
+`avatar--small`           | Adjusts avatar size to the smallest media size
+`avatar--big`             | Adjusts avatar size to the biggest media size
+`avatar--person`          | Variant for people
+`avatar--org`             | Variant for organizers
+`avatar--fbFriend`        | Variant for facebook friends
+`avatar--icon`            | For icons in avatars (might move this in a later version)
+*/
+.avatar--fbFriend, .avatar--org {
+  overflow: visible;
+}
+.avatar--fbFriend:after, .avatar--org:after {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  border-radius: 999px;
+  bottom: 0;
+  content: "";
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  height: 16px;
+  line-height: 16px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-indent: 0%;
+  width: 16px;
+}
+
+.avatar--person,
+.avatar {
+  position: relative;
+  background-color: #f3f6f9;
+  background-position: center 42%;
+  color: transparent;
+  display: inline-block;
+  font-size: 0;
+  height: 36px;
+  text-indent: 100%;
+  white-space: nowrap;
+  vertical-align: top;
+  width: 36px;
+}
+@media only screen and (min-width: 440px) {
+  .avatar--person,
+  .avatar {
+    height: 48px;
+    width: 48px;
+  }
+}
+
+.avatar--small {
+  height: 24px;
+  width: 24px;
+}
+.avatar--small .avatar-initial {
+  width: 24px;
+  line-height: 24px;
+  font-size: 16px;
+}
+
+.avatar--big {
+  height: 160px;
+  width: 160px;
+}
+.avatar--big .avatar-initial {
+  width: 160px;
+  line-height: 160px;
+  font-size: 108px;
+  font-weight: normal;
+}
+
+.avatar-initial {
+  color: rgba(0, 0, 0, 0.26);
+  font-weight: bold;
+  font-size: 18px;
+  text-indent: 0%;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  width: 36px;
+  line-height: 36px;
+}
+@media only screen and (min-width: 440px) {
+  .avatar-initial {
+    width: 48px;
+    line-height: 48px;
+    font-size: 24px;
+  }
+}
+
+.avatar--person {
+  vertical-align: middle;
+  border-radius: 999px;
+  box-sizing: border-box;
+}
+
+.avatar--fbFriend:after {
+  background-color: #3b5998;
+  color: white;
+  content: "f";
+}
+
+.avatar--org:after {
+  background-color: #e2373c;
+  color: white;
+}
+
+.avatar--icon {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  background: #f3f6f9;
+  border-radius: 999px;
+  box-sizing: border-box;
+  height: 36px;
+  font-size: 16px;
+  line-height: 36px;
+  padding: 8px;
+  text-align: center;
+  width: 36px;
+}
+.avatar--icon img {
+  width: 100%;
+}
+@media only screen and (min-width: 440px) {
+  .avatar--icon {
+    height: 48px;
+    line-height: 48px;
+    padding: 12px;
+    width: 48px;
+  }
+}
+
+/*doc
+---
+title: Attachment
+name: attachment
+category: UI Components
+---
+Adding the `attachment` class to an elemeent
+creates a context in which layout classes (`row-item`,
+`chunk`, `list`) use half of their default spacing.
+
+In foundation, an "attachment" is a piece of
+content in the feed attached to a parent item
+(ie. a reply or event meta info).
+
+_Ancestry only affects spacing in `attachment`. Text sizing remains explicit._
+
+### Event meta info example
+
+```html_example
+<div class="row attachment">
+	<div class="row-item row-item--shrink">
+		<time class="tearsheet" datetime="2017-01-13">13</time>
+	</div>
+	<div class="row-item">
+		<h4 class="text--caption">Monday Jan 13, 6:30 pm</h4>
+		<h4>Backpacking For Beginners</h4>
+	</div>
+</div>
+```
+
+### Discussion reply example
+
+```html_example
+<div class="row attachment">
+	<div class="row-item row-item--shrink">
+		<a href="#" class="avatar avatar--person avatar--small" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);"></a>
+	</div>
+	<div class="row-item text--small">
+		<h4 class="text--bold display--inline">Member Name</h4>
+		<p class="display--inline">This is a reply to a post. I'm going to keep writing until the line wraps. Has it wrapped yet? Who cares.</p>
+	</div>
+</div>
+```
+*/
+.attachment .row-item {
+  padding-left: 8px;
+}
+@media only screen and (min-width: 640px) {
+  .attachment.atMedium_spreadable--spread .spreadable-item,
+  .attachment .atMedium_spreadable--spread .spreadable-item {
+    padding-left: 8px;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .attachment.atLarge_spreadable--spread .spreadable-item,
+  .attachment .atLarge_spreadable--spread .spreadable-item {
+    padding-left: 8px;
+  }
+}
+.attachment.chunk,
+.attachment .chunk {
+  margin-bottom: 8px !important;
+}
+.attachment.list-item,
+.attachment .list-item {
+  padding-top: 8px;
+}
+
+/*@import "ui-components/buttons";*/
+/*doc
+---
+title: Buttons (transitional styles)
+name: buttons
+category: UI Components
+---
+These buttons match the visual styles of the original [Sassquatch](http://meetup.github.io/sassquatch)
+framework, making them suitable for the transition of Meetup from legacy to "foundation" design.
+
+#### Example
+
+```html_example
+<a class="button" href="#">Button</a>
+<a class="button button--primary" href="#">Primary Button</a>
+<a class="button button--icon" href="#">
+	<span class="button-label">Button with right Icon</span>
+	<span class="button-icon">X</span>
+</a>
+<a class="button button--bordered button--fullWidth" href="#">Full width bordered button</a>
+<a class="button button--bordered" href="#">bordered button</a>
+<a class="button button--icon button--primary" href="#">
+	<span class="button-icon">X</span>
+	<span class="button-label">Primary button with left Icon</span>
+</a>
+<a class="button button--small" href="#">Small Button</a>
+<a class="button button--primary button--icon button--fullWidth" href="#">
+	<span class="button-icon">ヘ(◕。◕ヘ)</span>
+	<span class="button-label">Full width primary button with left Icon</span>
+</a>
+```
+
+#### Button variants
+A class of `.button` is __required__ for buttons. The following
+classes are optional variants:
+
+Class                   | Description
+----------------------- | ----------------------------------------
+`.button--primary`      | button with $C_red background; for primary actions
+`.button--small`        | decreases size of button
+`.button--icon`         | button with icon
+`.button--fullWidth`    | increases button width to 100% of its parent container
+`.button--bordered`     | foundation design style rounded bordered buttons
+*/
+.button--primary, .button--contrast, .button, .button--borderless {
+  position: relative;
+}
+.button--primary:after, .button--contrast:after, .button:after, .button--borderless:after {
+  content: '';
+  background: transparent;
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.button--primary, .button--contrast, .button, .button--borderless {
+  stroke: transparent;
+  fill: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 10px 16px 8px 16px;
+  border-radius: 3px;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
+  border-width: 0;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.54);
+  margin-bottom: 4px;
+  background: #e6e9ec;
+}
+.button--primary:active, .button--contrast:active, .button:active, .button--borderless:active {
+  -webkit-transform: translate(0, 2px);
+  -ms-transform: translate(0, 2px);
+  transform: translate(0, 2px);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.54);
+}
+.button--primary:hover, .button--contrast:hover, .button:hover, .button--borderless:hover {
+  background: #cfd5da;
+}
+
+.button--primary {
+  stroke: transparent;
+  fill: #fff;
+  color: #fff;
+  background: #e2373c;
+  box-shadow: 0 3px 0 0 #861317;
+}
+.button--primary:active {
+  box-shadow: 0 1px 0 0 #861317;
+}
+.button--primary:hover {
+  background: #d21e24;
+}
+
+.button--contrast {
+  stroke: transparent;
+  fill: #fff;
+  color: #fff;
+  background: #e2373c;
+  box-shadow: 0 3px 0 0 #861317;
+}
+.button--contrast:active {
+  box-shadow: 0 1px 0 0 #861317;
+}
+.button--contrast:hover {
+  background: #d21e24;
+}
+
+.toggleButton-label,
+.button--small {
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+.button--fullWidth {
+  display: block;
+  width: 100%;
+}
+
+.button--bordered {
+  box-sizing: border-box;
+  -webkit-transition: background 0.15s;
+  transition: background 0.15s;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 50px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  padding: 8px 16px;
+  text-align: center;
+  stroke: transparent;
+  fill: #3987cb;
+  color: #3987cb;
+  border: 1px solid;
+  font-weight: 400;
+  border-radius: 3px;
+  box-shadow: 0 0 0 0 transparent !important;
+  font-weight: 700;
+  padding: 10px 16px 8px 16px;
+}
+.button--bordered:focus {
+  outline: 0;
+}
+.button--bordered:hover, .button--bordered:active, .button--bordered:focus {
+  background: rgba(57, 135, 203, 0.2) !important;
+}
+.button--bordered:active {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.button--icon {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-lines: single;
+  box-lines: single;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-pack: justify;
+  box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-pack: justify;
+}
+.ieRoot_lt_IE10 .button--icon {
+  box-sizing: border-box;
+  display: table;
+  table-layout: auto;
+}
+
+.button-label,
+.button-icon {
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+}
+.ieRoot_lt_IE10 .button-label, .ieRoot_lt_IE10
+.button-icon {
+  display: table-cell;
+  width: 100%;
+}
+
+.button-label {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-flex-basis: 0;
+  flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+}
+
+.button-icon {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  -ms-flex-positive: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -ms-flex-negative: 0;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  width: initial;
+  line-height: 0;
+}
+.button-icon:first-child {
+  margin-right: 8px;
+}
+.button-icon:last-child {
+  margin-left: 8px;
+}
+.button-icon.button--primary svg {
+  stroke: transparent;
+  fill: white;
+  color: white;
+}
+.ieRoot_lt_IE10 .button-icon {
+  width: auto;
+}
+
+.button--small .button-icon {
+  height: 16px;
+}
+
+/*doc
+---
+title: Cards
+name: uiCard
+category: UI Components
+---
+Card-like boxes.
+
+## Standard, Group, and Event cards
+(This example uses `gridList`, but cards may placed anywhere)
+
+```html_example
+<section class="stripe--collection">
+	<div class="bounds">
+		<ul class="gridList gridList--has1 atMedium_gridList--has3">
+
+			<!-- Base card styles -->
+			<li>
+				<div class="card">
+					<h4>Look at this card</h4>
+					<p>Just <em>look at it</em></p>
+				</div>
+			</li>
+
+			<!-- Group card -->
+			<li>
+				<div class="card card--group inverted" style="background-image: url(http://photos4.meetupstatic.com/photos/event/7/6/f/8/600_434010456.jpeg);">
+					<div class="card--group-content">
+						<h4 class="text--bold">Some Meetup Group Name</h4>
+						<p>457 [chapter.who]</p>
+					</div>
+				</div>
+			</li>
+
+			<!-- Group card with long name -->
+			<li>
+				<div class="card card--group inverted" style="background-image: url(http://photos4.meetupstatic.com/photos/event/7/6/f/8/600_434010456.jpeg);">
+					<div class="card--group-content">
+						<h4 class="text--bold">Béchamel Hell: French Cuisine for Survivalists Meetup</h4>
+						<p>457 [chapter.who]</p>
+					</div>
+				</div>
+			</li>
+
+			<!-- Event card -->
+			<li>
+				<div class="card card--event">
+					<h4>I'm an event card</h4>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+```
+
+### Event card detail
+An example of a full event card recipie using
+`.card` with other existing Sassquatch2 components.
+
+
+_(The inline style on the card element is for documentation purposes only)_
+
+```html_example
+<section class="stripe--collection">
+	<a href="#" class="chunk card card--event" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">No spots left</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--featured" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Featured</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--cancelled" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Cancelled</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3 class="text--strikethrough">Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+	<a href="#" class="chunk card card--event card--event--draft" style="margin: 16px; max-width: 250px;">
+
+		<div class="row row--spaceBetween row--wrap">
+
+			<time datetime="20150221" class="row-item row-item--shrink">
+				<h2 class="text--graphic display--inlineBlock">21</h2>
+				<h2>Feb</h2>
+			</time>
+
+			<div class="row-item row-item--shrink align--right">
+				<p class="text--caption">Draft</p>
+			</div>
+
+		</div>
+
+		<div class="chunk eventInfo-primary">
+			<p class="wrap--singleLine--truncate chunk text--secondary">Saturday at 2:00 pm</p>
+
+			<h3>Backpacking For Beginners</h3>
+
+			<ul class="inlineblockList matchLineHeight">
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="avatar avatar--person avatar--small" style="background-image: url(http://photos1.meetupstatic.com/photos/member/e/0/7/e/member_241857470.jpeg);">Member name</li>
+				<li class="text--caption">+8</li>
+			</ul>
+		</div>
+	</a>
+</section>
+```
+*/
+.card {
+  box-sizing: border-box;
+  display: block;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  padding: 16px 16px 0;
+  position: relative;
+  background-size: cover;
+  background-clip: padding-box;
+  min-height: 160px;
+}
+
+.card--group {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-pack: end;
+  box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  justify-content: flex-end;
+  -ms-flex-pack: end;
+  border-radius: 0;
+  padding: 16px;
+  height: 160px;
+}
+.ieRoot_lt_IE10 .card--group {
+  display: table-cell;
+  vertical-align: bottom;
+}
+.card--group:before {
+  background-color: rgba(15, 20, 31, 0);
+  background-image: -webkit-linear-gradient(rgba(15, 20, 31, 0) 0%, rgba(15, 20, 31, 0.1) 25%, rgba(15, 20, 31, 0.9) 100%);
+  background-image: linear-gradient(rgba(15, 20, 31, 0) 0%, rgba(15, 20, 31, 0.1) 25%, rgba(15, 20, 31, 0.9) 100%);
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  left: 0;
+  top: 0;
+}
+
+.card--group-content {
+  position: relative;
+  white-space: normal;
+}
+
+.card--event {
+  position: relative;
+}
+.card--event:before {
+  background: #e2373c;
+  content: '';
+  display: block;
+  height: 4px;
+  left: 0;
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: -1px;
+}
+
+.card--event--past:before {
+  background: #e6e9ec;
+}
+
+.card--event--canceled:before {
+  background: #e6e9ec;
+}
+
+.card--event--featured:before {
+  background: #f0cb4f;
+}
+
+.card--event--draft:before {
+  background: #62ac75;
+}
+
+/*doc
+---
+title: Collapsible
+name: collapsible
+category: UI Components
+---
+Collapses elements using class toggling. A base
+class of `collapsible` is __required__.
+
+To collapse the element, add the `collapsible--close` class.
+
+__NOTE:__ to hide the collapsible content from screen readers, use `display--none` when the collapsible is closed.
+
+```html_example
+<a id="cTrigger" class="button button--primary chunk followLink">Toggle</a>
+
+<section class="stripe collapsible" id="cContainer">
+	<div class="bounds collapsible-content">
+		<h2>I'm collapsible content</h2>
+		<p>Adding a class of `collapsible--close` to this `section` will set max height to 0vh</p>
+	</div>
+</section>
+```
+*/
+.hasJS .collapsible {
+  -webkit-transition: max-height 300ms ease-in-out;
+  transition: max-height 300ms ease-in-out;
+  will-change: max-height;
+  height: auto;
+  min-height: 0 !important;
+  /* override any min-height rules */
+  max-height: 4000px;
+  /* We have to use an obscenely high number to accommodate our obscenely high character limit on group descriptions */
+}
+.hasJS .collapsible-content {
+  -webkit-transition: -webkit-transform 300ms ease-in-out;
+  -moz-transition: -moz-transform 300ms ease-in-out;
+  transition: transform 300ms ease-in-out;
+}
+.hasJS .collapsible--close {
+  border-width: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+.hasJS .collapsible--close .collapsible-content {
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+/*doc
+---
+title: Floating Action
+name: floatingAction
+category: UI Components
+---
+If a page has a single important action, you can use a `floatingAction` wrapper to
+call it out. At small screen sizes, the element with the `floatingAction` class
+will fix to the bottom of the viewport.
+
+__Note:__ A class of `hasFloatingAction` is available if extra space is needed at the bottom
+of a page for the floating action to "land" in. Apply to the `body` tag.
+
+```html_example
+	<div class="bounds">
+		<p class="chunk">The button below will fix to the bottom of the viewport at small sizes</p>
+		<div class="floatingAction">
+			<a href="#" class="floatingAction-content button button--primary button--fullWidth">Floating Action</a>
+		</div>
+	</div>
+```
+*/
+.floatingAction {
+  box-sizing: border-box;
+  padding: 0 16px;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+.floatingAction:before {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  content: "";
+  background-color: white;
+  z-index: 2;
+  height: 72px;
+  width: 100%;
+}
+.floatingAction > a,
+.floatingAction .floatingAction-content {
+  position: relative;
+  z-index: 30;
+}
+
+.hasFloatingAction {
+  background-color: #353e48;
+  padding-bottom: 72px;
+}
+
+@media only screen and (min-width: 640px) {
+  .floatingAction {
+    position: static;
+  }
+  .floatingAction:before {
+    position: static;
+    height: 0;
+    width: 0;
+  }
+  .floatingAction > a {
+    z-index: 0;
+  }
+
+  .hasFloatingAction {
+    background-color: transparent;
+    padding-bottom: 0;
+  }
+}
+/*doc
+---
+title: Menu
+name: menu
+category: UI Components
+---
+Context menu style dropdoowns. Actions are delivered in-document
+next to the menu toggle as a non-js fallback. When a client is
+javascript-enabled, the menu is hidden and posisitioned __fixed__
+(assumes this style of menu will only be found within a `view-head`).
+
+Toggling of menu visibility is handled with javascript (supporting js
+for documentation TK).
+
+__NOTE:__ This visual example currently shows the non-js fallback only.
+Use as a guide for markup.
+
+```html_example
+<div class="menu">
+	<a class="menu-toggle" href="#">(icon)</a>
+
+	<ul role="menu" class="menu-actions">
+		<li class="menu-actions-item">
+			<a role="menuitem" href="#">Select All</a>
+		</li>
+		<li class="menu-actions-item">
+			<a role="menuitem" href="#">Select None</a>
+		</li>
+	</ul>
+</div>
+```
+*/
+.menu-actions {
+  z-index: 50;
+}
+.hasJS .menu-actions {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  background-color: white;
+  display: none;
+  min-width: 108px;
+  max-width: 330px;
+  top: 16px;
+  right: 16px;
+  position: absolute;
+}
+.position--fixed .hasJS .menu-actions {
+  position: fixed;
+}
+
+.menu-actions-item {
+  display: inline;
+}
+.hasJS .menu-actions-item {
+  padding-top: 0;
+}
+
+.menu-actions-item a {
+  display: inline-block;
+  padding-right: 16px;
+}
+.hasJS .menu-actions-item a {
+  display: block;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+.hasJS .menu-actions-item a:hover, .hasJS .menu-actions-item a:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.menu-actions--active {
+  display: block !important;
+}
+
+/*doc
+---
+title: Pagination
+name: uiPager
+category: UI Components
+---
+
+```html_example
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>2 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>3</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>4</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>5</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>6</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>7</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>11</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>12</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>13</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>14 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>15</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>16</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>17</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+
+<div class="chunk"><ul role="navigation" class="pagination">
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="prev">←</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>1</a>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<span class="text--hint">&hellip;</span>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>19</a>
+	</li>
+	<li class="pagination-page visibility--a11yHide atMedium_visibility--a11yShow">
+		<a href="#" class="link"><span class="text--hide">Page </span>20</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>21</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>22</a>
+	</li>
+	<li class="pagination-page">
+		<a href="#" class="link"><span class="text--hide">Page </span>23</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--current inverted">
+		<span>24 <em class="text--hide">Current page</em></span>
+	</li>
+	<li class="pagination-page pagination-page--persist">
+		<a href="#" class="link"><span class="text--hide">Page </span>25</a>
+	</li>
+	<li class="pagination-page pagination-page--persist pagination-page--control">
+		<a href="#" class="link" rel="next">→</a>
+	</li>
+</ul></div>
+```
+*/
+.pagination {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
+  -ms-flex-pack: start;
+  -webkit-box-align: flex;
+  box-align: flex;
+  -webkit-align-items: flex;
+  -ms-align-items: flex;
+  align-items: flex;
+  -ms-flex-align: flex;
+  box-sizing: border-box;
+  -webkit-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-direction: normal;
+  box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  -webkit-box-lines: single;
+  box-lines: single;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+  box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -ms-flex-pack: justify;
+}
+.ieRoot_lt_IE10 .pagination {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+}
+
+.pagination-page {
+  border: 0;
+  clip: rect(0 0 0 0);
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border-radius: 3px;
+}
+.pagination-page:not(.pagination-page--control) {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  -ms-flex-positive: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -ms-flex-negative: 0;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -ms-flex-preferred-size: auto;
+  width: initial;
+  padding: 8px;
+}
+.ieRoot_lt_IE10 .pagination-page:not(.pagination-page--control) {
+  width: 1%;
+}
+.ieRoot_lt_IE10 .pagination-page:not(.pagination-page--control) {
+  vertical-align: top;
+}
+@media only screen and (min-width: 440px) {
+  .pagination-page {
+    clip: auto;
+    clip: rect(auto auto auto auto);
+    position: static;
+    overflow: visible;
+    margin: 0;
+    width: auto;
+    height: auto;
+    min-width: 24px;
+  }
+}
+
+.pagination-page--persist {
+  clip: auto;
+  clip: rect(auto auto auto auto);
+  position: static;
+  overflow: visible;
+  margin: 0;
+  width: auto;
+  height: auto;
+  min-width: 24px;
+}
+
+.pagination-page--control {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-flex-basis: 0;
+  flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 0;
+}
+.ieRoot_lt_IE10 .pagination-page--control {
+  display: table-cell;
+}
+.ieRoot_lt_IE10 .pagination-page--control {
+  vertical-align: top;
+}
+
+.pagination-page--current {
+  background: #3987cb;
+  font-weight: bold;
+  margin: 0 8px;
+}
+@media only screen and (min-width: 440px) {
+  .pagination-page--current {
+    margin: 0;
+  }
+}
+
+/* TODO: organize and doc ellipses classes */
+/* see: in chapstick, templates/handlebars/util/pagination.hbs */
+.pagination-page--ellipsesBefore, .pagination-page--ellipsesAfter {
+  position: relative;
+}
+.pagination-page--ellipsesBefore:before, .pagination-page--ellipsesAfter:before, .pagination-page--ellipsesBefore:after, .pagination-page--ellipsesAfter:after {
+  position: absolute;
+  bottom: 7px;
+}
+
+.pagination-page--ellipsesBefore {
+  margin-left: 32px;
+}
+.pagination-page--ellipsesBefore:before {
+  display: block;
+  content: "\2026";
+  left: -32px;
+}
+
+.pagination-page--ellipsesAfter {
+  margin-right: 32px;
+}
+.pagination-page--ellipsesAfter:after {
+  display: block;
+  content: "\2026";
+  right: -32px;
+}
+
+@media only screen and (min-width: 440px) {
+  .pagination-page--ellipsesBefore,
+  .pagination-page--ellipsesAfter {
+    margin: 0;
+  }
+  .pagination-page--ellipsesBefore:before, .pagination-page--ellipsesBefore:after,
+  .pagination-page--ellipsesAfter:before,
+  .pagination-page--ellipsesAfter:after {
+    display: none;
+  }
+}
+/*doc
+---
+title: Prompt
+name: prompt
+category: UI Components
+---
+A `prompt` is used to prompt for user input before continuing an action.
+
+```html_example
+<a class="link" href="pages/modal-snap.html">Demo</a>
+
+<div id="examplePrompt" class="prompt">
+	<div class="bounds">
+		<h3 class="chunk text--bold">Are you sure?</h3>
+		<div class="chunk">
+			<a class="button button--primary button--fullWidth">Delete the internet</a>
+		</div>
+		<div class="chunk">
+			<a class="button button--borderless button--fullWidth">Cancel</a>
+		</div>
+	</div>
+</div>
+```
+
+## Active state
+A class of `prompt` is required. Add the `prompt--active` class to open the prompt.
+
+Class                     | Description
+------------------------- | ---------------------------
+`.prompt--active`         | Sets display to `block` and applies positioning rules
+*/
+.prompt {
+  -webkit-transform: translateY(100vh);
+  -ms-transform: translateY(100vh);
+  transform: translateY(100vh);
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -moz-transition: -moz-transform 0.2s ease;
+  transition: transform 0.2s ease;
+  background-color: white;
+  display: none;
+  text-align: center;
+  z-index: 51;
+}
+
+.prompt--active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: 90%;
+  margin: auto 5%;
+  display: block;
+  top: 0;
+  margin-top: 10vh;
+}
+@media only screen and (min-width: 440px) {
+  .prompt--active {
+    position: absolute;
+    left: 50%;
+    margin-left: -192px;
+    width: 384px;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .prompt--active {
+    margin-top: 20vh;
+  }
+}
+
+/*doc
+---
+title: RSVP Tags
+name: tag
+category: UI Components
+---
+Status tags for RSVP.
+
+```html_example
+<div class="rsvpTag rsvpTag--yes">Going</div>
+<div class="rsvpTag rsvpTag--no">Not going</div>
+<div class="rsvpTag rsvpTag--waiting">Waiting</div>
+```
+
+
+## Variants
+A class of `rsvpTag` is __required__.
+Variant classes:
+
+Class                | Description
+-------------------- | --------------------------
+`rsvpTag--yes`       | indicates "yes" RSVP status
+`rsvpTag--no`        | indicates "no" RSVP status
+`rsvpTag--waiting`   | indicates waitlist RSVP status
+*/
+.rsvpTag {
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  padding: 4px;
+}
+.lang_en .rsvpTag {
+  text-transform: capitalize;
+}
+
+.rsvpTag--yes {
+  background: #62ac75;
+}
+
+.rsvpTag--no {
+  background: #f3f6f9;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.rsvpTag--waiting {
+  background: #353e48;
+}
+
+/*doc
+---
+title: Tabs
+name: tabs
+category: UI Components
+---
+
+```html_example
+<nav>
+	<ul class="tabs">
+		<li class="tabs-tab"><a href="#">Tab One</a></li>
+		<li class="tabs-tab tabs-tab--selected"><a href="#">Tab Two</a></li>
+		<li class="tabs-tab"><a href="#">Tab Three</a></li>
+	</ul>
+</nav>
+```
+
+### Tabs (parent) variants
+A class of `tabs` is __required__. The following classes are
+optional variants:
+
+Class                 | Description
+--------------------- | -----------------------------
+`tabs--full`          | Makes tabs span the full width of their parent element
+
+
+### Tab (child) variants
+A class of `tabs-tab` is __required__ for tabs. The following classes
+are optional variants:
+
+Class                 | Description
+--------------------- | -----------------------------
+`tabs-tab--selected`  | Applies styles for tab selected state
+*/
+.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.tabs--full {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.tabs--full .tabs-tab {
+  display: table-cell;
+  margin: 0;
+  text-align: center;
+}
+
+.tabs-tab {
+  color: rgba(0, 0, 0, 0.26);
+  padding: 0;
+  margin: 0 0 0 16px;
+  cursor: pointer;
+  display: inline-block;
+  border-bottom: 4px solid transparent;
+}
+.tabs-tab:first-child {
+  margin-left: 0;
+}
+.inverted .tabs-tab {
+  color: rgba(255, 255, 255, 0.3);
+}
+.inverted .tabs-tab:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.inverted .tabs-tab.tabs-tab--selected {
+  color: white;
+  border-bottom-color: white;
+}
+
+.tabs-tab--selected {
+  color: #e2373c;
+  border-bottom: 4px solid #e2373c;
+}
+
+/*doc
+---
+title: Tearsheet
+name: tearsheet
+category: UI Components
+---
+Standard display for dates.
+
+#### Tearsheet example
+```html_example
+<div class="tearsheet">13</div>
+```
+
+#### Tearsheet with date detail
+```html_example
+<div class="dateTime">
+	<div class="dateTime-tearsheet">13</div>
+	<p class="dateTime-detail">Tomorrow at 7:00 PM</p>
+</div>
+```
+*/
+.dateTime-tearsheet,
+.tearsheet {
+  display: block;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 13px;
+  font-weight: 700;
+  height: 24px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  width: 24px;
+}
+.dateTime-tearsheet:before,
+.tearsheet:before {
+  background: #e2373c;
+  content: '';
+  display: block;
+  height: 6px;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+
+.dateTime-tearsheet,
+.dateTime-detail {
+  display: inline-block;
+}
+
+.dateTime-tearsheet {
+  margin-right: 8px;
+}
+
+/*doc
+---
+title: Thumb content
+name: thumbContent
+category: UI Components
+---
+Used for placing content (like icons or labels) on top of a thumbnail
+
+```html_example
+<ul class="inlineblockList">
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content inverted">Default</span>
+		</div>
+	</li>
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content thumb-content--middle inverted">Middle</span>
+		</div>
+	</li>
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content thumb-content--top inverted">Top</span>
+		</div>
+	</li>
+</ul>
+```
+### Thumb content position variants
+Vertical alignment of the thumb content can be adjusted
+
+Class                    | Description
+------------------------ | -----------------------------
+`thumb-content--top`     | Flushes content to the top of the thumb
+`thumb-content--middle`  | Vertically centers content in the thumb
+*/
+.thumb-content {
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 4px;
+  position: absolute;
+  width: 100%;
+}
+
+.thumb-content--top {
+  bottom: auto;
+  top: 0;
+}
+
+.thumb-content--middle {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*doc
+---
+title: Toggle Pills
+name: togglePills
+category: UI Components
+---
+Checkbox form elements styled as toggle buttons.
+
+## "unchecked" state
+```html_example
+<div class="toggleButton">
+	<input class="toggleButton-input" type="checkbox" name="topic-dining" id="topic-dining" value="ToggleBtn" />
+	<label class="toggleButton-label" for="topic-dining">Dining Out</label>
+</div>
+```
+
+## "checked" state
+```html_example
+<div class="toggleButton">
+	<input checked class="toggleButton-input" type="checkbox" name="topic-hiking" id="topic-hiking" value="ToggleBtn" />
+	<label class="toggleButton-label" for="topic-hiking">Hiking</label>
+</div>
+```
+*/
+.toggleButton {
+  display: inline-block;
+  margin: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggleButton-label {
+  margin: 0;
+}
+
+.toggleButton-input {
+  display: none;
+}
+.toggleButton-input:checked + .toggleButton-label {
+  -webkit-animation: bounce-in-subtle 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: bounce-in-subtle 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: #3987cb;
+  border-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+
+/*doc
+---
+title: Animation
+name: animMod
+category: Modifier Classes
+---
+Applies keyframes animation to element
+
+Class							  | Description
+------------------------- | --------------------------------
+`.animate--bounceInSubtle`| Applies bounce-in keyframes animation (plays once)
+`.animate--spin`          | Applies 360deg rotation keyframes (infinite)
+
+*/
+.animate--bounceInSubtle {
+  -webkit-animation: bounce-in-subtle 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: bounce-in-subtle 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animate--spin {
+  -webkit-animation: spin 0.8s linear;
+  animation: spin 0.8s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+/*doc
+---
+title: Alignment
+name: alignMod
+category: Modifier Classes
+---
+
+__Applies `!important` declaration__
+
+## Text alignment
+The following classes change the `text-align` of an element.
+
+Class                    | Description
+------------------------ | --------------------------------
+`.align--left`           | sets `text-align` to `left`
+`.align--right`          | sets `text-align` to `right`
+`.align--center`         | sets `text-align` to `center`
+
+
+## Vertical alignment
+The following classes adjust vertical centering of element
+contents.
+
+For elements displaying as `inline-block` or `table-cell`,
+the `vertical-align` property is used.
+
+For flex children, these classes set the `align-self` property
+to a value that best matches the `vertical-align` value.
+
+Class                    | Description
+------------------------ | --------------------------------
+`.valign--baseline`      | vertically centers element to baseline
+`.valign--bottom`        | vertically centers element to bottom
+`.valign--middle`        | vertically centers element to middle
+`.valign--top`           | vertically centers element to top
+
+*/
+.pagination-page--control:first-child,
+.align--left {
+  -webkit-align-self: left;
+  align-self: left;
+  -ms-flex-item-align: left;
+  text-align: left !important;
+}
+
+.pagination-page--control:last-child,
+.align--right {
+  -webkit-align-self: right;
+  align-self: right;
+  -ms-flex-item-align: right;
+  text-align: right !important;
+}
+
+.pagination-page,
+.align--center {
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+  text-align: center !important;
+}
+
+.valign--baseline {
+  -webkit-align-self: baseline;
+  align-self: baseline;
+  -ms-flex-item-align: baseline;
+  vertical-align: baseline !important;
+}
+
+.valign--bottom {
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+  -ms-flex-item-align: end;
+  vertical-align: bottom !important;
+}
+
+.pagination-page,
+.valign--middle {
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+  vertical-align: middle !important;
+}
+
+.valign--top {
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+  -ms-flex-item-align: start;
+  vertical-align: top !important;
+}
+
+/*doc
+---
+title: Aspect ratio helper
+name: keepAspect
+category: Modifier Classes
+---
+Maintains a given aspect ratio for flexible media.
+Apply to elements with background images.
+
+Class              | Description
+------------------ | ------------------------------
+`.keepAspect`      | maintains 1:1 aspect ratio when resized
+`.keepAspect--16-9`| maintains 16:9 aspect ratio when resized
+`.keepAspect--2-1` | maintains 2:1 aspect ratio when resized
+`.keepAspect--2-3` | maintains 2:3 aspect ratio when resized
+`.keepAspect--3-4` | maintains 3:4 aspect ratio when resized
+
+*/
+.keepAspect {
+  margin-bottom: 0;
+}
+.keepAspect:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.keepAspect--16-9 {
+  margin-bottom: 0;
+}
+.keepAspect--16-9:before {
+  content: '';
+  display: block;
+  padding-top: 56.25%;
+}
+
+.keepAspect--2-1 {
+  margin-bottom: 0;
+}
+.keepAspect--2-1:before {
+  content: '';
+  display: block;
+  padding-top: 50%;
+}
+
+.keepAspect--2-3 {
+  margin-bottom: 0;
+}
+.keepAspect--2-3:before {
+  content: '';
+  display: block;
+  padding-top: 150%;
+}
+
+.keepAspect--3-2 {
+  margin-bottom: 0;
+}
+.keepAspect--3-2:before {
+  content: '';
+  display: block;
+  padding-top: 66.66667%;
+}
+
+.keepAspect--4-3 {
+  margin-bottom: 0;
+}
+.keepAspect--4-3:before {
+  content: '';
+  display: block;
+  padding-top: 75%;
+}
+
+/*doc
+---
+title: Background
+name: backgroundMod
+category: Modifier Classes
+---
+*/
+/*doc
+---
+title: Image Fill
+name: imgFillMod
+parent: backgroundMod
+---
+Sets background properties that center
+background image, set size to 'cover',
+and overflow hidden.
+
+Extends `%imgFill`.
+
+EXAMPLE TK
+*/
+/*doc
+---
+title: Borders
+name: borderMod
+category: Modifier Classes
+---
+Sets border properties on element
+
+Class                   | Description
+----------------------- | --------------------------------
+`.border--top`          | sets a standard top border on the element
+`.border--none`         | removes all borders from element
+`.bordered`             | sets a standard top border AND top padding
+*/
+.border--top {
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.border--none {
+  border-width: 0 !important;
+}
+
+.bordered {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding-top: 16px;
+}
+
+/*doc
+---
+title: Anchors & Buttons
+name: buttonMod
+category: Modifier Classes
+---
+*/
+/*doc
+---
+title: Button personality
+name: buttonPersonalityMod
+parent: buttonMod
+---
+Applies button-like pointer styles, text-decoration,
+and user-select.
+
+```html_example
+	<a class="chunk display--block">I'm just an anchor, displayed block</a>
+	<a class="buttonPersonality chunk display--block">I behave more like a button (hover over me; try to select this text)</a>
+```
+*/
+/*doc
+---
+title: Display
+name: displayMod
+category: Modifier Classes
+---
+Modifies display property of element
+
+Class                   | Description
+----------------------- | --------------------------------
+`.display--none`        | sets `display` to `none`
+`.display--block`       | sets `display` to `block`
+`.display--inline`      | sets `display` to `inline`
+`.display--inlineBlock` | sets `display` to `inlineblock`
+*/
+.display--none {
+  display: none;
+}
+
+.display--block {
+  display: block;
+}
+
+.display--inline {
+  display: inline;
+}
+
+.display--inlineBlock {
+  display: inline-block;
+}
+
+/*doc
+---
+title: Float
+name: floatMod
+category: Modifier Classes
+---
+Float clearing.
+
+Class             | Description
+----------------- | -----------------------------------------
+`.clearfix`       | clears `float` property of children
+
+*/
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  height: 0;
+}
+.ieRoot_lt_IE10 .clearfix:after {
+  zoom: 1;
+}
+
+/*doc
+---
+title: Flush
+name: flushMod
+category: Modifier Classes
+---
+
+__Applies `!important` declaration__
+
+The following classes "flush" an element, removing
+padding and margin for a given side variant.
+
+Class               | Description
+------------------- | ------------------------------------------------------------
+`.flush--all`       | removes `padding` and `margin` from all sides of an element
+`.flush--top`       | removes `padding` and `margin` from the top side of an element
+`.flush--right`     | removes `padding` and `margin` from the right side of an element
+`.flush--bottom`    | removes `padding` and `margin` from the bottom side of an element
+`.flush--left`      | removes `padding` and `margin` from the left side of an element
+*/
+.flush--all {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.flush--top {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.flush--right {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+.flush--left {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.flush--bottom {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/*doc
+---
+title: Javascript-conditional modifiers
+name: jsMod
+category: Modifier Classes
+---
+Conditionally changes the display property of an element based
+javascript availability.
+
+_Assumes a class of `hasJS` is added to the `body` tag with
+javascript on page load_
+
+Class                        | Description
+---------------------------- | ----------------------------------------------------
+`hasJS_display--block`       | Sets `display` property to `block` if user has JS
+`hasJS_display--inline`      | Sets `display` property to `inline` if user has JS
+`hasJS_display--inlineBlock` | Sets `display` property to `inline-block` if user has JS
+`hasJS_display--none`        | Sets `display` property to `none` if user has JS
+*/
+.hasJS_display--block, .menu-toggle,
+.hasJS_display--inline,
+.hasJS_display--inlineBlock,
+.hasJS .hasJS_display--none {
+  display: none;
+}
+
+.hasJS .hasJS_display--block, .hasJS .menu-toggle {
+  display: block;
+}
+
+.hasJS .hasJS_display--inline {
+  display: inline;
+}
+
+.hasJS .hasJS_display--inlineBlock {
+  display: inline-block;
+}
+
+/*doc
+---
+title: Media Sizing
+name: sizeMod
+category: Modifier Classes
+---
+Classes for applying dimensions to an element.
+
+Class          | Description
+-------------- | ----------------------------
+`.media--xs`   | Sets `width` to `$media-xs` and height to `auto`
+`.media--s`    | Sets `width` to `$media-s` and height to `auto`
+`.media--m`    | Sets `width` to `$media-m` and height to `auto`
+`.media--l`    | Sets `width` to `$media-l` and height to `auto`
+`.media--xl`   | Sets `width` to `$media-xl` and height to `auto`
+*/
+.media--xs {
+  height: auto;
+  width: 24px;
+}
+
+.media--s {
+  height: auto;
+  width: 36px;
+}
+
+.media--m {
+  height: auto;
+  width: 48px;
+}
+
+.media--l {
+  height: auto;
+  width: 72px;
+}
+
+.media--xl {
+  height: auto;
+  width: 160px;
+}
+
+/*doc
+---
+title: Margin/Padding
+name: spacingMod
+category: Modifier Classes
+---
+Applies the standard unit of space as margin or padding
+to an element.
+
+## Margin
+
+Class                    | Description
+------------------------ | --------------------------------
+`.margin--top`           | Adds top margin to element
+`.margin--right`         | Adds right margin to element
+`.margin--bottom`        | Adds bottom margin to element
+`.margin--left`          | Adds left margin to element
+`.margin--all`           | Adds margin to all sides of element
+`.margin--none`          | Sets `margin` to `0`
+`.margin--center`        | Sets left and right margin to `auto`
+
+
+## Margin
+
+Class                    | Description
+------------------------ | --------------------------------
+`.padding--top`          | Adds top padding to element
+`.padding--right`        | Adds right padding to element
+`.padding--bottom`       | Adds bottom padding to element
+`.padding--left`         | Adds left padding to element
+`.padding--all`          | Adds padding to all sides of element
+`.padding--none`         | Sets `padding` to `0`
+
+*/
+.margin--top {
+  margin-top: 16px;
+}
+
+.margin--right {
+  margin-right: 16px;
+}
+
+.margin--left {
+  margin-left: 16px;
+}
+
+.margin--bottom {
+  margin-bottom: 16px;
+}
+
+.margin--all {
+  margin: 16px;
+}
+
+.margin--none {
+  margin: 0;
+}
+
+.padding--top {
+  padding-top: 16px;
+}
+
+.padding--right {
+  padding-right: 16px;
+}
+
+.padding--left {
+  padding-left: 16px;
+}
+
+.padding--bottom {
+  padding-bottom: 16px;
+}
+
+.padding--all {
+  padding: 16px;
+}
+
+.padding--none {
+  padding: 0;
+}
+
+.margin--center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*doc
+---
+title: Text Modifiers
+name: textMod
+category: Modifier Classes
+---
+*/
+/*doc
+---
+title: Hiding Text
+name: textHideUtil
+parent: textMod
+---
+To hide just the text node of an element, use
+the `text--hide` modifier.
+
+This is useful for links that only contain an
+SVG icon (use descriptive text for screen readers).
+
+_(this class will not work on `inline` elements)_
+
+```html_example
+<a class="display--block text--hide" href="#">
+	You can see the kitten, but you can't see this text.
+	<img src="https://placekitten.com/g/32/32" />
+</a>
+```
+
+Class          | Description
+-------------- | ----------------------------
+`.text--hide`  | Visually hides text; removes text from document flow
+*/
+.text--hide {
+  display: block;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*doc
+---
+title: Text decoration
+name: textDecoration
+parent: textMod
+---
+Basic text decoration
+
+Class                  | Description
+---------------------- | ----------------------------
+`.text--strikethrough` | strikethrough/strikeout/line-through
+*/
+.text--strikethrough {
+  text-decoration: line-through;
+}
+
+/*doc
+---
+title: No Hyphens
+name: textNoHyphens
+parent: textMod
+---
+Don't allow hyphens on line breaks
+
+Class              | Description
+-------------------| ----------------------------
+`.text--noHyphens` | Don't allow hyphens on line breaks
+*/
+.text--noHyphens {
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/*doc
+---
+title: Nice Hyphenation
+name: wrapNiceUtil
+parent: textMod
+---
+Enables breaking all words and auto-hyphenation.
+
+Class              | Description
+------------------ | ----------------------------
+`.text--wrapNice`  | Visually hides text; removes text from document flow
+*/
+/*doc
+---
+title: Type wrap/whitespace
+name: typespaceMod
+parent: textMod
+---
+Sets type wrapping, witespace, and overflow properties on element
+
+Class                         | Description
+----------------------------- | --------------------------------
+`.wrap--singleLine`           | forces text to a single line (nowrap)
+`.wrap--singleLine--truncate` | forces text to a single line (nowrap) and truncates with &hellip;
+`.matchLineHeight`            | adds a small amount of top and bottom margin to a non-text element to match line height of nearby text
+
+*/
+.wrap--singleLine--truncate,
+.wrap--singleLine {
+  white-space: nowrap !important;
+}
+
+.wrap--singleLine--truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.matchLineHeight {
+  margin: 3px 0;
+}
+
+/*doc
+---
+title: Thumbnails
+name: thumb
+category: Modifier Classes
+---
+Sets background cover and position for photo thumbnails.
+
+```html_example
+<div class="thumb media--l" style="background-image: url(http://photos4.meetupstatic.com/photos/member/d/0/2/c/member_156833292.jpeg);"></div>
+```
+
+*/
+.thumb {
+  background-position: center;
+  background-size: cover;
+  background-color: #e6e9ec;
+  display: block;
+  position: relative;
+}
+.thumb:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+/*doc
+---
+title: Visibility
+name: visibilityMod
+category: Modifier Classes
+---
+Modifies `visibility` property of an element __or__
+in the case of `a11y` classes, visually hides an element
+that will [not be ignored by screen readers](http://a11yproject.com/posts/how-to-hide-content/).
+
+Class                    | Description
+------------------------ | --------------------------------
+`.visibility--a11yHide`  | takes element out of document flow and hides it (screen readers will NOT ignore the element)
+`.visibility--a11yShow`  | reveals a a11y hidden element for sighted users
+*/
+.visibility--a11yHide {
+  border: 0;
+  clip: rect(0 0 0 0);
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.visibility--a11yShow {
+  clip: auto;
+  clip: rect(auto auto auto auto);
+  position: static;
+  overflow: visible;
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+/*doc
+---
+title: Media-conditional modifiers
+name: mediaMod
+category: Modifier Classes
+---
+
+Media-conditional modifiers allow us to apply
+a modification at a specific breakpoint.
+
+_Uses atMediaUp_
+
+### Example
+
+```html_example
+	<p class="atLarge_align--center">
+		This text inherits the default left alignment by default, but at `large` viewports and up, the text should center
+	</p>
+```
+
+### Supported modifications
+Using this signature: `.at[Breakpoint]_[property]--[variant]`
+
+Breakpoints        | Property       | Variants
+------------------ | -------------- | ---------------------------
+`medium`, `large`  | `align`        | `center`, `right`, `left`
+`medium`, `large`  | `display`      | `none`, `block`, `inline`, `inlineBlock`
+`medium`, `large`  | `padding`      | `none`
+`medium`, `large`  | `margin`       | `center`
+`medium`, `large`  | `border`       | `top`, `none`
+`medium`, `large`  | `visibility`   | `a11yHide`, `a11yShow`
+*/
+@media only screen and (min-width: 440px) {
+  .atSmall_align--center {
+    text-align: center !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_align--center {
+    text-align: center !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_align--center {
+    text-align: center !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_align--right {
+    text-align: right !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_align--right {
+    text-align: right !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_align--right {
+    text-align: right !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_align--left {
+    text-align: left !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_align--left {
+    text-align: left !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_align--left {
+    text-align: left !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_display--none {
+    display: none !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_display--none {
+    display: none !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_display--none {
+    display: none !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_display--block {
+    display: block !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_display--block {
+    display: block !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_display--block {
+    display: block !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_display--inline {
+    display: inline !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_display--inline {
+    display: inline !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_display--inline {
+    display: inline !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_display--inlineBlock {
+    display: inline-block !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_display--inlineBlock {
+    display: inline-block !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_display--inlineBlock {
+    display: inline-block !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_visibility--a11yHide {
+    border: 0;
+    clip: rect(0 0 0 0);
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_visibility--a11yHide {
+    border: 0;
+    clip: rect(0 0 0 0);
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_visibility--a11yHide {
+    border: 0;
+    clip: rect(0 0 0 0);
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_visibility--a11yShow {
+    clip: auto;
+    clip: rect(auto auto auto auto);
+    position: static;
+    overflow: visible;
+    margin: 0;
+    width: auto;
+    height: auto;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_visibility--a11yShow {
+    clip: auto;
+    clip: rect(auto auto auto auto);
+    position: static;
+    overflow: visible;
+    margin: 0;
+    width: auto;
+    height: auto;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_visibility--a11yShow {
+    clip: auto;
+    clip: rect(auto auto auto auto);
+    position: static;
+    overflow: visible;
+    margin: 0;
+    width: auto;
+    height: auto;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_padding--none {
+    padding: 0 !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_padding--none {
+    padding: 0 !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_padding--none {
+    padding: 0 !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_margin--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_margin--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_margin--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_border--top {
+    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_border--top {
+    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_border--top {
+    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  }
+}
+@media only screen and (min-width: 440px) {
+  .atSmall_border--none {
+    border-width: 0 !important;
+  }
+}
+@media only screen and (min-width: 640px) {
+  .atMedium_border--none {
+    border-width: 0 !important;
+  }
+}
+@media only screen and (min-width: 840px) {
+  .atLarge_border--none {
+    border-width: 0 !important;
+  }
+}
+html, body, .stripe {
+  background-color: #FCA044;
+  color: #723600;
+}
+
+.compile {
+  text-decoration: none;
+  display: block;
+  color: white;
+  margin: 5px auto 15px;
+  width: 300px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0;
+  font-size: 20px;
+  text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0;
+  text-align: center;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f38709), color-stop(100%, #c26c07));
+  background-image: -webkit-linear-gradient(#f38709, #c26c07);
+  background-image: -moz-linear-gradient(#f38709, #c26c07);
+  background-image: -o-linear-gradient(#f38709, #c26c07);
+  background-image: -ms-linear-gradient(#f38709, #c26c07);
+  background-image: linear-gradient(#f38709, #c26c07);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+
+textarea, pre {
+  background-color: #000;
+  color: #F8F8F8;
+  padding: 10px;
+  font-size: 13px;
+  font-family: Monaco, monospace;
+}
+
+#samples {
+  background-color: #E4D9D3;
+}
+
+#samples select {
+  background-color: #E4D9D3;
+  padding: 10px;
+  font-size: 13px;
+  font-family: Monaco, monospace;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  padding: 5px;
+  margin-bottom: 5px;
+  color: #582a00;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.spreadable-item label {
+  font-size: 16px;
+  padding: 5px;
+  margin-bottom: 5px;
+  color: #582a00;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#intro h1 {
+  color: #723600;
+  font-size: 18px;
+}
+
+#main {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#output-window-html {
+  background-color: #E4D9D3;
+  padding: 10px;
+}
+
+a {
+  color: #6666cc;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=main.css.map */

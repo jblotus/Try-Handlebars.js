@@ -1,0 +1,9 @@
+{
+  "name": "sq2",
+  "root": "./docs/build/",
+  "clean_urls": false,
+  "error_page": "error.html",
+  "cache_control": {
+		"**": "no-cache, no-store"
+	}
+}

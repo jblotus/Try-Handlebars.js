@@ -1,0 +1,81 @@
+/*doc
+---
+title: Tabs
+name: tabs
+category: UI Components
+---
+
+```html_example
+<nav>
+	<ul class="tabs">
+		<li class="tabs-tab"><a href="#">Tab One</a></li>
+		<li class="tabs-tab tabs-tab--selected"><a href="#">Tab Two</a></li>
+		<li class="tabs-tab"><a href="#">Tab Three</a></li>
+	</ul>
+</nav>
+```
+
+### Tabs (parent) variants
+A class of `tabs` is __required__. The following classes are
+optional variants:
+
+Class                 | Description
+--------------------- | -----------------------------
+`tabs--full`          | Makes tabs span the full width of their parent element
+
+
+### Tab (child) variants
+A class of `tabs-tab` is __required__ for tabs. The following classes
+are optional variants:
+
+Class                 | Description
+--------------------- | -----------------------------
+`tabs-tab--selected`  | Applies styles for tab selected state
+*/
+
+$_tabBorder: 4px;
+
+.tabs {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+.tabs--full {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+
+	.tabs-tab {
+		display: table-cell;
+		margin: 0;
+		text-align: center;
+	}
+}
+
+.tabs-tab {
+	color: $C-textTertiary;
+	padding: 0;
+	margin: 0 0 0 $space;
+	cursor: pointer;
+	display: inline-block;
+	border-bottom: $_tabBorder solid transparent;
+	&:first-child {
+		margin-left: 0;
+	}
+
+	.inverted & {
+		color: $C-textTertiaryInverted;
+		&:hover {
+			color: $C-textSecondaryInverted;
+		}
+		&.tabs-tab--selected {
+			color: $C-textPrimaryInverted;
+			border-bottom-color: $C-textPrimaryInverted;
+		}
+	}
+}
+.tabs-tab--selected {
+	color: $C-red;
+	border-bottom: $_tabBorder solid $C-red;
+}

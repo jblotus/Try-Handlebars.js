@@ -1,0 +1,68 @@
+/*doc
+---
+title: Attachment
+name: attachment
+category: UI Components
+---
+Adding the `attachment` class to an elemeent
+creates a context in which layout classes (`row-item`,
+`chunk`, `list`) use half of their default spacing.
+
+In foundation, an "attachment" is a piece of
+content in the feed attached to a parent item
+(ie. a reply or event meta info).
+
+_Ancestry only affects spacing in `attachment`. Text sizing remains explicit._
+
+### Event meta info example
+
+```html_example
+<div class="row attachment">
+	<div class="row-item row-item--shrink">
+		<time class="tearsheet" datetime="2017-01-13">13</time>
+	</div>
+	<div class="row-item">
+		<h4 class="text--caption">Monday Jan 13, 6:30 pm</h4>
+		<h4>Backpacking For Beginners</h4>
+	</div>
+</div>
+```
+
+### Discussion reply example
+
+```html_example
+<div class="row attachment">
+	<div class="row-item row-item--shrink">
+		<a href="#" class="avatar avatar--person avatar--small" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);"></a>
+	</div>
+	<div class="row-item text--small">
+		<h4 class="text--bold display--inline">Member Name</h4>
+		<p class="display--inline">This is a reply to a post. I'm going to keep writing until the line wraps. Has it wrapped yet? Who cares.</p>
+	</div>
+</div>
+```
+*/
+.attachment {
+	& .row-item {
+		padding-left: $space/2;
+	}
+
+	// this gets tricky for `spreadable`, because padding
+	// is only present on items when the spreadable is "spread"
+	@each $breakpoint in (medium, large) {
+		@include atMediaUp($breakpoint) {
+			@include _sel-selfAndChild( at#{str-firstCharToUpper($breakpoint)}_spreadable--spread ) {
+				.spreadable-item {
+					padding-left: $space/2;
+				}
+			}
+		}
+	}
+
+	@include _sel-selfAndChild( 'chunk' ) {
+		margin-bottom: $space/2 !important;
+	}
+	@include _sel-selfAndChild( 'list-item' ) {
+		padding-top: $space/2;
+	}
+}

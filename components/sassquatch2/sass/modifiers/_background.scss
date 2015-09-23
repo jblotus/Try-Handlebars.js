@@ -1,0 +1,27 @@
+/*doc
+---
+title: Background
+name: backgroundMod
+category: Modifier Classes
+---
+*/
+
+
+
+/*doc
+---
+title: Image Fill
+name: imgFillMod
+parent: backgroundMod
+---
+Sets background properties that center
+background image, set size to 'cover',
+and overflow hidden.
+
+Extends `%imgFill`.
+
+EXAMPLE TK
+*/
+.imgFill {
+	@extend %imgFill;
+}

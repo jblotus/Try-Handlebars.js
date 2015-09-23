@@ -1,0 +1,76 @@
+/*doc
+---
+title: Spreadable
+name: spreadable
+category: Layout
+---
+The `spreadable` layout tool is for elements that
+should be stacked in a column by default at small sizes,
+and can be spread across horizontal space at a given
+breakpoint.
+
+```html_example
+<div class="spreadable atLarge_spreadable--spread">
+	<div class="spreadable-item spreadable-item--shrink _DOC-SHADE">
+		<p>Spreadable Item (shrinks when spread)</p>
+	</div>
+	<div class="spreadable-item _DOC-SHADE">
+		<p>Spreadable Item</p>
+	</div>
+</div>
+```
+
+## Spreadable variants
+A class of `spreadable` on the parent element is required.
+Collapsing of the spreadable doesn't happen at any viewport
+size by default, so __you must specify a spread point__
+with one of the following classes.
+
+Class                            | Description
+-------------------------------- | ----------------------------------
+`atMedium_spreadable--spread`    | Spreads out the spreadable elements horizontally at `medium` breakpoint
+`atLarge_spreadable--spread`     | Spreads out the spreadable elements horizontally at `large` breakpoint
+
+
+## spreadable-item variants
+
+Class                   | Description
+----------------------- | -------------------------------
+`.spreadable-item--shrink`   | Item shrinks to fit content __only when spread__
+
+*/
+.spreadable {
+	@include flexParent('column');
+
+	@include browser-lessThanIE( 10 ) {
+		display: block;
+	}
+}
+
+.spreadable-item {
+	@include flex-grow(1);
+	width: 100%;
+	min-width: 0;
+
+	@include browser-lessThanIE( 10 ) {
+		display: block;
+		padding-left: 0 !important;
+	}
+}
+
+@include _bpModifier(spreadable, spread) {
+	@include flexParent('row');
+
+	> .spreadable-item {
+		@include flexChild('grow');
+		padding-left: $space;
+
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+
+	.spreadable-item--shrink {
+		@include flexChild('shrink');
+	}
+}

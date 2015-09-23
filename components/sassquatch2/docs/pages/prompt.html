@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Sassquatch 2: Modal snap example</title>
+
+		<!-- Whitney -->
+		<link rel="stylesheet" href="http://static1.meetupstatic.com/fonts/whitney.css" type="text/css" />
+
+		<!-- Styleguide CSS -->
+		<link rel="stylesheet" href="../css/doc.css">
+		<link rel="stylesheet" href="../css/github.css">
+
+		<!-- CSS to be documented -->
+		<link rel="stylesheet" href="../css/sassquatch.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	</head>
+
+	<body>
+
+		<!-- simulate body content without explicit height on `body` -->
+		<div style="width: 1px; height: 2000px;">lol</div>
+
+		<div id="examplePrompt" class="prompt prompt--active">
+			<div class="bounds">
+				<h3 class="chunk text--bold">Are you sure?</h3>
+				<div class="chunk">
+					<a class="button button--primary button--fullWidth">Delete the internet</a>
+				</div>
+				<div class="chunk">
+					<a class="button button--bordered button--fullWidth">Cancel</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="shim" class="overlayShim">
+			<div class="overlayShim-content inverted">
+				overlayShim content (ie. close prompt)
+			</div>
+		</div>
+	</body>
+</html>
+
+

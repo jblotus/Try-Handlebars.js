@@ -1,0 +1,191 @@
+// TODO: this needs a lot of mixin and selector cleanup
+// 1) avoid outputting selectors from mixins
+// 2) create some clarity around modifiers
+// 3) clean up selectors generated in button color mixin (and see #1)
+// 4) ???
+// 5) PROFIT
+
+
+// TODO: put front matter back in this doc comment
+// when transitional buttons are no longer needed
+/*
+#### Example
+
+```html_example
+<a class="button" href="#">Button</a>
+<a class="button button--primary" href="#">Primary Button</a>
+<a class="button button--icon" href="#">
+	<span class="button-label">Button with right Icon</span>
+	<span class="button-icon">X</span>
+</a>
+<a class="button button--icon button--primary" href="#">
+	<span class="button-icon">X</span>
+	<span class="button-label">Primary button with left Icon</span>
+</a>
+<a class="button button--borderless" href="#">Borderless Button</a>
+<a class="button button--primary button--contrast" href="#">Contrast Button</a>
+<a class="button button--small" href="#">Small Button</a>
+<a class="button button--bordered button--fullWidth" href="#">Full width button</a>
+<a class="button button--primary button--icon button--fullWidth" href="#">
+	<span class="button-icon">ヘ(◕。◕ヘ)</span>
+	<span class="button-label">Full width primary button with left Icon</span>
+</a>
+```
+
+#### Button variants
+A class of `.button` is __required__ for buttons. The following
+classes are optional variants:
+
+Class                   | Description
+----------------------- | ----------------------------------------
+`.button--primary`      | rounded button with dark background; for primary actions
+`.button--contrast`     | bold, dark text; use on dark backgrounds or photos (ie. top nav bar)
+`.button--bordered`     | rounded bordered button
+`.button--borderless`   | borderless button
+`.button--small`        | decreases size of button
+`.button--icon`         | button with icon
+*/
+
+%button,
+.button {
+	@extend %buttonBase;
+	@include color-all( map-get($btn-color-map, "primary") );
+	&:hover,
+	&:active,
+	&:focus {
+		background: transparentize(map-get($btn-color-map, "primary"), .8);
+		border-color: transparent;
+	}
+
+}
+
+%button--primary,
+.button--primary {
+	@extend %button--borderless;
+	@include color-all( $C_textPrimaryInverted, true );
+	background: map-get($btn-color-map, "primary");
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: call(nth($btn-hover, 1), map-get($btn-color-map, "primary"), nth($btn-hover, 2));
+	}
+
+	&.button--contrast { // TODO (mikep): look into ways to do this without chaining classes
+		@include color-all($C_textPrimary, true);
+		background: map-get($btn-color-map, "contrast");
+		&:hover,
+		&:active,
+		&:focus {
+			background: transparentize(map-get($btn-color-map, "contrast"), .1);
+		}
+	}
+
+}
+
+%button--contrast,
+.button--contrast {
+	@include color-all( map-get($btn-color-map, "contrast") );
+	background: $C_textTertiary;
+	border: $btn-border map-get($btn-color-map, "contrast");
+
+	&:hover,
+	&:active,
+	&:focus {
+		background: $C_textSecondary;
+		border: $btn-border map-get($btn-color-map, "contrast");
+	}
+}
+
+//
+// Button border modifiers
+//
+%button--bordered {
+	@include color-all( map-get($btn-color-map, "primary") );
+	border: $btn-border;
+	font-weight: $W_normal;
+	&:hover,
+	&:active,
+	&:focus {
+		background: transparentize(map-get($btn-color-map, "primary"), .8);
+	}
+}
+
+%button--borderless,
+.button--borderless {
+	border: none;
+
+	&:hover,
+	&:active,
+	&:focus {
+		border: none;
+	}
+
+}
+
+//
+// Button size modifiers
+//
+%button--small,
+.button--small {
+	font-size: $font-size-small;
+	padding: $space-quarter $space-half;
+}
+
+%button--fullWidth,
+.button--fullWidth {
+	display: block;
+	width: 100%;
+}
+
+//
+// Icon buttons
+//
+$_iconGutter: $space/2;
+.button--icon {
+	@include display(inline-flex);
+	@include flex-wrap(nowrap);
+	@include flex-direction(row);
+	@include justify-content(space-between);
+
+	@include browser-lessThanIE( 10 ) {
+		box-sizing: border-box;
+		display: table;
+		table-layout: auto;
+	}
+}
+.button-label,
+.button-icon {
+	@include align-self(center);
+
+	@include browser-lessThanIE( 10 ) {
+		display: table-cell;
+		width: 100%;
+	}
+}
+.button-label {
+	@include flex-grow(1);
+	@include flex-basis(0);
+}
+.button-icon {
+	@include flex-grow(0);
+	@include flex-shrink(0);
+	@include flex-basis(auto);
+	width: initial;
+	line-height: 0;
+
+	&:first-child {
+		margin-right: $_iconGutter;
+	}
+	&:last-child {
+		margin-left: $_iconGutter;
+	}
+
+	@include browser-lessThanIE( 10 ) {
+		width: auto;
+	}
+}
+
+.button--small .button-icon {
+	height: $font-size;
+}

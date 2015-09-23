@@ -1,0 +1,100 @@
+////
+/// @group brightness
+////
+
+/// Gets brightness for additive (screen-based) color,
+/// returning a value between 0-255 representing brightness
+/// @access private
+///
+/// @param {color} $color - RGB, RGBA, HSL, or hex color value
+/// @returns {Number} 0-255 (0 is darkest, 255 is lightest)
+///
+/// @example scss - Get additive color brightness
+/// 	getPerceivedBrightness(#000)
+/// 	// -> 0
+///
+@function getPerceivedBrightness( $color ) {
+	$R: red($color);
+	$G: green($color);
+	$B: blue($color);
+
+	@return floor( ( ($R * 299) + ($G * 587) + ($B * 114) )/1000 );
+}
+
+
+/// Tests if color is dark
+/// @access public
+///
+/// @requires {function} getPerceivedBrightness
+///
+/// @param {color} $color - RGB, RGBA, HSL, or hex color value
+/// @param {Number} $threshold [$brightness_threshold] - brightness threshold for "dark"
+/// @returns {Boolean}
+///
+/// @example scss - isDark
+/// 	isDark(#000)
+/// 	// -> True
+///
+@function isDark( $color, $threshold: $brightness_threshold ) {
+	@return ( getPerceivedBrightness($color) <= $threshold );
+}
+
+
+/// Tests if color is light
+/// @access public
+///
+/// @requires {function} getPerceivedBrightness
+///
+/// @param {color} $color - RGB, RGBA, HSL, or hex color value
+/// @param {Number} $threshold [$brightness_threshold] - brightness threshold for "dark"
+/// @returns {Boolean}
+///
+/// @example scss - isLight
+/// 	isLight(#FFF)
+/// 	// -> True
+///
+@function isLight( $color, $threshold: $brightness_threshold ) {
+	@return not(isDark( $color, $threshold ));
+}
+
+
+
+/*doc
+---
+title: Programmatic contrast text
+name: getPrimaryTextColor
+parent: brightness
+---
+For a given background color, this function returns
+a text color value with appropriate contrast.
+
+_returns `color` value_
+
+```
+// -> color: $C_textPrimaryInverted; (white text on dark)
+color: getPrimaryTextColor(#000);
+
+// -> color: $C_textPrimary; (dark text on white)
+color: getPrimaryTextColor(#FFF);
+```
+*/
+
+/// Selects a contrasting `color` for a given background color
+/// @access public
+///
+/// @requires {function} isDark
+///
+/// @param {color} $color - RGB, RGBA, HSL, or hex color value
+/// @returns {color} $C_contrastLightBG OR $C_contrastDarkBG
+///
+/// @example scss - getPrimaryTextColor
+/// 	color: getPrimaryTextColor( $myBackgroundColor );
+///
+@function getPrimaryTextColor( $color ) {
+	@if isDark($color) { // very threshold darkness
+		@return $C_contrastDarkBG;
+	} @else { // much light
+		@return $C_contrastLightBG;
+	}
+	// wow
+}

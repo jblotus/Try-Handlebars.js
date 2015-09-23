@@ -1,0 +1,65 @@
+/*doc
+---
+title: Modal mixins
+name: modalUtils
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+/*doc
+---
+title: Modal Dialog Mixin
+parent: modalUtils
+---
+
+Use this mixin to get the behavior of a [Snap Modal View][snapModalView],
+a view that snaps to full page on small screens and a dialog on larger formats.
+
+```
+	@include modal-dialog;
+
+```
+*/
+
+@mixin modal-dialog{
+	@include transform( translate3d(0, 0, 0) );
+	@include transition(transform .2s ease);
+	@include centerAbsolute($modal-width);
+	min-height: 0;
+	width: $modal-width;
+	margin-top: 10vh;
+
+	&.off{
+	  @include transform( translateY(100vh) );
+	}
+  }
+
+/*doc
+---
+title: Modal Full Mixin
+parent: modalUtils
+---
+
+Use this mixin to get behavior of a full page modal.
+See [the Full Modal View documentation][fullModalView]
+
+```
+	@include modal-full;
+
+```
+*/
+
+@mixin modal-full{
+	@include transform( translate3d(0, 0, 0) );
+	@include transition(transform .3s);
+	left: 0;
+	margin: 0;
+	min-height: 100vh;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	&.off{
+		@include transform( translateY(100vh) );
+	}
+}
+

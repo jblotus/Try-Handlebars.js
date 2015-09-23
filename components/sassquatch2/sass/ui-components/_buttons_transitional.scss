@@ -1,0 +1,214 @@
+/*doc
+---
+title: Buttons (transitional styles)
+name: buttons
+category: UI Components
+---
+These buttons match the visual styles of the original [Sassquatch](http://meetup.github.io/sassquatch)
+framework, making them suitable for the transition of Meetup from legacy to "foundation" design.
+
+#### Example
+
+```html_example
+<a class="button" href="#">Button</a>
+<a class="button button--primary" href="#">Primary Button</a>
+<a class="button button--icon" href="#">
+	<span class="button-label">Button with right Icon</span>
+	<span class="button-icon">X</span>
+</a>
+<a class="button button--bordered button--fullWidth" href="#">Full width bordered button</a>
+<a class="button button--bordered" href="#">bordered button</a>
+<a class="button button--icon button--primary" href="#">
+	<span class="button-icon">X</span>
+	<span class="button-label">Primary button with left Icon</span>
+</a>
+<a class="button button--small" href="#">Small Button</a>
+<a class="button button--primary button--icon button--fullWidth" href="#">
+	<span class="button-icon">ヘ(◕。◕ヘ)</span>
+	<span class="button-label">Full width primary button with left Icon</span>
+</a>
+```
+
+#### Button variants
+A class of `.button` is __required__ for buttons. The following
+classes are optional variants:
+
+Class                   | Description
+----------------------- | ----------------------------------------
+`.button--primary`      | button with $C_red background; for primary actions
+`.button--small`        | decreases size of button
+`.button--icon`         | button with icon
+`.button--fullWidth`    | increases button width to 100% of its parent container
+`.button--bordered`     | foundation design style rounded bordered buttons
+*/
+
+$_primaryButtonVariants: primary, contrast; // map sq2 variants to "primary" button style from sq1
+$_hoverChange: 8%;
+$_shadowWidth: 3px;
+$_translate: 2px;
+$_radius: 3px;
+$_padding: 10px $space $space-half $space;
+
+// From SQ1...
+// Adds a transparent pseudo element
+// that bleeds about 3px from the top of the button
+// to intercept clicks when the button itself
+// is translated down 2px
+%_chrome_button_fix {
+	position: relative;
+	&:after {
+		content: '';
+		background: transparent;
+		position: absolute;
+		top: ($_shadowWidth + 1) * -1;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+%_buttonBaseSQ1 {
+	@extend %_chrome_button_fix;
+	@extend %buttonPersonality;
+	@include color-all($C_textSecondary);
+	box-sizing: border-box;
+	display: inline-block;
+	padding: $_padding;
+	border-radius: $_radius;
+	font-size: $font-size;
+	line-height: 1;
+	text-decoration: none;
+	text-align: center;
+	font-weight: $W_bold;
+	border-width: 0; // reset `button` element
+	box-shadow: 0 $_shadowWidth 0 0 $C_textSecondary;
+	margin-bottom: $_shadowWidth + 1px;
+	background: $C_mediumGray;
+
+	&:active {
+		@include transform(translate(0, $_translate));
+		box-shadow: 0 ($_shadowWidth - $_translate) 0 0 $C_textSecondary;
+	}
+
+	&:hover {
+		background: darken($C_mediumGray, $_hoverChange);
+	}
+}
+
+@mixin primaryButton( $color: $C_red ) {
+	$_borderColor: darken($color, 25%);
+	@extend %_buttonBaseSQ1;
+	@include color-all(getPrimaryTextColor($color));
+	background: $color;
+	box-shadow: 0 $_shadowWidth 0 0 $_borderColor;
+
+	&:active {
+		box-shadow: 0 ($_shadowWidth - $_translate) 0 0 $_borderColor;
+	}
+
+	&:hover {
+		background: darken($color, $_hoverChange);
+	}
+}
+
+@each $variant in $_primaryButtonVariants {
+	.button--#{$variant} {
+		@include primaryButton;
+	}
+}
+
+.button {
+	@extend %_buttonBaseSQ1;
+}
+
+//
+// Button size modifiers
+//
+%button--small,
+.button--small {
+	font-size: $font-size-small;
+	padding: $space-quarter $space-half;
+}
+
+%button--fullWidth,
+.button--fullWidth {
+	display: block;
+	width: 100%;
+}
+
+//
+// Bordered button
+//
+.button--bordered {
+	@include buttonBase;
+	@include button--bordered;
+	border-radius: $_radius;
+	box-shadow: 0 0 0 0 transparent !important;
+	font-weight: $W_bold;
+	padding: $_padding;
+
+	&:active {
+		@include transform(translate(0,0));
+	}
+}
+
+// use base button styles for "borderless" buttons
+.button--borderless {
+	@extend %_buttonBaseSQ1;
+}
+
+//
+// Icon buttons
+//
+$_iconGutter: $space/2;
+.button--icon {
+	@include display(inline-flex);
+	@include flex-wrap(nowrap);
+	@include flex-direction(row);
+	@include justify-content(space-between);
+
+	@include browser-lessThanIE( 10 ) {
+		box-sizing: border-box;
+		display: table;
+		table-layout: auto;
+	}
+}
+.button-label,
+.button-icon {
+	@include align-self(center);
+
+	@include browser-lessThanIE( 10 ) {
+		display: table-cell;
+		width: 100%;
+	}
+}
+.button-label {
+	@include flex-grow(1);
+	@include flex-basis(0);
+}
+.button-icon {
+	@include flex-grow(0);
+	@include flex-shrink(0);
+	@include flex-basis(auto);
+	width: initial;
+	line-height: 0;
+
+	&:first-child {
+		margin-right: $_iconGutter;
+	}
+	&:last-child {
+		margin-left: $_iconGutter;
+	}
+
+	&.button--primary svg {
+		@include color-all($C_textPrimaryInverted);
+	}
+
+	@include browser-lessThanIE( 10 ) {
+		width: auto;
+	}
+}
+
+.button--small .button-icon {
+	height: $font-size;
+}

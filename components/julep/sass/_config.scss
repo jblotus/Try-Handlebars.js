@@ -1,0 +1,48 @@
+////
+/// Configuration variables
+/// @group config
+////
+
+// ---------------------------
+// BREAKPOINTS
+// ---------------------------
+	$breakpoint-s  : 440px;
+	$breakpoint-m  : 640px;
+	$breakpoint-l  : 840px;
+	$breakpoint-xl : 1024px;
+
+	$breakpoint-map: (
+		s: $breakpoint-s,
+		m: $breakpoint-m,
+		l: $breakpoint-l,
+		xl: $breakpoint-xl,
+	);
+
+
+// ---------------------------
+// ROOT CLASSES
+// classes applied to `body`
+// ---------------------------
+	$root-language-map: (
+		"en": '.lang_en',
+		"es": '.lang_es',
+		"de": '.lang_es',
+		"fr": '.lang_fr',
+		"it": '.lang_it',
+		"ja": '.lang_ja',
+		"pt": '.lang_pt'
+	);
+	$root-browserIEPrefix: 'ieRoot_lt_IE'; // _[versionNumber] is appended
+
+
+// ---------------------------
+// BROWSER ROOT CLASSES
+// ---------------------------
+
+
+// ---------------------------
+// BRIGHTNESS
+// ---------------------------
+	$brightness_threshold: 160;
+	$C_contrastDarkBG: #fff;
+	$C_contrastLightBG: #000;

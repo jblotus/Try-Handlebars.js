@@ -1,0 +1,58 @@
+/*doc
+---
+title: Tearsheet
+name: tearsheet
+category: UI Components
+---
+Standard display for dates.
+
+#### Tearsheet example
+```html_example
+<div class="tearsheet">13</div>
+```
+
+#### Tearsheet with date detail
+```html_example
+<div class="dateTime">
+	<div class="dateTime-tearsheet">13</div>
+	<p class="dateTime-detail">Tomorrow at 7:00 PM</p>
+</div>
+```
+*/
+
+%tearsheet,
+.tearsheet {
+	display: block;
+	background: $C_contentBG;
+	border: 1px solid $C_border;
+	box-sizing: border-box;
+	color: $C_textPrimary;
+	font-size: $font-size-small;
+	font-weight: $W_bold;
+	height: $space-2;
+	padding-top: $space-quarter;
+	position: relative;
+	text-align: center;
+	width: $space-2;
+
+	&:before {
+	 background: $C_accent;
+	 content: '';
+	 display: block;
+	 height: 6px;
+	 left: -1px;
+	 position: absolute;
+	 right: -1px;
+	 top: -1px;
+	}
+}
+
+// dateTime
+.dateTime-tearsheet,
+.dateTime-detail {
+	display: inline-block;
+}
+.dateTime-tearsheet {
+	@extend %tearsheet;
+	margin-right: $space-half;
+}

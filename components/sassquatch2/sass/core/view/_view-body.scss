@@ -1,0 +1,26 @@
+/*doc
+---
+title: View Body
+name: viewBody
+category: Views
+---
+The `view-body` element is our main
+content container for the view.
+
+```
+<div class="view">
+	<main class="view-body">
+		... stripes, bounds, etc ...
+		... all content ...
+	</main>
+</div>
+```
+*/
+.ieRoot_modern .view-body {
+	.view--splitList & {
+		@include flex-basis(auto);
+		@include flex-grow(1);
+		box-sizing: border-box;
+		height: auto;
+	}
+}

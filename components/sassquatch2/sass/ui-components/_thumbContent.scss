@@ -1,0 +1,54 @@
+/*doc
+---
+title: Thumb content
+name: thumbContent
+category: UI Components
+---
+Used for placing content (like icons or labels) on top of a thumbnail
+
+```html_example
+<ul class="inlineblockList">
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content inverted">Default</span>
+		</div>
+	</li>
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content thumb-content--middle inverted">Middle</span>
+		</div>
+	</li>
+	<li>
+		<div class="thumb media--l inverted" style="background-image: url('https://placekitten.com/g/72/72');">
+			<span class="thumb-content thumb-content--top inverted">Top</span>
+		</div>
+	</li>
+</ul>
+```
+### Thumb content position variants
+Vertical alignment of the thumb content can be adjusted
+
+Class                    | Description
+------------------------ | -----------------------------
+`thumb-content--top`     | Flushes content to the top of the thumb
+`thumb-content--middle`  | Vertically centers content in the thumb
+*/
+
+.thumb-content {
+	bottom: 0;
+	box-sizing: border-box;
+	padding: $space-quarter; // is this acceptable to do?
+	position: absolute;
+	width: 100%;
+}
+
+.thumb-content--top {
+	bottom: auto;
+	top: 0;
+}
+
+.thumb-content--middle {
+	bottom: auto;
+	top: 50%;
+	transform: translateY(-50%);
+}

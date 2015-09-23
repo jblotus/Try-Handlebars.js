@@ -1,0 +1,203 @@
+/*doc
+---
+title: Avatar
+name: avatar
+category: UI Components
+---
+
+```html_example
+<ul class="inlineblockList">
+	<li>
+		<a href="#" class="avatar avatar--person" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--small" style="background-image: url(http://photos3.meetupstatic.com/photos/member/9/1/8/4/thumb_141217252.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--big" style="background-image: url(http://photos4.meetupstatic.com/photos/member/d/0/2/c/member_156833292.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--fbFriend" style="background-image: url(http://photos4.meetupstatic.com/photos/member/5/a/2/thumb_109681442.jpeg);">Member Name</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person">
+			<abbr title="Member name" class="avatar-initial">M</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--big avatar--person">
+			<abbr title="Teresa Wall" class="avatar-initial">T</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--small avatar--person">
+			<abbr title="Jake Levine" class="avatar-initial">J</abbr>
+		</a>
+	</li>
+	<li>
+		<a href="#" class="avatar avatar--person avatar--org">
+			<abbr title="Jake Levine" class="avatar-initial">J</abbr>
+		</a>
+	</li>
+</ul>
+```
+
+## Avatar variants
+A base class of `avatar` is __required__. The following classes are
+optional variants:
+
+Class                     | Description
+------------------------- | ------------------------------------
+`avatar--small`           | Adjusts avatar size to the smallest media size
+`avatar--big`             | Adjusts avatar size to the biggest media size
+`avatar--person`          | Variant for people
+`avatar--org`             | Variant for organizers
+`avatar--fbFriend`        | Variant for facebook friends
+`avatar--icon`            | For icons in avatars (might move this in a later version)
+*/
+
+%avatarCharm {
+	overflow: visible;
+
+	&:after {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 10px;
+		border-radius: 999px;
+		bottom: 0;
+		content: "";
+		display: inline-block;
+		font-size: 10px;
+		font-weight: $W_bold;
+		height: $space;
+		line-height: $space;
+		position: absolute;
+		right: 0;
+		text-align: center;
+		text-indent: 0%;
+		width: $space;
+	}
+}
+
+%avatar,
+.avatar {
+	@extend %imgFill;
+	position: relative;
+	background-color: $C_collectionBGLight;
+	background-position: center 42%;
+	color: transparent;
+	display: inline-block;
+	font-size: 0;
+	height: $media-s;
+	text-indent: 100%;
+	white-space: nowrap;
+	vertical-align: top;
+	width: $media-s;
+
+	@include atMediaUp(small) {
+		height: $media-m;
+		width: $media-m;
+	}
+
+}
+
+//
+// Size variants
+//
+.avatar--small {
+	height: $media-xs;
+	width: $media-xs;
+
+	.avatar-initial {
+		width: $media-xs;
+		line-height: $media-xs;
+		font-size: $font-size;
+	}
+}
+.avatar--big {
+	height: $media-xl;
+	width: $media-xl;
+
+	.avatar-initial {
+		width: $media-xl;
+		line-height: $media-xl;
+		font-size: $block-3;
+		font-weight: normal;
+	}
+}
+
+//
+// Avatar children
+//
+.avatar-initial {
+	color: $C_textTertiary;
+	font-weight: bold;
+	font-size: $font-size-navbar;
+	text-indent: 0%;
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+	width: $media-s;
+	line-height: $media-s;
+
+	@include atMediaUp(small) {
+		width: $media-m;
+		line-height: $media-m;
+		font-size: $font-size-display3;
+	}
+}
+
+//
+// Type variants
+//
+.avatar--person {
+	@extend %avatar;
+	vertical-align: middle;
+	border-radius: 999px;
+	box-sizing: border-box;
+}
+
+
+.avatar--fbFriend {
+	@extend %avatarCharm;
+	&:after {
+		background-color: $C_facebook;
+		color: $C_textPrimaryInverted;
+		content: "f";
+	}
+}
+
+.avatar--org {
+	@extend %avatarCharm;
+	&:after {
+		@extend %backgroundImg--orgBadge;
+		background-color: $C_accent;
+		color: $C_textPrimaryInverted;
+	}
+}
+
+.avatar--icon {
+	@include display(flex);
+	@include align-items(center);
+	@include justify-content(center);
+	background: $C_collectionBGLight;
+	border-radius: 999px;
+	box-sizing: border-box;
+	height: $media-s;
+	font-size: $font-size;
+	line-height: $media-s;
+	padding: $space-half;
+	text-align: center;
+	width: $media-s;
+
+	img {
+		width: 100%;
+	}
+
+	@include atMediaUp(small) {
+		height: $media-m;
+		line-height: $media-m;
+		padding: 12px;
+		width: $media-m;
+	}
+}

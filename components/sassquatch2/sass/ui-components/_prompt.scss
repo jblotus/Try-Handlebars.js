@@ -1,0 +1,61 @@
+/*doc
+---
+title: Prompt
+name: prompt
+category: UI Components
+---
+A `prompt` is used to prompt for user input before continuing an action.
+
+```html_example
+<a class="link" href="pages/modal-snap.html">Demo</a>
+
+<div id="examplePrompt" class="prompt">
+	<div class="bounds">
+		<h3 class="chunk text--bold">Are you sure?</h3>
+		<div class="chunk">
+			<a class="button button--primary button--fullWidth">Delete the internet</a>
+		</div>
+		<div class="chunk">
+			<a class="button button--borderless button--fullWidth">Cancel</a>
+		</div>
+	</div>
+</div>
+```
+
+## Active state
+A class of `prompt` is required. Add the `prompt--active` class to open the prompt.
+
+Class                     | Description
+------------------------- | ---------------------------
+`.prompt--active`         | Sets display to `block` and applies positioning rules
+*/
+
+.prompt {
+	@include transform( translateY(100vh) );
+	@include transition(transform .2s ease);
+	background-color: $C_white;
+	display: none;
+	text-align: center;
+
+	// popup layer +1 to override floatingAction
+	z-index: map-get($zindex-map, popup) + 1;
+}
+
+.prompt--active {
+	@include transform( translate3d(0, 0, 0) );
+	position: absolute;
+	width: 90%;
+	margin: auto 5%; // + width = 100%
+	display: block;
+	top: 0;
+	margin-top: 10vh;
+
+	@include atMediaUp(small) {
+		@include centerAbsolute($block-6);
+		width: $block-6;
+	}
+
+	@include atMediaUp(medium) {
+		margin-top: 20vh;
+	}
+}

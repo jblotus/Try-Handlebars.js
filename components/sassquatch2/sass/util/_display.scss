@@ -1,0 +1,26 @@
+/*doc
+---
+title: Display utils
+name: display
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+
+
+/*doc
+---
+title: Pseudo-element display mixin
+name: pseudoDisplay
+parent: display
+---
+Sets display property for psuedo-elements
+
+```
+@include pseudoDisplay($value: block);
+```
+*/
+@mixin pseudoDisplay($value: block) {
+	content: '';
+	display: $value;
+}

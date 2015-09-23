@@ -1,0 +1,39 @@
+/*doc
+---
+title: Alignment Utilities
+name: align
+category: Sass Utils | Mixins & Placeholders
+---
+*/
+
+
+/*doc
+---
+title: Vertical-align children
+name: valign
+parent: align
+---
+Aligns children of selected element using flexbox
+with a table-cell fallback for old IE.
+
+```
+@include valignChildren(center); // centers children in element
+@include valignChildren(top); // positions children to top of element
+@include valignChildren(bottom); // positions children to bottom of element
+```
+*/
+
+@mixin _valignIE($alignment) {
+	display: table-cell;
+	vertical-align: $alignment;
+}
+
+@mixin valignChildren($alignment: center) {
+	@include display(flex);
+	@include flex-direction(column);
+	@include justify-content(map-get($flexAlignMap, "#{$alignment}"));
+
+	@include browser-lessThanIE( 10 ) {
+		@include _valignIE($alignment);
+	}
+}

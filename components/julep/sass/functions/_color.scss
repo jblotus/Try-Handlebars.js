@@ -1,0 +1,30 @@
+////
+/// @group color
+/// @access public
+////
+
+// Gets a list of colors along a gradient with a
+// specified base color and number of color steps
+//
+/// @param {color} $baseColor - keyword, hex, rgba, rgb, or hsl color
+/// @param {Number} $numColors - number of color steps to return
+/// @param {Degrees} $spectrum [-90deg] - hue spectrum to cover in gradient
+///
+/// @returns {List} Sass list of color values for gradient
+///
+/// @example scss
+/// 	@each $color in getGradientList('blue', 12) {
+/// 		// $color = step in a 12 step gradient from 'blue'
+/// 	}
+///
+@function getGradientList( $baseColor, $numColors, $spectrum: -90deg) {
+	$colorList: ();
+
+	@for $n from 1 through $numColors {
+		$hueAdjust: $spectrum/$numColors*$n;
+		$color: adjust-hue($baseColor, $hueAdjust);
+		$colorList: append($colorList, $color);
+	}
+
+	@return $colorList;
+}

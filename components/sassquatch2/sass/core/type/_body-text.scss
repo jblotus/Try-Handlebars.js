@@ -1,0 +1,338 @@
+/*doc
+---
+title: Body/primary text
+name: bodyText
+category: Typography
+---
+
+```html_example
+<p>This is default body text, inheritied from type styles applied to &lt;body&gt;</p>
+```
+
+*/
+body {
+	color: $C_textPrimary;
+	font-family: $font;
+	font-size: $font-size;
+	font-weight: $W_normal;
+	line-height: $line-height;
+}
+
+/*doc
+---
+title: Inverted text
+name: invertedText
+parent: bodyText
+---
+
+Apply the `inverted` class to a container with
+a dark background color or photo to flip all text
+elements to inveted colors.
+
+```html_example
+<div style="background: #353E48;" class="inverted">
+	<p>This is default body text, inheritied from type styles applied to &lt;body&gt;</p>
+</div>
+```
+*/
+.inverted {
+	color: $C_textPrimaryInverted;
+}
+
+
+/*doc
+---
+title: Hint text
+name: hintText
+parent: bodyText
+---
+```html_example
+<p class="text--hint">This is hint text</p>
+```
+*/
+@include _modifier(text, hint) {
+	@include color-all($C_textTertiary);
+	.inverted & {
+		@include color-all($C_textTertiaryInverted);
+	}
+}
+
+
+/*doc
+---
+title: Secondary text
+name: secondaryText
+parent: bodyText
+---
+```html_example
+<p class="text--secondary">Secondary text is secondary</p>
+```
+*/
+@include _modifier(text, secondary) {
+	@include color-all($C_textSecondary);
+	.inverted & {
+		@include color-all($C_textSecondaryInverted)
+	}
+}
+
+
+/*doc
+---
+title: Tertiary text
+name: tertiaryText
+parent: bodyText
+---
+```html_example
+<p class="text--tertiary">Tertiary text is tertiary</p>
+```
+*/
+@include _modifier(text, tertiary) {
+	@include color-all($C_textTertiary);
+	.inverted & {
+		@include color-all($C_textTertiaryInverted);
+	}
+}
+
+
+/*doc
+---
+title: Bold text
+name: boldText
+parent: bodyText
+---
+```html_example
+<p class="text--bold">Bold text is bold</p>
+```
+*/
+@include _modifier(text, bold) {
+	font-weight: $W_bold;
+}
+
+
+/*doc
+---
+title: Small text
+name: smallText
+parent: bodyText
+---
+```html_example
+<p class="text--small">Small text is small</p>
+```
+*/
+@include _modifier(text, small) {
+	@include _headingDescendant() {
+		font-size: $font-size-small;
+		line-height: $line-height-small;
+	}
+}
+
+/*doc
+---
+title: Monospaced text
+name: monoText
+parent: bodyText
+---
+The `code` and `pre` elements use a monospaced
+font by default. To apply monospaced type rules
+to any other element, use `text--mono`.
+
+```html_example
+<p class="text--mono">Is this code? What is this?</p>
+<code>This is code</code>
+<pre>We can safely assume a pre tag on Meetup is also code</pre>
+```
+*/
+.text--mono {
+	font-family: $font--mono;
+}
+
+
+/*doc
+---
+title: Caption text
+name: captionText
+parent: bodyText
+---
+```html_example
+<p class="text--caption">I'm captioning all the things</p>
+```
+*/
+@include _modifier(text, caption) {
+	@extend %text--small;
+	@include color-all($C_textSecondary);
+	.inverted & {
+		@include color-all($C_textSecondaryInverted);
+	}
+}
+
+/*doc
+---
+title: Error text
+name: errorText
+parent: bodyText
+---
+```html_example
+<p class="text--error">I'm erroring all the things</p>
+```
+*/
+@include _modifier(text, error) {
+	@extend %text--small;
+	@include color-all($C_red);
+}
+
+/*doc
+---
+title: Label text
+name: textLabel
+parent: bodyText
+---
+Applies form label styling
+
+```html_example
+	<p class="text--label">I share styling with the `label` element</p>
+```
+*/
+@include _modifier(text, label) {
+	@extend %label;
+}
+
+/*doc
+---
+title: Graphic text
+name: textGraphic
+parent: bodyText
+---
+Useful when using large text in a graphical way.
+Cuts line height to give the glyph spacing similar to that of an image or icon.
+
+```html_example
+<p class="text--graphic">102</p>
+<p>Miles per hour</p>
+```
+*/
+@include _modifier(text, graphic) {
+	@extend %text--display;
+	line-height: .9;
+}
+
+
+
+/*doc
+---
+title: Running text
+name: runningText
+parent: bodyText
+---
+By default, paragraphs and headings are not styled
+with any bottom spacing. Links are not blue by default,
+as the most common case on Meetup will be block-level
+anchors with large touch targets.
+
+However, there will be instaces where you want the blue
+links and properly spaced paragraphs of running text (ie.
+event descriptions).
+
+```html_example
+<p>The robot is partially dressed in waterproof surgical garb.</p>
+<p>"Bruce Springsteen" is a terrible name for a <a href="#">cat</a>.</p>
+
+<hr style="margin: 8px;" /> <!-- lol, hr -->
+
+<div class="runningText">
+	<p>The robot is partially dressed in waterproof surgical garb.</p>
+	<p>"Bruce Springsteen" is a terrible name for a <a href="#">cat</a>.</p>
+</div>
+```
+*/
+.runningText p {
+	@extend %wrapNice;
+	margin-bottom: $space;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+/*doc
+---
+title: Link color
+name: linkColor
+parent: runningText
+---
+You can always force an anchor to apply a
+linky blue color by applying the `.link` class.
+
+```html_example
+<p>Let's force this <a class="link" href="#">link</a> to be blue</p>
+```
+*/
+a {
+	color: inherit;
+	text-decoration: none;
+	&.link,
+	.runningText & {
+		@extend %link;
+		&.button {
+			text-decoration: none;
+		}
+	}
+}
+
+/*doc
+---
+title: Bulleted lists
+name: bulletedList
+parent: bodyText
+---
+
+`<ul>` and `<ol>` element list styles are
+reset by default.
+
+```html_example
+<ul>
+	<li>Eggs</li>
+	<li>More Eggs</li>
+</ul>
+```
+
+List style bullets are applied when list
+elements are inside a `.runningText` container.
+
+```html_example
+<div class="runningText">
+	<ul>
+		<li>Eggs</li>
+		<li>More Eggs</li>
+	</ul>
+</div>
+```
+
+You may also use the `.bullets` class to apply
+numbers/bullets to a list.
+
+```html_example
+<ul class="bullets">
+	<li>Eggs</li>
+	<li>More Eggs</li>
+</ul>
+```
+
+*/
+%_listStyleBase {
+	list-style-position: outside;
+	padding-left: 1.33em; /* indent by default */
+}
+ul {
+	&.bullets,
+	.runningText & {
+		@extend %_listStyleBase;
+		list-style-type: disc;
+	}
+}
+ol {
+	&.bullets,
+	.runningText & {
+		@extend %_listStyleBase;
+		list-style-type: decimal;
+	}
+}

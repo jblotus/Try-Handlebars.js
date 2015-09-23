@@ -1,0 +1,45 @@
+////
+/// @group color
+////
+
+
+/// Sets properties to color SVG icons
+/// @access public
+///
+/// @param {color} $color - keyword, hex, rgba, rgb, or hsl color
+/// @param {Boolean} $isImportant
+///
+/// @example scss
+/// 	.someSVG {
+/// 		@include color-svg(pink);
+/// 	}
+///
+@mixin color-svg($color: black, $isImportant:false) {
+	stroke: transparent;
+	@if $isImportant {
+		fill: $color !important;
+	} @else {
+		fill: $color;
+	}
+};
+
+
+/// Sets properties to color SVG icons AND text
+/// @access public
+///
+/// @param {color} $color - keyword, hex, rgba, rgb, or hsl color
+/// @param {Boolean} $isImportant
+///
+/// @example scss
+/// 	.someSVG {
+/// 		@include color-all(black);
+/// 	}
+///
+@mixin color-all($color: black, $isImportant:false) {
+	@include color-svg($color, $isImportant);
+	@if $isImportant {
+		color: $color !important;
+	} @else {
+		color: $color;
+	}
+};

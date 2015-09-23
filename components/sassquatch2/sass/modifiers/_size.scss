@@ -1,0 +1,22 @@
+/*doc
+---
+title: Media Sizing
+name: sizeMod
+category: Modifier Classes
+---
+Classes for applying dimensions to an element.
+
+Class          | Description
+-------------- | ----------------------------
+`.media--xs`   | Sets `width` to `$media-xs` and height to `auto`
+`.media--s`    | Sets `width` to `$media-s` and height to `auto`
+`.media--m`    | Sets `width` to `$media-m` and height to `auto`
+`.media--l`    | Sets `width` to `$media-l` and height to `auto`
+`.media--xl`   | Sets `width` to `$media-xl` and height to `auto`
+*/
+@each $sizeName, $size in $media-map {
+	@include _modifier('media', $sizeName) {
+		height: auto;
+		width: $size;
+	}
+}
