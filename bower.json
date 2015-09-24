@@ -24,10 +24,10 @@
     "tests"
   ],
   "dependencies": {
+    "handlebars": "~4.0.2",
     "jquery": "~2.1.4",
     "json-js": "*",
-    "handlebars": "~3.0.3",
-    "sassquatch2": "~1.0.0",
-    "requirejs-bower": "~2.1.20"
+    "requirejs-bower": "~2.1.20",
+    "sassquatch2": "~1.0.0"
   }
 }
