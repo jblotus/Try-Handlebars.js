@@ -264,40 +264,41 @@ Handlebars.registerHelper('agree_button', function() {
 });
 </script>
 
-<script id ="main-content" type="text/x-handlebars-template">	
-		
-	
-	<div class="entry padding--all">	
-		
-		<div id="samples" class="borderradius">
-			<select>
-      				{{#samples}}
-					<option value="{{link}}">{{title}}</option>
-				{{/samples}}
-			</select>
-		</div>
+</head>
+<body style="background-color:orange;">
+	<div id="container">
+        <a href="https://github.com/jblotus/Try-Handlebars.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<section class="stripe padding--all" style="background-color:orange;">
+			<h1 style="color:black;">Try Handlebars.js right now in your browser</h1>
+			<p>
+				<a href="http://www.handlebarsjs.com">Handlebars.js</a> is a sweet javascript library for building clean logicless templates
+				 based on the
+				<a href="http://mustache.github.com/">Mustache Templating Language</a>.
+			</p>
 
-<div class="spreadable atLarge_spreadable--spread">
-			
-		<div class="spreadable-item">	
-			<label for="source">Handlebars Template</label>
-			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
-		</div>
+		</section>
 
-		<div class="spreadable-item">	
-			<label for="context">Context (JavaScript literal or JSON) </label>
-			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
-		</div>	
-		
-		<div class="spreadable-item">
-			<label for="helpers">Register Helper functions (if any)</label>
-			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+		<div id="main" role="main" class="borderradius">
+	<div class="entry padding--all">
+		<select id="samples"></select>
+
+		<div class="spreadable atLarge_spreadable--spread">
+			<div class="spreadable-item">
+				<label for="source">Handlebars Template</label>
+				<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
+			</div>
+			<div class="spreadable-item">
+				<label for="context">Context (JavaScript literal or JSON) </label>
+				<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
+			</div>
+			<div class="spreadable-item">
+				<label for="helpers">Register Helper functions (if any)</label>
+				<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+			</div>
 		</div>
-</div>
-		
 		<div class="padding--top">
 			<input class="compile" type="submit" value="Compile Handlebars Template" />
-			<p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
+			<p id="version"></p>
 			<p class="errors"><span></span></p>
 		</div>
 	</div>
@@ -312,25 +313,8 @@ Handlebars.registerHelper('agree_button', function() {
 		<div id="output-window-html">{{{output}}}</div>
 		</div>
 	</div>
-</script>
 
-</head>
-<body style="background-color:orange;">
-	<div id="container">
-        <a href="https://github.com/jblotus/Try-Handlebars.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-		<section class="stripe padding--all" style="background-color:orange;">
-			<h1 style="color:black;">Try Handlebars.js right now in your browser</h1>
-			<p>
-				<a href="http://www.handlebarsjs.com">Handlebars.js</a> is a sweet javascript library for building clean logicless templates
-				 based on the
-				<a href="http://mustache.github.com/">Mustache Templating Language</a>.
-        
-				
-			</p>
-
-		</section>
-
-		<div id="main" role="main" class="borderradius"></div>
+</div>
 		
 		<footer style="background-color:orange;" class="padding--all">
 			<p>Site by <a href="http://www.jblotus.com">James Fuller</a> Twitter: <a href="https://twitter.com/#!/j_blotus">@j_blotus</a></p> 
