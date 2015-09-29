@@ -83,7 +83,8 @@ require(["jquery"], function($){
 		}
 		$('textarea#source').val(template);
 		$('textarea#context').val(context);
-		$('textarea#helpers').parent().toggleClass('display--none', helpers() ? false : true);
+
+		displayHelperTextarea( helpers() ? true : false );
 		$('textarea#helpers').val(helpers);
 		$('.compile').click();
 	};
@@ -116,9 +117,13 @@ require(["jquery"], function($){
 	};
 
 	var populateVersion = function(){
-		var srcVersion = "Handlebars.VERSION: {{getHandlebarsVersion}}";
+		var srcVersion = "Handlebars v{{getHandlebarsVersion}}";
 		var tmplVersion = Handlebars.compile( srcVersion );
 		$("#version").html( tmplVersion() );
+	};
+
+	var displayHelperTextarea = function( show ){
+		$("#helpersWrap").toggleClass('display--none', !show);
 	};
 
 	$(function() {
@@ -127,5 +132,6 @@ require(["jquery"], function($){
 		$(document).on('change','select', displaySample );
 		$(document).on('click', '.compile', compile );
 		$('select').trigger('change');
+		displayHelperTextarea( true );
 	});
 });

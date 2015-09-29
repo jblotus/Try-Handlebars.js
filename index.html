@@ -279,38 +279,52 @@ Handlebars.registerHelper('agree_button', function() {
 		</section>
 
 		<div id="main" role="main" class="borderradius">
-	<div class="entry padding--all">
-		<select id="samples"></select>
-
-		<div class="spreadable atLarge_spreadable--spread">
-			<div class="spreadable-item">
-				<label for="source">Handlebars Template</label>
-				<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
+	<div class="padding--all">
+		<div class="entry spreadable atLarge_spreadable--spread">
+			<div class="spreadable-item spreadable-item--shrink row-item--alignMiddle align--right">
+				<label for="samples">Examples</label>
 			</div>
 			<div class="spreadable-item">
-				<label for="context">Context (JavaScript literal or JSON) </label>
-				<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
-			</div>
-			<div class="spreadable-item">
-				<label for="helpers">Register Helper functions (if any)</label>
-				<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+				<select id="samples"></select>
 			</div>
 		</div>
-		<div class="padding--top">
-			<input class="compile" type="submit" value="Compile Handlebars Template" />
-			<p id="version"></p>
-			<p class="errors"><span></span></p>
+		<div class="entry spreadable atLarge_spreadable--spread">
+			<div class="spreadable-item spreadable-item--shrink row-item--alignMiddle align--right">
+				<label>Engine</label>
+			</div>
+			<div class="spreadable-item">
+				<p class="padding--left" id="version"></p>
+			</div>
 		</div>
 	</div>
 
-	<div class="output spreadable atLarge_spreadable--spread padding--all border--top">
+	<div class="spreadable atLarge_spreadable--spread padding--all border--top">
 		<div class="spreadable-item">
-		<p>HTML Source Output</p>
-		<textarea id="output-window">{{output}}</textarea>
+			<label for="source">Handlebars Template</label>
+			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
 		</div>
 		<div class="spreadable-item">
-		<p>HTML Preview</p>
-		<div id="output-window-html">{{{output}}}</div>
+			<label for="context">Context (JavaScript literal or JSON) </label>
+			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
+		</div>
+		<div id="helpersWrap" class="spreadable-item">
+			<label for="helpers">Register Helper functions (if any)</label>
+			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+		</div>
+	</div>
+	<div>
+		<input class="compile" type="submit" value="Compile Handlebars Template" />
+		<p class="errors padding--left padding--right"><span></span></p>
+	</div>
+
+	<div class="output spreadable atLarge_spreadable--spread padding--all">
+		<div class="spreadable-item">
+			<p>HTML Source Output</p>
+			<textarea id="output-window">{{output}}</textarea>
+			</div>
+			<div class="spreadable-item">
+			<p>HTML Preview</p>
+			<div id="output-window-html">{{{output}}}</div>
 		</div>
 	</div>
 
