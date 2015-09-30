@@ -282,33 +282,35 @@ Handlebars.registerHelper('agree_button', function() {
 	<div class="padding--all">
 		<div class="spreadable atLarge_spreadable--spread">
 			<div class="spreadable-item spreadable-item--shrink spreadable-item--label row-item--alignMiddle">
-				<label for="samples">Examples</label>
+				<label for="samples" class="try-hbs--label try-hbs--select-label">Examples</label>
 			</div>
 			<div class="spreadable-item">
 				<select id="samples"></select>
 			</div>
 		</div>
-		<div class="spreadable atLarge_spreadable--spread">
-			<div class="spreadable-item spreadable-item--shrink spreadable-item--label row-item--alignMiddle">
-				<label>Engine</label>
+		<div>
+			<!-- div class="spreadable-item spreadable-item--shrink spreadable-item--label row-item--alignMiddle">
+				<label class="try-hbs--label try-hbs--select-label">Engine</label>
 			</div>
 			<div class="spreadable-item">
 				<p id="version"></p>
-			</div>
+                                </div -->
+                        <label class="try-hbs--label try-hbs--select-label display--inlineBlock">Engine</label>
+                        <span id="version"></span>
 		</div>
 	</div>
 
 	<div class="spreadable atLarge_spreadable--spread padding--all border--top">
 		<div class="spreadable-item">
-			<label for="source">Handlebars Template</label>
+			<label for="source" class="try-hbs--label">Handlebars Template</label>
 			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
 		</div>
 		<div class="spreadable-item">
-			<label for="context">Context (JavaScript literal or JSON) </label>
+			<label for="context" class="try-hbs--label">Context (JavaScript literal or JSON) </label>
 			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
 		</div>
 		<div id="helpersWrap" class="spreadable-item">
-			<label for="helpers">Register Helper functions (if any)</label>
+			<label for="helpers" class="try-hbs--label">Register Helper functions (if any)</label>
 			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
 		</div>
 	</div>
