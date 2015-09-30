@@ -63,16 +63,19 @@ h2 {
     box-sizing: border-box;
 }
 
-.spreadable-item label {
+label, .try-hbs--label {
     font-size: 16px;
     padding: 5px;
     margin-bottom: 5px;
     color: #582a00;
-    width: 100%;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.try-hbs--select-label {
+  min-width: 90px !important;
 }
 
 #intro h1 {
