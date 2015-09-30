@@ -75,6 +75,10 @@ h2 {
     box-sizing: border-box;
 }
 
+.spreadable-item--label {
+  min-width: 90px !important;
+}
+
 #intro h1 {
   color: #723600;
   font-size: 18px;
