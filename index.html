@@ -12,7 +12,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
-	<meta name="viewport" content="width=1000, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -243,7 +243,7 @@ Handlebars.registerHelper('fullName', function(person) {
 <script id ="helpers-2" type="text/x-handlebars-template">
 <ul>
   {{#each items}}
-    <li>{{{agree_button}}}</li>
+    {{{agree_button}}}
   {{/each}}
 </ul>
 </script>
@@ -264,63 +264,6 @@ Handlebars.registerHelper('agree_button', function() {
 });
 </script>
 
-<script id ="main-content" type="text/x-handlebars-template">	
-		
-	
-	<div class="entry padding--all">	
-		
-		<div id="samples" class="borderradius">
-			<select>
-      				{{#samples}}
-					<option value="{{link}}">{{title}}</option>
-				{{/samples}}
-			</select>
-		</div>
-		
-		<!-- div>
-    
-			<input class="compile" type="submit" value="Compile Handlebars Template" />
-			<p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
-			<p class="errors"><span></span></p>
-		</div -->
-
-<div class="spreadable atLarge_spreadable--spread">
-			
-		<div class="spreadable-item">	
-			<label for="source">Handlebars Template</label>
-			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
-		</div>
-
-		<div class="spreadable-item">	
-			<label for="context">Context (JavaScript literal or JSON) </label>
-			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
-		</div>	
-		
-		<div class="spreadable-item">
-			<label for="helpers">Register Helper functions (if any)</label>
-			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
-		</div>
-</div>
-		
-		<div class="padding--top">
-			<input class="compile" type="submit" value="Compile Handlebars Template" />
-			<p>Handlebars.VERSION: {{getHandlebarsVersion}}</p>
-			<p class="errors"><span></span></p>
-		</div>
-	</div>
-
-	<div class="output spreadable atLarge_spreadable--spread padding--all border--top">
-		<div class="spreadable-item">
-		<p>HTML Source Output</p>
-		<textarea id="output-window">{{output}}</textarea>
-		</div>
-		<div class="spreadable-item">
-		<p>HTML Preview</p>
-		<div id="output-window-html">{{{output}}}</div>
-		</div>
-	</div>
-</script>
-
 </head>
 <body style="background-color:orange;">
 	<div id="container">
@@ -331,13 +274,57 @@ Handlebars.registerHelper('agree_button', function() {
 				<a href="http://www.handlebarsjs.com">Handlebars.js</a> is a sweet javascript library for building clean logicless templates
 				 based on the
 				<a href="http://mustache.github.com/">Mustache Templating Language</a>.
-        
-				
 			</p>
 
 		</section>
 
-		<div id="main" role="main" class="borderradius"></div>
+		<div id="main" role="main" class="borderradius">
+	<div class="padding--all">
+		<div class="spreadable atLarge_spreadable--spread">
+			<div class="spreadable-item spreadable-item--shrink spreadable-item--label row-item--alignMiddle">
+				<label for="samples" class="try-hbs--label try-hbs--select-label">Examples</label>
+			</div>
+			<div class="spreadable-item">
+				<select id="samples"></select>
+			</div>
+		</div>
+		<div>
+                        <label class="try-hbs--label try-hbs--select-label display--inlineBlock">Engine</label>
+                        <span id="version"></span>
+		</div>
+	</div>
+
+	<div class="spreadable atLarge_spreadable--spread padding--all border--top">
+		<div class="spreadable-item">
+			<label for="source" class="try-hbs--label">Handlebars Template</label>
+			<textarea id="source" type="textarea" spellcheck="false">{{source}}</textarea>
+		</div>
+		<div class="spreadable-item">
+			<label for="context" class="try-hbs--label">Context (JavaScript literal or JSON) </label>
+			<textarea id="context" type="textarea" spellcheck="false">{{context}}</textarea>
+		</div>
+		<div id="helpersWrap" class="spreadable-item">
+			<label for="helpers" class="try-hbs--label">Register Helper functions (if any)</label>
+			<textarea id="helpers" type="textarea" spellcheck="false">{{helpers}}</textarea>
+		</div>
+	</div>
+	<div>
+		<input class="compile" type="submit" value="Compile Handlebars Template" />
+		<p class="errors padding--left padding--right"><span></span></p>
+	</div>
+
+	<div class="output spreadable atLarge_spreadable--spread padding--all">
+		<div class="spreadable-item">
+			<p>HTML Source Output</p>
+			<textarea id="output-window">{{output}}</textarea>
+			</div>
+			<div class="spreadable-item">
+			<p>HTML Preview</p>
+			<div id="output-window-html">{{{output}}}</div>
+		</div>
+	</div>
+
+</div>
 		
 		<footer style="background-color:orange;" class="padding--all">
 			<p>Site by <a href="http://www.jblotus.com">James Fuller</a> Twitter: <a href="https://twitter.com/#!/j_blotus">@j_blotus</a></p> 
@@ -348,14 +335,6 @@ Handlebars.registerHelper('agree_button', function() {
 		</footer>
 	</div>
 
-	<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script -->
-	<script src="js/plugins.js"></script>
-	<script src="js/script.js"></script>
-	<!--[if lt IE 7 ]>
-	<script src="js/libs/dd_belatedpng.js"></script>
-	<script> DD_belatedPNG.fix('img, .png_bg');</script>
-	<![endif]-->
 	<script type="text/javascript">
 	
 	  var _gaq = _gaq || [];

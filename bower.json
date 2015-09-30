@@ -24,7 +24,7 @@
     "tests"
   ],
   "dependencies": {
-    "handlebars": "~3.0.3",
+    "handlebars": "~4.0.2",
     "jquery": "~2.1.4",
     "json-js": "*",
     "mustache.js": "mustache#v1.2.0",
