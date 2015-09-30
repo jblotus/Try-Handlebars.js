@@ -128,12 +128,6 @@ require(["jquery",
 		$("#example").html( tmplExamples( handlebars_examples ) );
 	};
 
-	var populateVersion = function(){
-		var srcVersion = "Handlebars v{{getHandlebarsVersion}}";
-		var tmplVersion = Handlebars.compile( srcVersion );
-		$("#version").html( tmplVersion() );
-	};
-
 	var displayHelperTextarea = function( show ){
 		$("#helpersWrap").toggleClass('display--none', !show);
 	};
@@ -144,7 +138,6 @@ require(["jquery",
 
 	$(function() {
 		populateExamples();
-		populateVersion();
 		$(document).on('change','#example', displayExample );
 		$(document).on('change','#engine', setEngine );
 		$(document).on('click', '.compile', compile );
