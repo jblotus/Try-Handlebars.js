@@ -1,16 +1,28 @@
 require.config({
     paths: {
-        jquery: '../components/jquery/dist/jquery.min'
+	jquery: '../components/jquery/dist/jquery.min',
+    	hbs402: '../components/handlebars-4.0.2/handlebars',
+    	hbs303: '../components/handlebars-3.0.3/handlebars',
+    	hbs200: '../components/handlebars-2.0.0/handlebars'
     }
 });
 
-require(["jquery"], function($){
+require(["jquery",
+	"hbs402",
+	"hbs303",
+	"hbs200"],
+	function($,
+		hbs402,
+		hbs303,
+		hbs200){
+
+	var Handlebars = hbs402;
 
 	Handlebars.registerHelper('getHandlebarsVersion', function() {
 		return Handlebars.VERSION;
 	});
 	
-	var handlebars_samples = [
+	var handlebars_examples = [
 		{
 			title : 'handlebar expression',
 			link : '#getting-started-1'
@@ -69,7 +81,7 @@ require(["jquery"], function($){
 		}
 	];
 
-	var displaySample = function(){
+	var displayExample = function(){
 		var id = $(this).val();
 		var template = $.trim($(id).html());
 		
@@ -110,26 +122,24 @@ require(["jquery"], function($){
 		}
 	};
 
-	var populateSamples = function(){
-		var srcSamples = "{{#each this}}<option value=\"{{link}}\">{{title}}</option>{{/each}}";
-		var tmplSamples = Handlebars.compile( srcSamples );
-		$("#samples").html( tmplSamples( handlebars_samples ) );
-	};
-
-	var populateVersion = function(){
-		var srcVersion = "Handlebars v{{getHandlebarsVersion}}";
-		var tmplVersion = Handlebars.compile( srcVersion );
-		$("#version").html( tmplVersion() );
+	var populateExamples = function(){
+		var srcExamples = "{{#each this}}<option value=\"{{link}}\">{{title}}</option>{{/each}}";
+		var tmplExamples = Handlebars.compile( srcExamples );
+		$("#example").html( tmplExamples( handlebars_examples ) );
 	};
 
 	var displayHelperTextarea = function( show ){
 		$("#helpersWrap").toggleClass('display--none', !show);
 	};
 
+	var setEngine = function(){
+		Handlebars = eval($(this).val());
+	}
+
 	$(function() {
-		populateSamples();
-		populateVersion();
-		$(document).on('change','select', displaySample );
+		populateExamples();
+		$(document).on('change','#example', displayExample );
+		$(document).on('change','#engine', setEngine );
 		$(document).on('click', '.compile', compile );
 		$('select').trigger('change');
 		displayHelperTextarea( true );
