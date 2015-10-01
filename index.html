@@ -18,7 +18,6 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="stylesheet" href="css/main.css">
 	<script src="js/libs/modernizr-2.8.3.min.js"></script>
-	<script src="components/handlebars/handlebars.js"></script>	
 	<script data-main="js/script" src="components/requirejs-bower/require.js"></script>
 		
 <script id ="getting-started-1" type="text/x-handlebars-template">
@@ -281,16 +280,24 @@ Handlebars.registerHelper('agree_button', function() {
 		<div id="main" role="main" class="borderradius">
 	<div class="padding--all">
 		<div class="spreadable atLarge_spreadable--spread">
-			<div class="spreadable-item spreadable-item--shrink spreadable-item--label row-item--alignMiddle">
-				<label for="samples" class="try-hbs--label try-hbs--select-label">Examples</label>
+			<div class="spreadable-item spreadable-item--shrink try-hbs--select-label spreadable-item--label row-item--alignMiddle">
+				<label for="examples" class="try-hbs--label">Examples</label>
 			</div>
 			<div class="spreadable-item">
-				<select id="samples"></select>
+				<select id="example"></select>
 			</div>
 		</div>
-		<div>
-                        <label class="try-hbs--label try-hbs--select-label display--inlineBlock">Engine</label>
-                        <span id="version"></span>
+		<div class="spreadable atLarge_spreadable--spread">
+			<div class="spreadable-item spreadable-item--shrink try-hbs--select-label spreadable-item--label row-item--alignMiddle">
+				<label for="engine" class="try-hbs--label try-hbs--select-label">Engine</label>
+			</div>
+			<div class="spreadable-item">
+				<select id="engine">
+					<option value="hbs402">Handlebars v4.0.2</option>
+					<option value="hbs303">Handlebars v3.0.3</option>
+					<option value="hbs200">Handlebars v2.0.0</option>
+				</select>
+			</div>
 		</div>
 	</div>
 
