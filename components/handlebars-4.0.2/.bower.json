@@ -1,0 +1,17 @@
+{
+  "name": "handlebars",
+  "version": "4.0.2",
+  "main": "handlebars.js",
+  "license": "MIT",
+  "dependencies": {},
+  "homepage": "https://github.com/components/handlebars.js",
+  "_release": "4.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.2",
+    "commit": "5c303fd2176ddb816e8e0d4d139e37400dccb2f0"
+  },
+  "_source": "git://github.com/components/handlebars.js.git",
+  "_target": "4.0.2",
+  "_originalSource": "handlebars"
+}
