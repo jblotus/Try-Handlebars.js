@@ -17,8 +17,16 @@
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="stylesheet" href="css/main.css">
-	<script src="js/libs/modernizr-2.8.3.min.js"></script>
-	<script data-main="js/script" src="components/requirejs-bower/require.js"></script>
+	<!-- dev >
+	<script src="jspm_packages/system.js"></script>
+	<script src="config.js"></script>
+	<script>
+		System.import('js/script');
+	</script>
+	<!-- prod -->
+	<script src="jspm_packages/system.js"></script>
+	<script src="config.js"></script>
+	<script src="build.js"></script>
 		
 <script id ="getting-started-1" type="text/x-handlebars-template">
 <div class="entry">
@@ -208,6 +216,15 @@ Handlebars.registerHelper('list', function(items, options) {
 }
 </script>
 
+<script id ="paths-4" type="text/x-handlebars-template">
+<p>{{this.content}}</p>
+<p>{{this.[10]}}</p>
+</script>
+
+<script id ="paths-4-context" type="text/x-handlebars-template">
+{ content: 'how can i access a numeric key?', '10':'with brackets!' }
+</script>
+
 <script id ="helpers-1" type="text/x-handlebars-template">
 <div class="post">
   <h1>By {{fullName author}}</h1>
@@ -293,7 +310,7 @@ Handlebars.registerHelper('agree_button', function() {
 			</div>
 			<div class="spreadable-item">
 				<select id="engine">
-					<option value="hbs402">Handlebars v4.0.2</option>
+					<option value="hbs403">Handlebars v4.0.3</option>
 					<option value="hbs303">Handlebars v3.0.3</option>
 					<option value="hbs200">Handlebars v2.0.0</option>
 					<option value="hbs130">Handlebars v1.3.0</option>
