@@ -129,7 +129,7 @@ require(["jquery",
 				html = engine.render( source, context );
 			} else {
 				templateFn = engine.compile(source);
-				html = template(context);
+				html = templateFn(context);
 			}
 			
 			//compile main template
