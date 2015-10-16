@@ -1,25 +1,40 @@
 require.config({
-    paths: {
-	jquery: '../components/jquery/dist/jquery.min',
-    	hbs402: '../components/handlebars-4.0.2/handlebars',
-    	hbs303: '../components/handlebars-3.0.3/handlebars',
-    	hbs200: '../components/handlebars-2.0.0/handlebars'
-    }
+	paths: {
+		jquery: '../components/jquery/dist/jquery.min',
+		hbs402: '../components/handlebars-4.0.2/handlebars',
+		hbs303: '../components/handlebars-3.0.3/handlebars',
+		hbs200: '../components/handlebars-2.0.0/handlebars',
+		hbs130: '../components/handlebars-1.3.0/handlebars',
+		mustache213: '../components/mustache-2.1.3/mustache',
+		mustache120: '../components/mustache-1.2.0/mustache'
+    	},
+	shim: {
+		hbs130: {
+			exports: 'Handlebars'
+		}
+	}
+
 });
 
 require(["jquery",
 	"hbs402",
 	"hbs303",
-	"hbs200"],
+	"hbs200",
+	"hbs130",
+	"mustache213",
+	"mustache120"],
 	function($,
 		hbs402,
 		hbs303,
-		hbs200){
+		hbs200,
+		hbs130,
+		mustache213,
+		mustache120){
 
-	var Handlebars = hbs402;
+	var engine = hbs402;
 
-	Handlebars.registerHelper('getHandlebarsVersion', function() {
-		return Handlebars.VERSION;
+	engine.registerHelper('getHandlebarsVersion', function() {
+		return engine.VERSION;
 	});
 	
 	var handlebars_examples = [
@@ -103,13 +118,19 @@ require(["jquery",
 
 	var compile = function(){
 		try {
-			var source   = $('textarea#source').val();
-			var template = Handlebars.compile(source);
-			
+			var templateFn, html = "",
+				source = $('textarea#source').val(),
+				context = eval( '(' + $('textarea#context').val() + ')' );
+
 			//run any helpers code
-			var helpers = eval($('textarea#helpers').val());
-			var context =  $('textarea#context').val();
-			var html    =  template(eval('(' + context + ')'));
+			eval( $('textarea#helpers').val() );
+
+			if( engine.name === "mustache.js" ){
+				html = engine.render( source, context );
+			} else {
+				templateFn = engine.compile(source);
+				html = templateFn(context);
+			}
 			
 			//compile main template
 			$('#output-window').val(html);
@@ -124,7 +145,7 @@ require(["jquery",
 
 	var populateExamples = function(){
 		var srcExamples = "{{#each this}}<option value=\"{{link}}\">{{title}}</option>{{/each}}";
-		var tmplExamples = Handlebars.compile( srcExamples );
+		var tmplExamples = engine.compile( srcExamples );
 		$("#example").html( tmplExamples( handlebars_examples ) );
 	};
 
@@ -133,7 +154,7 @@ require(["jquery",
 	};
 
 	var setEngine = function(){
-		Handlebars = eval($(this).val());
+		engine = eval($(this).val());
 	}
 
 	$(function() {
