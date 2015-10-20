@@ -17,21 +17,12 @@ require.config({
 });
 
 require(["jquery",
-	"hbs402",
-	"hbs303",
-	"hbs200",
-	"hbs130",
-	"mustache213",
-	"mustache120"],
+	"hbs402"],
 	function($,
-		hbs402,
-		hbs303,
-		hbs200,
-		hbs130,
-		mustache213,
-		mustache120){
+		hbs402){
 
-	var engine = hbs402;
+	var engine = hbs402,
+		Handlebars = hbs402; //necessary for helper support
 
 	engine.registerHelper('getHandlebarsVersion', function() {
 		return engine.VERSION;
@@ -85,6 +76,10 @@ require(["jquery",
 		{
 			title: 'paths - ../',
 			link: '#paths-3'
+		},
+		{
+			title: 'paths - brackets',
+			link: '#paths-4'
 		},
 		{
 			title: 'helpers',
@@ -154,7 +149,10 @@ require(["jquery",
 	};
 
 	var setEngine = function(){
-		engine = eval($(this).val());
+		require( [ $(this).val() ], function( module ){
+			Handlebars = engine = module;
+			$('.compile').click();
+		});
 	}
 
 	$(function() {
