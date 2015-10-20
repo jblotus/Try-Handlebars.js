@@ -208,6 +208,15 @@ Handlebars.registerHelper('list', function(items, options) {
 }
 </script>
 
+<script id ="paths-4" type="text/x-handlebars-template">
+<p>{{this.content}}</p>
+<p>{{this.[10]}}</p>
+</script>
+
+<script id ="paths-4-context" type="text/x-handlebars-template">
+{ content: 'how can i access a numeric key?', '10':'with brackets!' }
+</script>
+
 <script id ="helpers-1" type="text/x-handlebars-template">
 <div class="post">
   <h1>By {{fullName author}}</h1>

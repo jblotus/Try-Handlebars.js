@@ -87,6 +87,10 @@ require(["jquery",
 			link: '#paths-3'
 		},
 		{
+			title: 'paths - brackets',
+			link: '#paths-4'
+		},
+		{
 			title: 'helpers',
 			link: '#helpers-1'
 		},
