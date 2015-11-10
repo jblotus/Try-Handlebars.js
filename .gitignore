@@ -1,7 +1,2 @@
 .idea
 .sass-cache
-components
-css
-build.js
-build.js.map
-node_modules/.bin

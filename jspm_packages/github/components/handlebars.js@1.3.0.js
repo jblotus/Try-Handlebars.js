@@ -1,0 +1,1 @@
+module.exports = require("github:components/handlebars.js@1.3.0/handlebars");
