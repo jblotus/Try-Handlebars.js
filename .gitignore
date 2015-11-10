@@ -1,2 +1,9 @@
 .idea
 .sass-cache
+components
+css
+node_modules
+jspm_packages
+.sass-cache
+build.js
+build.js.map
