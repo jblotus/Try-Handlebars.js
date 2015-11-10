@@ -16,6 +16,8 @@ They are eval'd when you click compile and HTML output is displayed in the outpu
 __Contributing__
 
 - Fork the repo
-- You need to run npm install, bower install, grunt build, grunt sass
+- Install jspm if needed `npm install jspm -g`
+- `npm install`
+- You'll need to run a simple web server to support xhr requests. I recommend https://github.com/indexzero/http-server
 - Do not commit build artifacts (node_modules, components, etc)
 - Submit pull request (please rebase your changes into one commit)
