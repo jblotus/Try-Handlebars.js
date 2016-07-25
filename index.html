@@ -7,13 +7,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	
+
 	<title>Try Handlebars.js in your web browser</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<link rel="stylesheet" href="css/main.css">
@@ -27,7 +27,7 @@
 	<script src="jspm_packages/system.js"></script>
 	<script src="config.js"></script>
 	<script src="build.js"></script>
-		
+
 <script id ="getting-started-1" type="text/x-handlebars-template">
 <div class="entry">
   <h1>{{title}}</h1>
@@ -38,8 +38,8 @@
 </script>
 
 <script id ="getting-started-1-context" type="text/x-handlebars-template">
-{ 
-  title: "My New Post", 
+{
+  title: "My New Post",
   body: "This is my first post!"
 }
 </script>
@@ -54,9 +54,9 @@
 </script>
 
 <script id ="getting-started-2-context" type="text/x-handlebars-template">
-{ 
-  title: "All about <p> Tags", 
-  body: "<p>This is a post about &lt;p&gt; tags</p>" 
+{
+  title: "All about <p> Tags",
+  body: "<p>This is a post about &lt;p&gt; tags</p>"
 }
 </script>
 
@@ -125,10 +125,10 @@ Handlebars.registerHelper('list', function(items, options) {
 </script>
 
 <script id ="built-in-block-helpers-3-context" type="text/x-handlebars-template">
-{ 
+{
   author: true,
   firstName: 'eric',
-  lastName: 'blair' 
+  lastName: 'blair'
 }
 </script>
 
@@ -160,7 +160,7 @@ Handlebars.registerHelper('list', function(items, options) {
 </script>
 
 <script id ="built-in-block-helpers-6-context" type="text/x-handlebars-template">
-{ license: 'true' }
+{ license: true }
 </script>
 
 <script id ="paths-1" type="text/x-handlebars-template">
@@ -206,11 +206,11 @@ Handlebars.registerHelper('list', function(items, options) {
 
 <script id ="paths-3-context" type="text/x-handlebars-template">
 {
-  comments: [ 
-    { id: 1, title: 'wow what a great site'}, 
+  comments: [
+    { id: 1, title: 'wow what a great site'},
     { id: 2, title: 'i really love handlebars js'}
   ],
-    	
+
   body: "Try Handlebars JS!",
   permalink: "try-handlebars-js-today",
 }
@@ -352,11 +352,11 @@ Handlebars.registerHelper('agree_button', function() {
 	</div>
 
 </div>
-		
+
 		<footer style="background-color:orange;" class="padding--all">
                         <p>Site by <a href="http://www.jblotus.com">James Fuller</a> Twitter: <a href="https://twitter.com/j_blotus">@j_blotus</a></p>
                         <p>and <a href="http://mattki.me">Matthew Kime</a> Twitter: <a href="https://twitter.com/matt_kime">@matt_kime</a></p>
-            
+
       <p>
         Want to add something? <a href="https://github.com/jblotus/Try-Handlebars.js">Fork this on GitHub</a> and send me a pull request.
       </p>
@@ -364,17 +364,17 @@ Handlebars.registerHelper('agree_button', function() {
 	</div>
 
 	<script type="text/javascript">
-	
+
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-23515515-1']);
 	  _gaq.push(['_trackPageview']);
-	
+
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
-	
+
 	</script>
 </body>
 </html>
